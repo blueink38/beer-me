@@ -1,5 +1,4 @@
 # Beer Me
-  ![badge](https://img.shields.io/badge/Created_With-LOVE-pink.svg)
 
 > This is a tool to help visually organize a team.
 
@@ -57,7 +56,12 @@ This project is in progress.  As new technologies and client needs evolve, so wi
 
 
 ## Licenses
-[![License: ICL](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)  
+[![License: ICL](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)    ![badge](https://img.shields.io/badge/Created_With-LOVE-pink.svg)
 
 ## Contact
-Created by [Jason Fletcher](blueink38@yahoo.com) - feel free to contact me!
+Created by: <br>
+[Frank Depaolo](https://dragoonkite.github.io/portfolio/nk) - feel free to contact me!<br>
+[Jason Fletcher](https://blueink38.github.io/new-portfolio/) - feel free to contact me!<br>
+[Ramon Flowers](https://rocketorangemen.github.io/Portfolio/) - feel free to contact me!<br>
+[Cory Neel](https://cocobeware83.github.io/coryneel) - feel free to contact me!<br>
+[Juan Nunez](https://jnunez1229.github.io/juan-nunez/#) - feel free to contact me!<br>
