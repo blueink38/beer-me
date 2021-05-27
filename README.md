@@ -1,6 +1,6 @@
 # Beer Me
 
-> This is a tool to help visually organize a team.
+> This is an application that allows a user to 
 
 ## Table of contents
 * [General info](#general-info)
