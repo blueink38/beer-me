@@ -9,7 +9,6 @@ const SearchBreweries = () => {
 
   // create state for holding returned openBrewery api data
   const [searchedBreweries, setSearchedBrewery] = useState([]);
-  // console.log(searchedBreweries)
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
   // create state to hold saved BreweryId values
@@ -30,7 +29,6 @@ const SearchBreweries = () => {
 
     try {
       const response = await searchOpenBrewDB(searchInput);
-      // console.log(response)
       if (response.ok) {
         throw new Error('something went wrong!');
       }
@@ -54,7 +52,6 @@ const SearchBreweries = () => {
         websiteUrl: brewery.website_url || ['No webpage to display']
       }));
 
-      console.log(breweryData)
 
       setSearchedBrewery(breweryData);
       setSearchInput('');
@@ -67,7 +64,7 @@ const SearchBreweries = () => {
   const handleSaveBrewery = async (breweryId) => {
     // find the Brewery in `searchedBreweries` state by the matching id
     const breweryToSave = searchedBreweries.find((brewery) => brewery.breweryId === breweryId);
-
+     console.log(breweryToSave)
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -89,7 +86,6 @@ const SearchBreweries = () => {
     }
   };
 
-  console.log(searchedBreweries)
   return (
     <>
           <h1>Search for Breweries!</h1>
@@ -125,15 +121,16 @@ const SearchBreweries = () => {
                   <List.Item>Phone Number: {brewery.phone}</List.Item>
                   <List.Item>Website: {brewery.websiteUrl}</List.Item>
                 </List>
-                  {Auth.loggedIn() && (
+                  {/* {Auth.loggedIn() && ( */}
                     <Button
-                      disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                      onClick={() => handleSaveBrewery(brewery.breweryId)}>
+                      // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
+                      onClick={() => {handleSaveBrewery(brewery.breweryId) 
+                        console.log(brewery.breweryId)}}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
                         ? 'This Brewery has already been saved!'
                         : 'Save this Brewery!'}
                     </Button>
-                  )}
+                  {/* )} */}
 
               </Card>
             );
