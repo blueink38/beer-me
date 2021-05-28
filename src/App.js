@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import 'semantic-ui-css/semantic.min.css';
+import Header from './components/Header';
+import About from './components/About';
+import Portfolio from './components/Portfolio';
+import Suds from  './components/Suds';
+import ContactUs from './components/ContactUs';
+import Footer from './components/Footer';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Header/>
+        <About/>   
+        <Portfolio/>
+        <Suds/>
+        <ContactUs/>
+        <Footer/>
+      </div>
+    );
+  }
 }
 
 export default App;
