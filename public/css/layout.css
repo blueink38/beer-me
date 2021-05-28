@@ -138,6 +138,20 @@ ul#nav li a {
 ul#nav li a:active { background-color: transparent !important; }
 ul#nav li.current a { color: #ebba34; }
 
+button {
+   color: #ebba34;
+   margin-right: 0.75rem;
+   margin-left: 0.75rem;
+}
+
+#navButton {
+   justify-content: right !important;
+}
+
+#aboutButton {
+   color: red;
+   align-content: center !important;
+}
 
 /*"Whether you're travelling..." Section */
 
