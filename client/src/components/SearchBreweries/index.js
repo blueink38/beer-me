@@ -119,7 +119,7 @@ const SearchBreweries = () => {
                   <List.Item>City: {brewery.city}</List.Item>
                   <List.Item>State: {brewery.state}</List.Item>
                   <List.Item>Phone Number: {brewery.phone}</List.Item>
-                  <List.Item>Website: {brewery.websiteUrl}</List.Item>
+                  <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'>{brewery.websiteUrl}</a></List.Item>
                 </List>
                   {/* {Auth.loggedIn() && ( */}
                     <Button
