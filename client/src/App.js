@@ -3,13 +3,13 @@ import './App.css';
 let userIP = "";
 let userLat = 0;
 let userLon = 0;
+let completeDirections = [];
 // let key = "2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN";
 
 function App() {
   return (
     <div className="App">
       <h1>Hello</h1>
-      {/* <h1>{userLat}</h1> */}
     </div>
   );
 };
@@ -44,9 +44,18 @@ function directions() {
                 if(response.ok){
                     response.json().then(function(data){
                       let instructions=data.routes[0].guidance.instructions;
+// let i = 0;
             for (let i = 0; i < instructions.length; i++) {
-console.log(instructions[i].message)
-}
+          // console.log(instructions[i].message);
+          let stop = instructions[i].message;
+          completeDirections.push(stop);
+          // document.write(instructions[i].message);
+          // completeDirections.push(message);
+          // 
+          // completeDirections=instructions[i].message;
+};
+console.log(completeDirections);
+// console.log(i);
                       // console.log(instructions);
                    });
                 }
