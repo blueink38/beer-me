@@ -13,7 +13,11 @@ export default class Header extends Component {
                <li><a className="smoothscroll" href="#about">About</a></li>
              <li><a className="smoothscroll" href="#resume">Breweries</a></li>
                <li><a className="smoothscroll" href="#contact">Questions</a></li>
-            </ul>
+       
+        <li><button type="button" class="btn btn-secondary" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</button></li>
+        <li><button type="button" class="btn btn-secondary" href="#"><span class="glyphicon glyphicon-log-in"></span> Login</button></li>
+      </ul>
+
          </nav>
 
          <div className="row banner">
