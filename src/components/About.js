@@ -12,7 +12,8 @@ export default class About extends Component {
 
                <h1 style={{color:'#ebba34'}}>Whether you're travelling or a local, find a brewery or gastropub nearby...</h1>
             </div>
-         </div>
+            <button class="ui inverted yellow button">GET DRINKING!</button>
+                     </div>
       </section>
     );
   }
