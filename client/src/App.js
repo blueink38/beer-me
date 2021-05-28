@@ -40,11 +40,14 @@ function userLocation() {
 
 // directions using TomTom
 function directions() {
-  fetch("https://api.tomtom.com/routing/1/calculateRoute/52.50931%2C13.42936%3A52.50274%2C13.43872/json?instructionsType=text&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN").then(function(response){
+  fetch("https://api.tomtom.com/routing/1/calculateRoute/" + userLat + "%2C" + userLon + "%3A30.3079827%2C-97.8934853/json?instructionsType=text&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN").then(function(response){
                 if(response.ok){
                     response.json().then(function(data){
-                      var instructions=data.routes[0].guidance.instructions;
-                      console.log(instructions);
+                      let instructions=data.routes[0].guidance.instructions;
+            for (let i = 0; i < instructions.length; i++) {
+console.log(instructions[i].message)
+}
+                      // console.log(instructions);
                    });
                 }
             });
