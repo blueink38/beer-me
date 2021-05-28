@@ -1,5 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
+import SearchBreweries from './components/SearchBreweries'
 let userIP = "";
 let userLat = 0;
 let userLon = 0;
@@ -10,7 +11,10 @@ function App() {
   return (
     <div className="App">
       <h1>Hello</h1>
+      <SearchBreweries />
     </div>
+
+
   );
 };
 

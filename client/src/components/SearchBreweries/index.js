@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import {} from '../'
+import {Form, Button, Card, List} from 'semantic-ui-react'
 
-const SearchBrewery = () => {
+import Auth from '../../utils/auth'
+import {saveBrewery, searchOpenBrewDB} from '../../utils/API'
+import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 
-  const openBrewDB = (query) => {
-    return fetch(`https://api.openbrewerydb.org/breweries?by_city=${query}`);
-  };
+const SearchBreweries = () => {
+
   // create state for holding returned openBrewery api data
   const [searchedBreweries, setSearchedBrewery] = useState([]);
+  // console.log(searchedBreweries)
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
-
   // create state to hold saved BreweryId values
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
 
@@ -28,24 +29,32 @@ const SearchBrewery = () => {
     }
 
     try {
-      const response = await openBrewDB(searchInput);
-
-      if (!response.ok) {
+      const response = await searchOpenBrewDB(searchInput);
+      // console.log(response)
+      if (response.ok) {
         throw new Error('something went wrong!');
       }
 
-      const { items } = await response.json();
 
-      const breweryData = items.map((brewery) => ({
+      const breweryData = response.map((brewery) => ({
         breweryId: brewery.id,
         name: brewery.name,
-        type: brewery.brewery_type,
+        breweryType: brewery.brewery_type,
         street: brewery.street || ['No street to display'],
-        city: brewery.city || '',
+        address2: brewery.address_2,
+        address3: brewery.address_3,
+        city: brewery.city,
         state: brewery.state,
+        countyProvince: brewery.county_province,
+        postalCode: brewery.postal_code,
+        country: brewery.country,
+        longitude: brewery.longitude,
+        latitude: brewery.latitude,
         phone: brewery.phone || ['No phone number to display'],
-        url: brewery.website_url || ['No webpage to display']
+        websiteUrl: brewery.website_url || ['No webpage to display']
       }));
+
+      console.log(breweryData)
 
       setSearchedBrewery(breweryData);
       setSearchInput('');
@@ -80,49 +89,52 @@ const SearchBrewery = () => {
     }
   };
 
+  console.log(searchedBreweries)
   return (
     <>
           <h1>Search for Breweries!</h1>
-          <form onSubmit={handleFormSubmit}>
-            <input 
-              name='searchInput'
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              type='text'
-              size='lg'
-              placeholder='Search for a Brewery'
-              type="text">
+          <Form onSubmit={handleFormSubmit}>
+            <Form.Field>
+              <input 
+                name='searchInput'
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                type='text'
+                size='lg'
+                placeholder='Search for a Brewery'>
+              </input>
+            </Form.Field>
 
-            </input>
-            <button type='submit'>Submit Search</button>
-          </form>
+            <Button type='submit'>Submit Search</Button>
+          </Form>
 
         <h2>
           {searchedBreweries.length
             ? `Viewing ${searchedBreweries.length} results:`
             : 'Search for a Brewery to begin'}
         </h2>
-          {searchedBreweries.map((Brewery) => {
+          {searchedBreweries.map((brewery) => {
             return (
-              <Card key={Brewery.BreweryId} border='dark'>
-                {Brewery.image ? (
-                  <Card.Img src={Brewery.image} alt={`The cover for ${Brewery.title}`} variant='top' />
-                ) : null}
-                <Card.Body>
-                  <Card.Title>{Brewery.title}</Card.Title>
-                  <p className='small'>Authors: {Brewery.authors}</p>
-                  <Card.Text>{Brewery.description}</Card.Text>
+              <Card key={brewery.breweryId}>
+                <h2>{brewery.name}</h2>
+                <List>
+                  <List.Item>Type: {brewery.breweryType}</List.Item>
+                  <List.Item>Street: {brewery.street}</List.Item>
+                  <List.Item>City: {brewery.city}</List.Item>
+                  <List.Item>State: {brewery.state}</List.Item>
+                  <List.Item>Phone Number: {brewery.phone}</List.Item>
+                  <List.Item>Website: {brewery.websiteUrl}</List.Item>
+                </List>
                   {Auth.loggedIn() && (
                     <Button
-                      disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === Brewery.BreweryId)}
-                      className='btn-block btn-info'
-                      onClick={() => handleSaveBrewery(Brewery.BreweryId)}>
-                      {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === Brewery.BreweryId)
+                      disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
+                      onClick={() => handleSaveBrewery(brewery.breweryId)}>
+                      {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
                         ? 'This Brewery has already been saved!'
                         : 'Save this Brewery!'}
                     </Button>
                   )}
-                </Card.Body>
+
               </Card>
             );
           })}
@@ -130,4 +142,4 @@ const SearchBrewery = () => {
   );
 };
 
-export default SearchBrewery;
+export default SearchBreweries;
