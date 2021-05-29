@@ -15,8 +15,8 @@ export default class Header extends Component {
                <li><a className="smoothscroll" href="#about">About</a></li>
              <li><a className="smoothscroll" href="#resume">Breweries</a></li>
                <li><a className="smoothscroll" href="#contact">Questions</a></li><br></br>
-        <li><button id="navButton" class="ui float-right inverted yellow button" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</button></li>
-        <li><button id="navButton" class="ui float-right inverted yellow button" href="#"><span class="glyphicon glyphicon-log-in"></span> Login</button></li>
+        <li><button id="navButton" style={{textAlign: "center" ,color:'#ebba34'}} class="ui float-right inverted yellow button" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</button></li>
+        <li><button id="navButton" style={{textAlign: "center" ,color:'#ebba34'}} class="ui float-right inverted yellow button" href="#"><span class="glyphicon glyphicon-log-in"></span> Login</button></li>
       </ul>
       </div>
          </nav>

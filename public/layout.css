@@ -13,7 +13,9 @@ header {
    text-align: center;
    overflow: hidden;
 }
-
+.sudz {
+   background-image: url(../images/Suds.jpg) no-repeat top center;
+}
 
 /* Banner section */
 header:before {
