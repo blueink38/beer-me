@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Form, Button, Card, List} from 'semantic-ui-react'
 
 import Auth from '../../utils/auth'
-import {saveBrewery, searchOpenBrewDB} from '../../utils/API'
+import {saveBrewery, searchOpenBrewDB, } from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 
 const SearchBreweries = () => {
@@ -29,9 +29,11 @@ const SearchBreweries = () => {
 
     try {
       const response = await searchOpenBrewDB(searchInput);
-      if (response.ok) {
-        throw new Error('something went wrong!');
-      }
+      console.log(searchInput)
+      console.log(response);
+      // if (!response.ok) {
+      //   throw new Error('something went wrong!');
+      // }
 
 
       const breweryData = response.map((brewery) => ({
@@ -119,7 +121,7 @@ const SearchBreweries = () => {
                   <List.Item>City: {brewery.city}</List.Item>
                   <List.Item>State: {brewery.state}</List.Item>
                   <List.Item>Phone Number: {brewery.phone}</List.Item>
-                  <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'>{brewery.websiteUrl}</a></List.Item>
+                  <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
                 </List>
                   {/* {Auth.loggedIn() && ( */}
                     <Button
