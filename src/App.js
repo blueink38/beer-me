@@ -14,8 +14,8 @@ class App extends Component {
         <Header/>
         <About/>   
         <Portfolio/>
-        <ContactUs/>
         <Suds/>
+        <ContactUs/>
         <Footer/>
       </div>
     );

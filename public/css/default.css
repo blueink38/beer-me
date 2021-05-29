@@ -15,9 +15,11 @@
    -webkit-box-sizing: border-box;
    box-sizing: border-box;
 }
-.sudz {
-   background: url(../images/Suds.jpg) no-repeat top center;
+.landing-image {
+   background-image: url(../images/Suds.jpg) !important;
+   background-size: cover !important;
 }
+
 
 html {
    font-size: 62.5%;
