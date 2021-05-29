@@ -215,10 +215,7 @@ button {
    color: #95A3A3;
 }
 
-/* Suds Banner*/
-.sudz {
-background-image: "./images/Suds.jpg";
-}
+
 
 /* Reset */
 .flexslider a:active,
@@ -291,9 +288,6 @@ background-image: "./images/Suds.jpg";
    color: #636363;
 }
 #contact .section-head { margin-bottom: 42px; }
-
-#contact a, #contact a:visited  { color: #11ABB0; }
-#contact a:hover, #contact a:focus { color: #fff; }
 
 #contact h1 {
    font: 18px/24px 'opensans-bold', sans-serif;
