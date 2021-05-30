@@ -5,21 +5,35 @@ export default class Header extends Component {
       <React.Fragment>
       
       <header id="home">
-         <nav className="navbar1" id="nav-wrap">
+<nav id="nav-wrap">
            
-            <a className="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
-          <a className="mobile-btn" href="#" title="Hide navigation">Hide navigation</a>
-          <div class="ui container">
-            <ul id="nav" className="nav">
-               <li className="current"><a className="smoothscroll" href="#home">Home</a></li>
-               <li><a className="smoothscroll" href="#about">About</a></li>
-             <li><a className="smoothscroll" href="#resume">Breweries</a></li>
-               <li><a className="smoothscroll" href="#contact">Questions</a></li><br></br>
-        <li><button id="navButton" style={{textAlign: "center" ,color:'#ebba34'}} class="ui float-right inverted yellow button" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</button></li>
-        <li><button id="navButton" style={{textAlign: "center" ,color:'#ebba34'}} class="ui float-right inverted yellow button" href="#"><span class="glyphicon glyphicon-log-in"></span> Login</button></li>
-      </ul>
-      </div>
-         </nav>
+<div class="ui huge inverted pointing menu">
+  <a class="item">
+    Home
+  </a>
+  <a class="item">
+    Breweries
+  </a>
+  <a class="item">
+    Contact Us
+  </a>
+  <div class="right menu">
+  <div class="item">
+        <div class="ui yellow button">Login</div>
+        
+    </div>
+    <div class="item">
+        <div class="ui yellow button">Sign Up</div>
+        
+    </div>
+  </div>
+</div>
+
+</nav>
+
+
+
+
 
          <div className="row banner">
             <div className="banner-text">

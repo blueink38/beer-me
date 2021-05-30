@@ -40,6 +40,12 @@ body {
    display: flex;
    justify-content: center;
 }
+.contactform {
+   display:flex;
+   justify-content: space-around;
+   
+  
+}
 
 .navbar1 {
    background-color: #161415;

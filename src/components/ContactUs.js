@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input, TextArea, Button, Select, Container, Segment } from 'semantic-ui-react'
 
 const FormExampleFieldControlId = () => (
-  // <div class="ui center aligned segment" >
+  <div class="ui segment contactform" >
   <Segment  inverted>
   <Form inverted>
     <Container>
@@ -13,7 +13,7 @@ const FormExampleFieldControlId = () => (
         control={Input}
         label='First name'
         placeholder='First name'
-        width={4}
+        width={6}
 
       />
       <Form.Field
@@ -21,7 +21,7 @@ const FormExampleFieldControlId = () => (
         control={Input}
         label='Last name'
         placeholder='Last name'
-        width={4}
+        width={6}
 
       />
     </Form.Group>
@@ -30,7 +30,7 @@ const FormExampleFieldControlId = () => (
       control={TextArea}
       label='What do you want us to know?'
       placeholder='Tell us!'
-      width={8}
+      width={18}
 
     />
     <Form.Field
@@ -38,8 +38,8 @@ const FormExampleFieldControlId = () => (
       
       control={Input}
       label='Email'
-      placeholder='joe@schmoe.com'
-      width={8}
+      placeholder='email@email.com'
+      width={18}
 
 
       error={{
@@ -51,14 +51,15 @@ const FormExampleFieldControlId = () => (
       id='form-button-control-public'
       control={Button}
       style={{textAlign: "center" ,color:'#ebba34'}}
-      class="ui inverted yellow button"
+      class="fluid ui inverted yellow button large"
       content='Submit'
+      width={2}
       // label='Submit'
     />
     </Container>
   </Form>
   </Segment>
-  // </div> 
+  </div> 
 )
 
 export default FormExampleFieldControlId
