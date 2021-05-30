@@ -2,16 +2,19 @@ import React from 'react'
 import { Form, Input, TextArea, Button, Select, Container, Segment } from 'semantic-ui-react'
 
 const FormExampleFieldControlId = () => (
-  <Segment inverted>
+  // <div class="ui center aligned segment" >
+  <Segment  inverted>
   <Form inverted>
     <Container>
-    <Form.Group inverted>
+    <Form.Group inverted >
       <Form.Field
         id='form-input-control-first-name'
+        
         control={Input}
         label='First name'
         placeholder='First name'
         width={4}
+
       />
       <Form.Field
         id='form-input-control-last-name'
@@ -32,10 +35,12 @@ const FormExampleFieldControlId = () => (
     />
     <Form.Field
       id='form-input-control-error-email'
+      
       control={Input}
       label='Email'
       placeholder='joe@schmoe.com'
       width={8}
+
 
       error={{
         content: 'Please enter a valid email address',
@@ -53,6 +58,7 @@ const FormExampleFieldControlId = () => (
     </Container>
   </Form>
   </Segment>
+  // </div> 
 )
 
 export default FormExampleFieldControlId
