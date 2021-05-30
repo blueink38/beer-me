@@ -125,7 +125,7 @@ const SearchBreweries = () => {
                 </List>
                   {/* {Auth.loggedIn() && ( */}
                     <Button
-                      disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
+                      // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                       onClick={() => {handleSaveBrewery(brewery.breweryId) 
                         console.log(brewery.breweryId)}}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
