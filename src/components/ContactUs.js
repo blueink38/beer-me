@@ -3,13 +3,15 @@ import { Form, Input, TextArea, Button, Select, Container, Segment } from 'seman
 
 const FormExampleFieldControlId = () => (
   <div class="ui segment contactform" >
+
   <Segment  inverted>
+  <h2 style={{textAlign: "center" ,color:'#f0f5f1'}}>Contact Us</h2>
+  <br></br>
   <Form inverted>
     <Container>
     <Form.Group inverted >
       <Form.Field
         id='form-input-control-first-name'
-        
         control={Input}
         label='First name'
         placeholder='First name'
@@ -50,8 +52,8 @@ const FormExampleFieldControlId = () => (
     <Form.Field
       id='form-button-control-public'
       control={Button}
-      style={{textAlign: "center" ,color:'#ebba34'}}
-      class="fluid ui inverted yellow button large"
+      style={{textAlign: "center" ,color:'#f0f5f1'}}
+      class="fluid ui inverted white button large"
       content='Submit'
       width={2}
       // label='Submit'

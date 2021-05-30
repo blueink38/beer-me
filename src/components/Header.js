@@ -7,26 +7,17 @@ export default class Header extends Component {
       <header id="home">
 <nav id="nav-wrap">
            
-<div class="ui huge inverted pointing menu">
-  <a class="item">
-    Home
-  </a>
-  <a class="item">
-    Breweries
-  </a>
-  <a class="item">
-    Contact Us
-  </a>
-  <div class="right menu">
-  <div class="item">
-        <div class="ui yellow button">Login</div>
-        
-    </div>
-    <div class="item">
-        <div class="ui yellow button">Sign Up</div>
-        
-    </div>
-  </div>
+<div class="ui inverted yellow three item huge menu">
+  <a class="active item">Home</a>
+  <a class="active item">Breweries</a>
+  <a class="active item">Contact us</a>
+</div>
+<div>
+<div class="large ui yellow buttons float-right">
+  <button class="ui button">Sign Up</button>
+  <button class="ui button">Login</button>
+
+</div>
 </div>
 
 </nav>

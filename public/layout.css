@@ -85,7 +85,9 @@ header .scrolldown a {
 }
 
 
-
+.abouttext {
+   align-content: cente;
+}
 
 .opaque { background-color: #333; }
 
