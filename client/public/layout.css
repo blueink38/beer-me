@@ -13,6 +13,10 @@ header {
    text-align: center;
    overflow: hidden;
 }
+.landing-image {
+   background-image: url(../images/Suds.jpg) !important;
+   background-size: cover !important;
+}
 
 /* Banner section */
 header:before {
@@ -75,7 +79,6 @@ header .scrolldown a {
    -o-transition: all .3s ease-in-out;
    transition: all .3s ease-in-out;
 }
-header .scrolldown a:hover { color: #11ABB0; }
 
 /* primary navigation */
 #nav-wrap ul, #nav-wrap li, #nav-wrap a {
@@ -136,7 +139,7 @@ ul#nav li a {
 }
 
 ul#nav li a:active { background-color: transparent !important; }
-ul#nav li.current a { color: #ebba34; }
+ul#nav li.current a { color: #e0e31e; }
 
 
 /*"Whether you're travelling..." Section */
@@ -148,8 +151,6 @@ ul#nav li.current a { color: #ebba34; }
    overflow: hidden;
 }
 
-#about a, #about a:visited  { color: #fff; }
-#about a:hover, #about a:focus { color: #11ABB0; }
 
 #about h2 {
    font: 22px/30px 'opensans-bold', sans-serif;

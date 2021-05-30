@@ -1,46 +1,12 @@
-/*
-=====================================================================
-*   Ceevee v1.0 Default Stylesheet
-*   url: styleshout.com
-*   03-17-2014
-=====================================================================
 
-TOC:
-a. Webfonts and Icon fonts
-b. Reset
-c. Default Styles
-   1. Basic
-   2. Typography
-   3. Links
-   4. Images
-   5. Buttons
-   6. Forms
-d. Grid
-e. Others
-   1. Clearing
-   2. Misc
-
-=====================================================================  */
-
-/* ------------------------------------------------------------------ */
-/* a. Webfonts and Icon fonts
- ------------------------------------------------------------------ */
+/* Webfonts and Icon fonts */
 
 @import url("fonts.css");
 @import url("fontello/css/fontello.css");
 @import url("font-awesome/css/font-awesome.min.css");
 
 
-
-
-/* ------------------------------------------------------------------ */
-/* c. Default and Basic Styles
-      Adapted from:
-      Skeleton CSS Framework - http://www.getskeleton.com/
-      Typeplate Typographic Starter Kit - http://typeplate.com/
-/* ------------------------------------------------------------------ */
-
-/*  1. Basic  ------------------------------------------------------- */
+/* Basic  */
 
 *,
 *:before,
@@ -49,6 +15,11 @@ e. Others
    -webkit-box-sizing: border-box;
    box-sizing: border-box;
 }
+.landing-image {
+   background-image: url(../images/Suds.jpg) !important;
+   background-size: cover !important;
+}
+
 
 html {
    font-size: 62.5%;
@@ -62,14 +33,19 @@ body {
    font-size: 15px;
    line-height: 30px;
 	color: #838C95;
-
-   -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+   -webkit-font-smoothing: antialiased; 
 	-webkit-text-size-adjust: 100%;
 }
+.drinkbutton {
+   display: flex;
+   justify-content: center;
+}
 
-/*  2. Typography
-       Vertical rhythm with leading derived from 6
---------------------------------------------------------------------- */
+.navbar1 {
+   background-color: #161415;
+}
+
+/*Typography*/
 
 h1, h2, h3, h4, h5, h6 {
    color: #313131;
@@ -83,7 +59,7 @@ h3 { font-size: 22px; line-height: 30px; margin-bottom: 12px; }
 h4 { font-size: 20px; line-height: 30px; margin-bottom: 6px; }
 h5 { font-size: 18px; line-height: 30px; }
 h6 { font-size: 14px; line-height: 30px; }
-.subheader { }
+
 
 p { margin: 0 0 30px 0; }
 p img { margin: 0; }
@@ -91,59 +67,6 @@ p.lead {
    font: 19px/36px 'opensans-light', sans-serif;
    margin-bottom: 18px;
 }
-
-
-
-
-
-
-
-
-
-
-/*  5. Images  --------------------------------------------------------- */
-
-img {
-   max-width: 100%;
-   height: auto;
-}
-img.pull-right { margin: 12px 0px 0px 18px; }
-img.pull-left { margin: 12px 18px 0px 0px; }
-
-
-
-/*  7. Forms  --------------------------------------------------------- */
-
-form { margin-bottom: 24px; }
-fieldset { margin-bottom: 24px; }
-
-input[type="text"],
-input[type="password"],
-input[type="email"],
-textarea,
-select {
-   display: block;
-   padding: 18px 15px;
-   margin: 0 0 24px 0;
-   border: 0;
-   outline: none;
-   vertical-align: middle;
-   min-width: 225px;
-	max-width: 100%;
-   font-size: 15px;
-   line-height: 24px;
-	color: #647373;
-	background: #D3D9D9;
-
-}
-
-/* select { padding: 0;
-   width: 220px;
-   } */
-
-
-
-
 
 label,
 legend {
@@ -166,14 +89,6 @@ input[type="radio"] {
 
 input[type="checkbox"] { display: inline; }
 
-/* ------------------------------------------------------------------ */
-/* d. Grid
----------------------------------------------------------------------
-   gutter = 40px.
-/* ------------------------------------------------------------------ */
-
-/* default
---------------------------------------------------------------- */
 .row {
    width: 96%;
    max-width: 1020px;
@@ -185,27 +100,6 @@ input[type="checkbox"] { display: inline; }
 .narrow .row { max-width: 980px; }
 
 .row .row { width: auto; max-width: none; margin: 0 -20px; }
-
-/* row clearing */
-.row:before,
-.row:after {
-    content: " ";
-    display: table;
-}
-.row:after {
-    clear: both;
-}
-
-.column, .columns {
-   position: relative;
-   padding: 0 20px;
-   min-height: 1px;
-   float: left;
-}
-.column.centered, .columns.centered  {
-    float: none;
-    margin: 0 auto;
-}
 
 /* removed gutters */
 .row.collapsed > .column,
@@ -238,10 +132,6 @@ input[type="checkbox"] { display: inline; }
 
 [class*="bgrid"] [class*="column"] + [class*="column"]:last-child { float: left; }
 
-/* Left clearing for block grid columns - columns that changes width in
-different screen sizes. Allows columns with different heights to align
-properly.
---------------------------------------------------------------------- */
 .first { clear: left; }   /* first column in default screen */
 .s-first { clear: none; } /* first column in smaller screens */
 
@@ -296,29 +186,19 @@ properly.
    .row .offset-11   { margin-left: 0%; }
 }
 
-/* mobile narrow
---------------------------------------------------------------- */
+/* mobile narrow*/
 @media only screen and (max-width: 460px) {
 
    .row { width: auto; }
 
 }
 
-/* larger screens
---------------------------------------------------------------- */
+/* larger screens */
 @media screen and (min-width: 1200px) {
 
    .wide .row { max-width: 1180px; }
 
 }
-
-/* ------------------------------------------------------------------ */
-/* e. Others
-/* ------------------------------------------------------------------ */
-
-/*  1. Clearing
-    (http://nicolasgallagher.com/micro-clearfix-hack/
---------------------------------------------------------------------- */
 
 .cf:before,
 .cf:after {
@@ -329,7 +209,7 @@ properly.
     clear: both;
 }
 
-/*  2. Misc -------------------------------------------------------- */
+/*misc*/
 
 .remove-bottom { margin-bottom: 0 !important; }
 .half-bottom { margin-bottom: 12px !important; }
