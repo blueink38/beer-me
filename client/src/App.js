@@ -1,5 +1,4 @@
-// import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import Header from './components/Header';
 import About from './components/About';
@@ -9,25 +8,20 @@ import ContactUs from './components/ContactUs';
 import Footer from './components/Footer';
 import SearchBreweries from './components/SearchBreweries'
 
-
-function App() {
-  return (
-    <div className="App">
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
         <Header/>
-        <About/>   
         <Portfolio/>
-        <Suds/>
+        <About/>   
+        <SearchBreweries/>
         <ContactUs/>
+        <Suds/>
         <Footer/>
-      <SearchBreweries />
-    </div>
-
-
-  );
-};
-
-
-
-
+      </div>
+    );
+  }
+}
 
 export default App;

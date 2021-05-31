@@ -3,21 +3,24 @@ export default class Footer extends Component {
   render() {
     return (
 <div class="ui horizontal segments">
-  <div class="ui grey inverted segment">
-    <h4>Site Builders</h4>
-    <div class="ui link list">
-  <a class="item">Cory N.</a>
-  <a class="item">Frank D.</a>
-  <a class="item">Jason F</a>
-  <a class="item">Juan N.</a>
-  <a class="item">Ramon F.</a>
+  <div style={{textAlign: "center" ,color:'#ebba34'}} class="ui black inverted segment">
+    <h4 style={{textAlign: "center" ,color:'#ebba34'}}>Site Builders</h4>
+    <div  class="ui link list">
+  
+  <a style={{textAlign: "center" ,color:'#ebba34'}}class="item" href="https://github.com/rocketorangemen" target="blank">Ramon F.</a>
+  <a style={{textAlign: "center" ,color:'#ebba34'}}class="item" href="https://github.com/blueink38" target="blank">Jason F</a>
+  <a style={{textAlign: "center" ,color:'#ebba34'}}class="item" href="https://github.com/jnunez1229" target="blank">Juan N.</a>
+  <a style={{textAlign: "center" ,color:'#ebba34'}}class="item" href="https://github.com/DragoonKite" target="blank">Frank D.</a>
+  <a style={{textAlign: "center" ,color:'#ebba34'}}class="item" href="https://github.com/cocobeware83" target="blank">Cory N.</a>
+  
+
+
+
 </div>
   </div>
-  <div class="ui grey inverted segment">
-    <h4>Something here Perhaps?</h4>
-  </div>
-  <div class="ui grey inverted segment">
-    <h3>Thanks For Visiting Our Site!</h3>
+
+  <div class="ui black inverted segment"><br></br>
+    <h2 style={{textAlign: "center" ,color:'#ebba34'}}>Thanks For Visiting Our Site!</h2>
   </div>
 </div>
     );
