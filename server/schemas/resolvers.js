@@ -8,6 +8,7 @@ const resolvers = {
             if(context.user) {
                 const userData = await User.findOne({})
                 .select('-__v -password')
+                .populate('breweries')
 
                 return userData;
             }
@@ -52,6 +53,7 @@ const resolvers = {
 
             return brewery;
         },
+        //brewId = Brewery._id
         addSavedBrewery: async (parent, { brewId }, context) => {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
