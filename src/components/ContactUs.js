@@ -66,12 +66,13 @@ class FormCaptureValues extends Component {
               width={2} />
             </Form.Group>      
           </Form>
+        </div>
+
+
         <strong>onSubmit:</strong>
         {JSON.stringify({ submittedFirstName, submittedLastName, submittedEmail, submittedMessage }, null, 4)}
         
 
-
-        </div>
       </Grid.Column>
     </Grid>
     )
