@@ -15,7 +15,7 @@ const FormExampleFieldControlId = () => (
         control={Input}
         label='First name'
         placeholder='First name'
-        width={6}
+        width={8}
 
       />
       <Form.Field
@@ -23,7 +23,7 @@ const FormExampleFieldControlId = () => (
         control={Input}
         label='Last name'
         placeholder='Last name'
-        width={6}
+        width={8}
 
       />
     </Form.Group>
@@ -32,7 +32,7 @@ const FormExampleFieldControlId = () => (
       control={TextArea}
       label='What do you want us to know?'
       placeholder='Tell us!'
-      width={18}
+      width={16}
 
     />
     <Form.Field
@@ -41,7 +41,7 @@ const FormExampleFieldControlId = () => (
       control={Input}
       label='Email'
       placeholder='email@email.com'
-      width={18}
+      width={16}
 
 
       error={{
@@ -53,7 +53,7 @@ const FormExampleFieldControlId = () => (
       id='form-button-control-public'
       control={Button}
       style={{textAlign: "center" ,color:'#f0f5f1'}}
-      class="fluid ui inverted white button large"
+      class="fluid ui inverted yellow button large"
       content='Submit'
       width={2}
       // label='Submit'
