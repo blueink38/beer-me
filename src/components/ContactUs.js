@@ -19,7 +19,7 @@ class FormCaptureValues extends Component {
     <Grid centered columns={2}>
       <Grid.Column>
         <div class="ui segment contactform inverted" >
-          <h2 style={{textAlign: "center", color: '#ebba34'}}>Contact Us</h2>
+          <h2 style={{textAlign: "center", color: '#ebba34'}}>Ask Us Anything</h2>
           <br></br>
           <Form onSubmit={this.handleSubmit} >
             <Form.Group >
@@ -59,16 +59,16 @@ class FormCaptureValues extends Component {
             </Form.Group>
             <Form.Group>
             <Form.Button
-          
               content='Submit'
               color='yellow'
               control={Button}
-              style={{textAlign: "center",  border: '#ebba34'}}
-              class="fluid ui yellow button"
-              content='submit'
+              style={{textAlign: "center"}}
+              content='Submit'
+              className=''
                />
             </Form.Group>      
-          </Form>        </div>
+          </Form>        
+          </div>
 
 
         {/* <strong>onSubmit:</strong>
@@ -80,8 +80,5 @@ class FormCaptureValues extends Component {
     )
   }
 }
-
-
-
 
 export default FormCaptureValues
