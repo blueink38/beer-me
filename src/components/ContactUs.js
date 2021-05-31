@@ -18,10 +18,10 @@ class FormCaptureValues extends Component {
       <Grid centered columns={3}>
       <Grid.Column>
 
-      <div class="ui segment contactform" >
+      <div class="ui segment contactform inverted" >
 
-        <Segment inverted             
->
+        {/* <Segment inverted              */}
+{/* > */}
           <h2 style={{textAlign: "center", color: '#f0f5f1'}}>Contact Us</h2>
           <br></br>
         <Form onSubmit={this.handleSubmit} >
@@ -59,7 +59,7 @@ class FormCaptureValues extends Component {
               name='message'
               value={message}
               onChange={this.handleSubmit}
-              width={16}
+                                      width={16}
 
               />
           </Form.Group>
@@ -72,16 +72,13 @@ class FormCaptureValues extends Component {
             width={2} />
           </Form.Group>
 
-          {/* WHERE DOES THIS CODE GO????}
-          {/* WHERE DOES THIS CODE GO????}
-          {/* WHERE DOES THIS CODE GO????}
 
         {/* <pre>{JSON.stringify({ firstName, lastName, email, message }, null, 4 )}</pre>
         <strong>onSubmit:</strong>
         <pre>{JSON.stringify({ submittedFirstName, submittedLastName, submittedEmail, submittedMessage }, null, 4)}</pre>
-        ) */}
+        )  */}
       </Form>
-    </Segment>
+    {/* </Segment> */}
     </div>
 
     </Grid.Column>
