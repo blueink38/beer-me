@@ -33,19 +33,28 @@ class FormCaptureValues extends Component {
               value={lastName}
               onSubmit={this.handleSubmit}
             />
-            <Form.Group>
+          </Form.Group>
+          <Form.Group>
+
             <Form.Input
               placeholder='Email'
               name='email'
               value={email}
               onChange={this.handleSubmit}
             />
+                      </Form.Group>
+                      <Form.Group>
+
             <Form.Input
               placeholder='Message'
+              control={TextArea}
               name='message'
               value={message}
               onChange={this.handleSubmit}
             />
+                      </Form.Group>
+                      <Form.Group>
+
             <Form.Button content='Submit'
             control={Button}
             style={{textAlign: "center", color: '#f0f5f1'}}
@@ -53,7 +62,6 @@ class FormCaptureValues extends Component {
             content='submit'
             width={2} />
             </Form.Group>
-          </Form.Group>
 
           {/* WHERE DOES THIS CODE GO????}
           {/* WHERE DOES THIS CODE GO????}
