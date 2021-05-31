@@ -73,6 +73,25 @@ const resolvers = {
                 return updatedUser;
             }
         },
+        removeSavedBrewery: async (parent, { brewId }, context) => {
+            if (context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                    {_id: context.user._id},
+                    { $pull: { breweries: brewId } },
+                    { new: true}
+                ).populate('breweries');
+
+                return updatedUser;
+            } else {
+                const updatedUser = await User.findOneAndUpdate(
+                    {_id: "60b45e161a08780c1cddb859" },
+                    { $pull: { breweries: brewId } },
+                    { new: true}
+                ).populate('breweries');
+
+                return updatedUser;
+            }
+        },
         login: async (parent, {email,password}) => {
             const user = await User.findOne({email});
 
