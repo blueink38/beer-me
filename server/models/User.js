@@ -19,6 +19,17 @@ const userSchema = new Schema(
         type: String,
         required: true,
         minlength: 5
+      },
+      breweries: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'Brewery'
+        }
+      ]
+    },
+    {
+      toJSON: {
+        virtuals: true
       }
     }
   );
@@ -38,6 +49,11 @@ const userSchema = new Schema(
     return bcrypt.compare(password, this.password);
   };
   
+  //saved brewery count
+  userSchema.virtual('breweryCount').get(function() {
+    return this.breweries.length;
+  });
+
   const User = model('User', userSchema);
   
   module.exports = User;

@@ -5,15 +5,18 @@ const typeDefs = gql`
         _id: ID
         username: String
         email: String
+        password: String
+        breweries: [Brewery]
     }
 
     type Brewery {
         _id: ID
         name: String
+        breweryID: Int
         breweryType: String
         street: String
         address2: String
-        adress3: String
+        address3: String
         city: String
         state: String
         countyProvince: String
@@ -32,6 +35,7 @@ const typeDefs = gql`
 
     type Query {
         me: User
+        users: [User]
         brewery(name: String!): Brewery
         breweryCity(city: String!): [Brewery]
         breweryType(breweryType: String!): [Brewery]
@@ -40,6 +44,15 @@ const typeDefs = gql`
 
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
+        deleteUsers: User
+        addBrewery(
+            name: String!, breweryID: Int!, breweryType: String,
+            street: String, address2: String, address3: String,
+            city: String, state: String, countyProvince: String, postalCode: String,
+            country: String, longitude: String, latitude: String, phone: String,
+            websiteUrl: String 
+        ): Brewery
+        addSavedBrewery(brewId: ID!): User
         login(email: String!, password: String!): Auth
     }
 `;
