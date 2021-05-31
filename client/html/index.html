@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Semantic-UI-Forest, collection of design, themes and templates for Semantic-UI."
+    />
+    <meta name="keywords" content="Semantic-UI, Theme, Design, Template" />
+    <meta name="author" content="PPType" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>🍺 Beer Me 🍺</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+      type="text/css"
+    />
+    <style type="text/css">
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-font-smoothing: grayscale;
+      }
+
+      .hidden.menu {
+        display: none;
+      }
+
+      .masthead.segment {
+        min-height: 600px;
+        padding: 1em 0em;
+      }
+
+      .masthead .logo.item img {
+        margin-right: 1em;
+      }
+
+      .masthead .ui.menu .ui.button {
+        margin-left: 0.5em;
+      }
+
+      .masthead h1.ui.header {
+        margin-top: 2em;
+        margin-bottom: 0em;
+        font-size: 4em;
+        font-weight: normal;
+      }
+
+      .masthead h2 {
+        font-size: 1.7em;
+        font-weight: normal;
+      }
+      .head1 {
+          background-image: url("../react/public/images/beer-banner.jpg");
+      }
+
+      .ui.vertical.stripe {
+        padding: 8em 0em;
+      }
+
+      .ui.vertical.stripe h3 {
+        font-size: 2em;
+      }
+
+      .ui.vertical.stripe .button + h3,
+      .ui.vertical.stripe p + h3 {
+        margin-top: 3em;
+      }
+
+      .ui.vertical.stripe .floated.image {
+        clear: both;
+      }
+
+      .ui.vertical.stripe p {
+        font-size: 1.33em;
+      }
+
+      .ui.vertical.stripe .horizontal.divider {
+        margin: 3em 0em;
+      }
+
+      .quote.stripe.segment {
+        padding: 0em;
+      }
+
+      .quote.stripe.segment .grid .column {
+        padding-top: 5em;
+        padding-bottom: 5em;
+      }
+
+      .footer.segment {
+        padding: 5em 0em;
+      }
+
+      .secondary.pointing.menu .toc.item {
+        display: none;
+      }
+
+      @media only screen and (max-width: 700px) {
+        .ui.fixed.menu {
+          display: none !important;
+        }
+
+        .secondary.pointing.menu .item,
+        .secondary.pointing.menu .menu {
+          display: none;
+        }
+
+        .secondary.pointing.menu .toc.item {
+          display: block;
+        }
+
+        .masthead.segment {
+          min-height: 350px;
+        }
+
+        .masthead h1.ui.header {
+          font-size: 2em;
+          margin-top: 1.5em;
+        }
+
+        .masthead h2 {
+          margin-top: 0.5em;
+          font-size: 1.5em;
+        }
+      }
+    </style>
+  </head>
+
+  <body id="root">
+    <div class="ui large top fixed hidden menu ">
+      <div class="ui container ">
+        <a class="active item">Home</a> <a class="item">Breweries</a>
+        <a class="item">About Us</a> <a class="item">Contact Us</a>
+        <div class="right menu">
+          <div class="item"><a class="ui button">Log in</a></div>
+          <div class="item"><a class="ui primary button">Sign Up</a></div>
+        </div>
+      </div>
+    </div>
+    <!--Sidebar Menu-->
+    <div class="ui vertical inverted sidebar menu">
+      <a class="active item">Home</a> <a class="item">Breweries</a>
+      <a class="item">About Us</a> <a class="item">Contact Us</a>
+      <a class="item">Login</a> <a class="item">Signup</a>
+    </div>
+    <!--Page Contents-->
+    <div class="pusher ">
+      <div class="ui inverted vertical masthead center aligned segment ">
+        <div class="ui container  ">
+          <div class="ui large secondary inverted pointing menu ">
+            <a class="toc item"><i class="sidebar icon"></i></a>
+            <a class="active item">Home</a> <a class="item">Breweries</a>
+            <a class="item">About Us</a> <a class="item">Contact Us</a>
+            <div class="right item">
+              <a class="ui inverted button">Log in</a>
+              <a class="ui inverted button">Sign Up</a>
+            </div>
+          </div>
+        </div>
+        <div class="ui text container ">
+          <h1 class="ui inverted header">Beer Me</h1>
+          <div class="ui divider"></div>
+          <h2>Find A Brewery Near You.</h2>
+          
+         
+        </div>
+      </div>
+      <div class="ui vertical stripe segment">
+        <div class="ui middle aligned stackable grid container">
+          <div class="row">
+            <div class="eight wide column">
+              <h3 class="ui header">Whether you're travelling or a local, find a brewery or gastropub nearby...             
+              </h3>
+
+            
+            </div>
+            <div class="six wide floated column">
+              <img
+                class="ui bordered rounded image" src="../react/public/images/beer-banner.jpg"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="center aligned column">
+              <a class="ui massive black button" data-tool="Find Your New Favorite Brewery">GET DRINKING!!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui vertical stripe quote segment">
+        <div class="ui equal width stackable internally celled grid">
+          <div class="center aligned row">
+            <div class="column">
+              <h3>"Maybe a featured brewery here"</h3>
+              <p>and a little someting about it</p>
+            </div>
+            <div class="column">
+              <h3>"Another featured brewery here"</h3>
+              <p>and a little someting about it</p>
+            </div> 
+          </div>
+        </div>
+      </div>
+      <div class="ui vertical stripe segment">
+        <div class="ui text container">
+          <h3 class="ui header">Snippet About Us</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+          </p>
+          <h4 class="ui horizontal header divider">
+          Do You Have A Question?
+          </h4>
+          <h3 class="ui header">We're Here to Answer Them:</h3>
+          <form class="ui form">
+            <div class="field">
+              <label>First Name</label>
+              <input type="text" name="first-name" placeholder="First Name">
+            </div>
+            <div class="field">
+              <label>Last Name</label>
+              <input type="text" name="last-name" placeholder="Last Name">
+            </div>
+            <div class="field">
+              <label>Whatcha Thinkin?</label>
+              <textarea></textarea>
+            </div>
+            <div class="field">
+            </div>
+            <button class="ui button black" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="ui inverted vertical footer segment">
+        <div class="ui container">
+          <div
+            class="ui stackable inverted divided equal height stackable grid"
+          >
+            <div class="eight wide column left floated">
+              <h4 class="ui inverted header">Site Builders</h4>
+              <div class="ui inverted link list">
+                <a class="item" href="https://github.com/cocobeware83" target="_blank">Cory N.</a>
+                <a class="item" href="https://github.com/DragoonKite" target="_blank">Frank D.</a>
+                <a class="item" href="https://github.com/blueink38" target="_blank">Jason F.</a>
+                <a class="item" href="https://github.com/jnunez1229" target="_blank">Juan N.</a>
+                <a class="item" href="https://github.com/rocketorangemen" target="_blank">Ramon F.</a>
+
+              </div>
+            </div>
+            <div class="eight wide column">
+              <h1 class="ui inverted header right floated">Thanks For Visiting Our Site</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        // fix menu when passed
+        $(".masthead").visibility({
+          once: false,
+          onBottomPassed: function() {
+            $(".fixed.menu").transition("fade in");
+          },
+          onBottomPassedReverse: function() {
+            $(".fixed.menu").transition("fade out");
+          }
+        });
+
+        // create sidebar and attach to menu open
+        $(".ui.sidebar").sidebar("attach events", ".toc.item");
+      });
+    </script>
+  </body>
+</html>
