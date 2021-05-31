@@ -92,16 +92,12 @@ export function userLocation() {
 };
 
 // directions using TomTom
-export function directions(lat, lon) {
-  // console.log(lat, lon);
-    fetch("https://api.tomtom.com/routing/1/calculateRoute/" + userLat + "%2C" + userLon + "%3A" + lat + "%2C" + lon + "/json?instructionsType=text&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN").then(function(response){
-      console.log(lat, lon);
-      console.log(response.json);
-                  if(!response.ok){
+export function directions() {
+    fetch("https://api.tomtom.com/routing/1/calculateRoute/" + userLat + "%2C" + userLon + "%3A30.3079827%2C-97.8934853/json?instructionsType=text&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN").then(function(response){
+                  if(response.ok){
                       response.json().then(function(data){
-                        // console.log(data);
                         let instructions=data.routes[0].guidance.instructions;
-                          
+
               for (let i = 0; i < instructions.length; i++) {
 
             let stop = instructions[i].message;
@@ -110,9 +106,6 @@ export function directions(lat, lon) {
   };
   console.log(completeDirections);
                      });
-                  }
-                  else {
-                    console.log("wooooooooow")
                   }
               });
             }
