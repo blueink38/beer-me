@@ -14,20 +14,21 @@ export default class MenuExampleInvertedSecondary extends Component {
       <Segment inverted>
 
       <Menu inverted fixed="top" size='huge' >
-        <Menu.Item 
+        <Menu.Item
           name='home'
-          
+          color='yellow'
           active={activeItem === 'home'}
           onClick={this.handleItemClick}
         />
         <Menu.Item
           name='breweries'
-          
+          color='yellow'
           active={activeItem === 'breweries'}
           onClick={this.handleItemClick}
         />
         <Menu.Item
           name='contact us'
+          color='yellow'
           active={activeItem === 'contact us'}
           onClick={this.handleItemClick}
         />
