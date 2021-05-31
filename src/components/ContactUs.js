@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input, TextArea, Button, Container, Segment } from 'semantic-ui-react'
+import { Form, Input, TextArea, Button, Container, Segment, Grid } from 'semantic-ui-react'
 
 class FormCaptureValues extends Component {
   state = { firstName: '', lastName: '', email: '', message: '', submittedFirstName: '', submittedLastName: '', submittedEmail: '', submittedMessage: '' }
@@ -15,53 +15,60 @@ class FormCaptureValues extends Component {
     const { firstName, lastName, email, message, submittedFirstName, submittedLastName, submittedEmail, submittedMessage } = this.state
 
     return (
+      <Grid centered columns={3}>
+      <Grid.Column>
+
       <div class="ui segment contactform" >
-        <Segment inverted>
+
+        <Segment inverted             
+>
           <h2 style={{textAlign: "center", color: '#f0f5f1'}}>Contact Us</h2>
           <br></br>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group>
+        <Form onSubmit={this.handleSubmit} >
+          <Form.Group >
             <Form.Input
+            width={8}
               placeholder='First name'
               name='firstName'
               value={firstName}
               onSubmit={this.handleSubmit}
-            />
+              />
             <Form.Input
+                        width={8}
+
               placeholder='Last Name'
               name='lastName'
               value={lastName}
               onSubmit={this.handleSubmit}
-            />
+              />
           </Form.Group>
           <Form.Group>
-
             <Form.Input
+                        width={16}
+
               placeholder='Email'
               name='email'
               value={email}
               onChange={this.handleSubmit}
-            />
-                      </Form.Group>
-                      <Form.Group>
-
+              />
+          </Form.Group>
+          <Form.Group>
             <Form.Input
               placeholder='Message'
               control={TextArea}
               name='message'
               value={message}
               onChange={this.handleSubmit}
-            />
-                      </Form.Group>
-                      <Form.Group>
-
+              />
+          </Form.Group>
+          <Form.Group>
             <Form.Button content='Submit'
             control={Button}
             style={{textAlign: "center", color: '#f0f5f1'}}
             class="fluid ui inverted yellow button large"
             content='submit'
             width={2} />
-            </Form.Group>
+          </Form.Group>
 
           {/* WHERE DOES THIS CODE GO????}
           {/* WHERE DOES THIS CODE GO????}
@@ -73,7 +80,11 @@ class FormCaptureValues extends Component {
         ) */}
       </Form>
     </Segment>
-  </div>
+    </div>
+
+    </Grid.Column>
+        </Grid>
+
     )
   }
   
