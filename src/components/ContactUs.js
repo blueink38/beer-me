@@ -54,10 +54,10 @@ class FormCaptureValues extends Component {
             width={2} />
             </Form.Group>
           </Form.Group>
-        <pre>{JSON.stringify({ firstName, lastName, email, message }, null,4 )}</pre>
+        {/* <pre>{JSON.stringify({ firstName, lastName, email, message }, null, 4 )}</pre>
         <strong>onSubmit:</strong>
         <pre>{JSON.stringify({ submittedFirstName, submittedLastName, submittedEmail, submittedMessage }, null, 4)}</pre>
-    )
+    ) */}
       </Form>
     </Segment>
   </div>
