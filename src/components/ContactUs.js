@@ -59,6 +59,8 @@ class FormCaptureValues extends Component {
               name='message'
               value={message}
               onChange={this.handleSubmit}
+              width={16}
+
               />
           </Form.Group>
           <Form.Group>

@@ -41,8 +41,9 @@ body {
    justify-content: center;
 }
 .contactform {
-   display:flex;
+   /* display:flex; */
    justify-content: space-around;
+   width: 100%;
    
   
 }
