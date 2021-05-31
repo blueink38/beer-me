@@ -1,43 +1,50 @@
-import React, { Component } from 'react';
-export default class Header extends Component {
+import React, { Component } from 'react'
+import { Button, Segment, Menu } from 'semantic-ui-react'
+
+
+export default class MenuExampleInvertedSecondary extends Component {
+    state = { activeItem: 'home' }
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
   render() {
+    const { activeItem } = this.state
+
     return (
-      <React.Fragment>
-      
-      <header id="home">
-<nav id="nav-wrap">
-           
-<div class="ui inverted yellow three item huge menu">
-  <a class="active item">Home</a>
-  <a class="active item">Breweries</a>
-  <a class="active item">Contact us</a>
-</div>
-<div>
-<div class="large ui yellow buttons float-right">
-  <button class="ui button">Sign Up</button>
-  <button class="ui button">Login</button>
+      <Segment inverted>
 
-</div>
-</div>
+      <Menu inverted fixed="top" size='huge' >
+        <Menu.Item 
+          name='home'
+          
+          active={activeItem === 'home'}
+          onClick={this.handleItemClick}
+        />
+        <Menu.Item
+          name='breweries'
+          
+          active={activeItem === 'breweries'}
+          onClick={this.handleItemClick}
+        />
+        <Menu.Item
+          name='contact us'
+          active={activeItem === 'contact us'}
+          onClick={this.handleItemClick}
+        />
 
-</nav>
+        <Menu.Menu position='right'>
+        <Menu.Item>
+            
+            <Button basic color='yellow'>Login</Button>
+          </Menu.Item>
+          <Menu.Item>
+            
+            <Button basic color='yellow'>Sign Up</Button>
+          </Menu.Item>
+        </Menu.Menu>
+      </Menu>
+      </Segment>
 
-
-
-
-
-         <div className="row banner">
-            <div className="banner-text">
-               <h1 style={{color:'#ebba34'}} className="responsive-headline">Beer Me</h1>
-               <hr/>
-
-            </div>
-         </div>
-
-
-
-      </header>
-      </React.Fragment>
-    );
+    )
   }
 }
