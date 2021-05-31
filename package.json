@@ -42,11 +42,7 @@
   "devDependencies": {
     "@craco/craco": "^6.1.2",
     "@semantic-ui-react/craco-less": "^1.2.1",
-<<<<<<< HEAD
-    "semantic-ui-less": "^2.4.1"
-=======
     "semantic-ui-less": "^2.4.1",
     "concurrently": "^6.1.0"
->>>>>>> 76f6d878a6c8323f38b22a8bf2c9af0d12bd3701
   }
 }
