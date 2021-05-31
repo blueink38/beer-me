@@ -58,13 +58,15 @@ class FormCaptureValues extends Component {
                 />
             </Form.Group>
             <Form.Group>
-            <Form.Button content='Submit'
+            <Form.Button
+          
+              content='Submit'
               color='yellow'
               control={Button}
               style={{textAlign: "center",  border: '#ebba34'}}
-              class="fluid ui yellow button large"
+              class="fluid ui yellow button"
               content='submit'
-              width={2} />
+               />
             </Form.Group>      
           </Form>        </div>
 
