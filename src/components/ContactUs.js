@@ -16,10 +16,10 @@ class FormCaptureValues extends Component {
     const { firstName, lastName, email, message, submittedFirstName, submittedLastName, submittedEmail, submittedMessage } = this.state
 
   return (
-    <Grid centered columns={3}>
+    <Grid centered columns={2}>
       <Grid.Column>
         <div class="ui segment contactform inverted" >
-          <h2 style={{textAlign: "center", color: '#f0f5f1'}}>Contact Us</h2>
+          <h2 style={{textAlign: "center", color: '#ebba34'}}>Contact Us</h2>
           <br></br>
           <Form onSubmit={this.handleSubmit} >
             <Form.Group >
@@ -58,9 +58,9 @@ class FormCaptureValues extends Component {
                 />
             </Form.Group>
             <Form.Group>
-              <Form.Button content='Submit'
+              <Form.Button inverted content='Submit'
               control={Button}
-              style={{textAlign: "center", color: '#f0f5f1'}}
+              style={{textAlign: "center", color: '#ebba34', border: '#ebba34'}}
               class="fluid ui inverted yellow button large"
               content='submit'
               width={2} />
@@ -69,9 +69,9 @@ class FormCaptureValues extends Component {
         </div>
 
 
-        <strong>onSubmit:</strong>
+        {/* <strong>onSubmit:</strong>
         {JSON.stringify({ submittedFirstName, submittedLastName, submittedEmail, submittedMessage }, null, 4)}
-        
+         */}
 
       </Grid.Column>
     </Grid>
