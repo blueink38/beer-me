@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Form, Input, TextArea, Button, Container, Segment, Grid } from 'semantic-ui-react'
+import { Form, TextArea, Button, Grid } from 'semantic-ui-react'
 
 class FormCaptureValues extends Component {
   state = { firstName: '', lastName: '', email: '', message: '', submittedFirstName: '', submittedLastName: '', submittedEmail: '', submittedMessage: '' }
 
+  handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
   handleSubmit = () => {
     const { firstName, lastName, email, message } = this.state
@@ -27,14 +28,14 @@ class FormCaptureValues extends Component {
                 placeholder='First name'
                 name='firstName'
                 value={firstName}
-                onSubmit={this.handleSubmit}
+                onChange={this.handleChange}
                 />
               <Form.Input
                 width={8}
                 placeholder='Last Name'
                 name='lastName'
                 value={lastName}
-                onSubmit={this.handleSubmit}
+                onChange={this.handleChange}
                 />
             </Form.Group>
             <Form.Group>
@@ -43,7 +44,7 @@ class FormCaptureValues extends Component {
                 placeholder='Email'
                 name='email'
                 value={email}
-                onChange={this.handleSubmit}
+                onChange={this.handleChange}
                 />
             </Form.Group>
             <Form.Group>
@@ -53,7 +54,7 @@ class FormCaptureValues extends Component {
                 control={TextArea}
                 name='message'
                 value={message}
-                onChange={this.handleSubmit}
+                onChange={this.handleChange}
                 />
             </Form.Group>
             <Form.Group>
@@ -65,7 +66,6 @@ class FormCaptureValues extends Component {
               width={2} />
             </Form.Group>      
           </Form>
-          {JSON.stringify({ firstName, lastName, email, message }, null, 4 )}
         <strong>onSubmit:</strong>
         {JSON.stringify({ submittedFirstName, submittedLastName, submittedEmail, submittedMessage }, null, 4)}
         
