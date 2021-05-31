@@ -48,6 +48,11 @@ body {
   
 }
 
+.breweryfinder {
+   margin-left:-5%;
+   margin-right: auto;
+   }
+   
 .navbar1 {
    background-color: #161415;
 }
