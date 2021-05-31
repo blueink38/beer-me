@@ -8,6 +8,11 @@ const brewerySchema = new Schema(
             unique: true,
             trim: true
         },
+        breweryID: {
+            type: Number,
+            required: true,
+            unique: true
+        },
         breweryType: {
             type: String,
             required: true
