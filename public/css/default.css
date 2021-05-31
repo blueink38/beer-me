@@ -47,10 +47,9 @@ body {
    /* display:flex; */
    justify-content: space-around;
    width: 100%;
-   margin-top: 10px !important;
-   
-  
+   margin-top: 10px !important; 
 }
+
 
 .breweryfinder {
    margin-left:0%;

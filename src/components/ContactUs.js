@@ -58,15 +58,15 @@ class FormCaptureValues extends Component {
                 />
             </Form.Group>
             <Form.Group>
-              <Form.Button inverted content='Submit'
+            <Form.Button content='Submit'
+              color='yellow'
               control={Button}
-              style={{textAlign: "center", color: '#ebba34', border: '#ebba34'}}
-              class="fluid ui inverted yellow button large"
+              style={{textAlign: "center",  border: '#ebba34'}}
+              class="fluid ui yellow button large"
               content='submit'
               width={2} />
             </Form.Group>      
-          </Form>
-        </div>
+          </Form>        </div>
 
 
         {/* <strong>onSubmit:</strong>
