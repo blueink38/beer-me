@@ -10,13 +10,9 @@ export default class About extends Component {
 
             <div className="columns main-col">
 
-               <h1 style={{textAlign: "center" ,color:'#ebba34'}}>Whether You're Travelling Or A Local Find A Brewery Near You!</h1>
+               <h1 style={{color:'#ebba34'}}>Whether you're travelling or a local, find a brewery or gastropub nearby...</h1>
             </div>
-            <br></br>
-            <br></br>
-            <div className="columns main-col drinkbutton">
-            <button id="aboutButton" style={{textAlign: "center" ,color:'#ebba34'}} class="ui massive inverted yellow button">GET DRINKING!</button>
-                     </div>
+            <button class="ui inverted yellow button">GET DRINKING!</button>
                      </div>
       </section>
     );

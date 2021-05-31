@@ -2,18 +2,12 @@ import React, { Component } from 'react';
 export default class Suds extends Component {
   render() {
     return (
-
-      <section id="suds" class="ui landing-image segment" style={{textAlign: "center" ,color:'#141414'}}>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
+      <section className="sudz" id="suds">
+            <div style={{ backgroundImage: `url("../public/images/Suds.jpg")` }}>
+     PLACEHOLDER FOR NOW --- SUDS WILL GO HERE
+    </div>
+        
       </section>
-
         );
   }
 }

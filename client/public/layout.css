@@ -80,7 +80,6 @@ header .scrolldown a {
    transition: all .3s ease-in-out;
 }
 
-
 /* primary navigation */
 #nav-wrap ul, #nav-wrap li, #nav-wrap a {
 	 margin: 0;
@@ -151,7 +150,6 @@ ul#nav li.current a { color: #e0e31e; }
    padding-bottom: 66px;
    overflow: hidden;
 }
-
 
 
 #about h2 {
