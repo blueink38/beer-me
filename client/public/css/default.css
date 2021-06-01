@@ -41,6 +41,7 @@ body {
    display: flex;
    justify-content: center;
    margin-left:5%;
+   color: white;
 }
 
 .contactform {
