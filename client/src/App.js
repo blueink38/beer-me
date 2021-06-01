@@ -6,6 +6,7 @@ import Blip from './components/Blip';
 import Hero from './components/Hero';
 import ContactUs from './components/ContactUs';
 import Footer from './components/Footer';
+import SearchBreweries from './components/SearchBreweries'
 class App extends Component {
   render() {
     return (
@@ -13,7 +14,8 @@ class App extends Component {
         <Header/>
         <Hero/>
         <Blip/>
-        <FindBrewery/>   
+        <FindBrewery/>  
+        <SearchBreweries/> 
         <ContactUs/>
         <Footer/>
       </div>
