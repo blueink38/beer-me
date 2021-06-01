@@ -8,6 +8,7 @@ const resolvers = {
             if(context.user) {
                 const userData = await User.findOne({})
                 .select('-__v -password')
+                .populate('breweries')
 
                 return userData;
             }
@@ -52,6 +53,7 @@ const resolvers = {
 
             return brewery;
         },
+        //brewId = Brewery._id
         addSavedBrewery: async (parent, { brewId }, context) => {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
@@ -65,6 +67,25 @@ const resolvers = {
                 const updatedUser = await User.findOneAndUpdate(
                     {_id: "60b45e161a08780c1cddb859" },
                     { $addToSet: { breweries: brewId } },
+                    { new: true}
+                ).populate('breweries');
+
+                return updatedUser;
+            }
+        },
+        removeSavedBrewery: async (parent, { brewId }, context) => {
+            if (context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                    {_id: context.user._id},
+                    { $pull: { breweries: brewId } },
+                    { new: true}
+                ).populate('breweries');
+
+                return updatedUser;
+            } else {
+                const updatedUser = await User.findOneAndUpdate(
+                    {_id: "60b45e161a08780c1cddb859" },
+                    { $pull: { breweries: brewId } },
                     { new: true}
                 ).populate('breweries');
 

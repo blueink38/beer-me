@@ -53,6 +53,7 @@ const typeDefs = gql`
             websiteUrl: String 
         ): Brewery
         addSavedBrewery(brewId: ID!): User
+        removeSavedBrewery(brewId: ID!): User
         login(email: String!, password: String!): Auth
     }
 `;
