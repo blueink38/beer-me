@@ -16,7 +16,7 @@ class FormCaptureValues extends Component {
 
     return (
       <div class="ui segment contactform" >
-        <Segment inverted>
+        <Segment class="" inverted>
           <h2 style={{textAlign: "center", color: '#f0f5f1'}}>Contact Us</h2>
           <br></br>
         <Form onSubmit={this.handleSubmit}>
@@ -46,6 +46,7 @@ class FormCaptureValues extends Component {
               value={message}
               onChange={this.handleSubmit}
             />
+          
             <Form.Button content='Submit'
             control={Button}
             style={{textAlign: "center", color: '#f0f5f1'}}

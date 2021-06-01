@@ -39,16 +39,23 @@ body {
 .drinkbutton {
    display: flex;
    justify-content: center;
+   margin-right: 1%;
 }
 .contactform {
    display:flex;
    justify-content: space-around;
-   
-  
+
 }
 
 .navbar1 {
    background-color: #161415;
+}
+
+.breweryfinder {
+
+
+margin-left:-6%;
+margin-right: auto;
 }
 
 /*Typography*/

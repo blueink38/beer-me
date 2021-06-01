@@ -3,12 +3,8 @@ export default class About extends Component {
   render() {
     return (
       <section id="about">
-         <div className="row">
-
-            <div className="three columns">
-            </div>
-
-            <div className="columns main-col">
+         <div>
+            <div className="breweryfinder">
             <h1 style={{textAlign: "center", color:'#ebba34'}}>Find A Brewery Near You!</h1>
             </div>
             </div>
