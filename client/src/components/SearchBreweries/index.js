@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Form, Button, Card, List, Grid, GridColumn} from 'semantic-ui-react'
 
 import Auth from '../../utils/auth'
-import { saveBrewery, searchOpenBrewDB, userLocation } from '../../utils/API'
+import {saveBrewery, searchOpenBrewDB, directions} from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 
 const SearchBreweries = () => {
@@ -136,7 +136,7 @@ const SearchBreweries = () => {
                     </Button>
                     <Button
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                      onClick={() => {{ userLocation() }}}>
+                      onClick={() => {{ directions(brewery.latitude, brewery.longitude) }}}>
                          <p>Directions</p>
                     </Button>
                   {/* )} */}
