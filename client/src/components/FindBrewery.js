@@ -4,7 +4,7 @@ export default class About extends Component {
     return (
 <section id="about">
          <div>
-            <div className="breweryfinder">
+            <div id='brewfind'className="breweryfinder">
             <h1 style={{textAlign: "center", color:'#EBBA34'}}>Find A Brewery Near You!</h1>
             </div>
             </div>
