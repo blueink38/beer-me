@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Form, Button, Card, List} from 'semantic-ui-react'
+import {Form, Button, Card, List, Grid, GridColumn} from 'semantic-ui-react'
 
 import Auth from '../../utils/auth'
 import {saveBrewery, searchOpenBrewDB, } from '../../utils/API'
@@ -111,10 +111,12 @@ const SearchBreweries = () => {
             ? `Viewing ${searchedBreweries.length} results:`
             : 'Search for a Brewery to begin'}
         </h2>
+        <Grid centered stackable columns={3} >
           {searchedBreweries.map((brewery) => {
             return (
-              <Card key={brewery.breweryId}>
-                <h2>{brewery.name}</h2>
+              <GridColumn centered>  
+              <Card centered key={brewery.breweryId}>
+                <h3 style={{textAlign:'center'}}>{brewery.name}</h3>
                 <List>
                   <List.Item>Type: {brewery.breweryType}</List.Item>
                   <List.Item>Street: {brewery.street}</List.Item>
@@ -133,10 +135,12 @@ const SearchBreweries = () => {
                         : 'Save this Brewery!'}
                     </Button>
                   {/* )} */}
-
               </Card>
+              </GridColumn>
+
             );
           })}
+        </Grid>
     </>
   );
 };

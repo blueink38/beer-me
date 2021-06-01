@@ -1,33 +1,23 @@
-// import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import Header from './components/Header';
-import About from './components/About';
-import Portfolio from './components/Portfolio';
-import Suds from  './components/Suds';
+import FindBrewery from './components/FindBrewery';
+import Blip from './components/Blip';
+import Hero from './components/Hero';
 import ContactUs from './components/ContactUs';
 import Footer from './components/Footer';
-import SearchBreweries from './components/SearchBreweries'
-
-
-function App() {
-  return (
-    <div className="App">
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
         <Header/>
-        <About/>   
-        <Portfolio/>
-        <Suds/>
+        <Hero/>
+        <Blip/>
+        <FindBrewery/>   
         <ContactUs/>
         <Footer/>
-      <SearchBreweries />
-    </div>
-
-
-  );
-};
-
-
-
-
-
+      </div>
+    );
+  }
+}
 export default App;
