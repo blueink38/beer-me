@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import Header from './components/Header';
-import About from './components/About';
-import Portfolio from './components/Portfolio';
+import FindBrewery from './components/FindBrewery';
+import Blip from './components/Blip';
 import Hero from './components/Hero';
 
 import ContactUs from './components/ContactUs';
@@ -14,8 +14,8 @@ class App extends Component {
       <div className="App">
         <Header/>
         <Hero/>
-        <Portfolio/>
-        <About/>   
+        <Blip/>
+        <FindBrewery/>   
         <ContactUs/>
         <Footer/>
       </div>
