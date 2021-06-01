@@ -92,8 +92,10 @@ export function userLocation() {
 };
 
 // directions using TomTom
-export function directions(lat, lon) {
+export function directions(latitude, longitude) {
   // console.log(lat, lon);
+    const lat = parseFloat(latitude);
+    const lon = parseFloat(longitude);
     fetch("https://api.tomtom.com/routing/1/calculateRoute/" + userLat + "%2C" + userLon + "%3A" + lat + "%2C" + lon + "/json?instructionsType=text&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN").then(function(response){
       console.log(lat, lon);
       console.log(response.json);
