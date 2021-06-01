@@ -12,7 +12,7 @@ export default class About extends Component {
             <br></br>
             <div>
             <div className="columns main-col drinkbutton">
-            <button id="aboutButton" style={{textAlign: "center" ,color:'#EBBA34'}} class="ui huge inverted yellow button">GET DRINKING!</button>
+            <button id="aboutButton"  class="ui huge yellow button">GET DRINKING</button>
                      </div>
                      </div>
       </section>
