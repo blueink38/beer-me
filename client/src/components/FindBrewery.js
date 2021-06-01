@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-export default class About extends Component {
+export default class FindBrewery extends Component {
   render() {
     return (
 <section id="about">
