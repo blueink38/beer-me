@@ -55,8 +55,9 @@ let userLat = 0;
 let userLon = 0;
 let completeDirections = [];
 
-
-
+ 
+  
+ 
   // make a search to open brew api
 export  const searchByCity = (query) => {
     return fetch(`https://api.openbrewerydb.org/breweries?by_city=${query}`)
@@ -179,5 +180,3 @@ export function directions(latitude, longitude) {
 
 //             }
       
-  
-searchNearUser()

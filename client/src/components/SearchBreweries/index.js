@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {Form, Button, Card, List, Grid, GridColumn} from 'semantic-ui-react'
+import {Form, Button, Card, List, Grid, GridColumn, Dropdown} from 'semantic-ui-react'
 
 import Auth from '../../utils/auth'
-import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions} from '../../utils/API'
+import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions, } from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 
 const SearchBreweries = () => {
@@ -91,10 +91,43 @@ const SearchBreweries = () => {
     }
   };
 
+  const breweryOptions = (query) => {
+    return fetch(`https://api.openbrewerydb.org/breweries/autocomplete?query=${query}`)
+        .then(response => response.json())
+        .then(data => {
+             
+             const options = data.map(brewery => ({
+                  key: brewery.id,
+                  text: brewery.name,
+                  value: brewery.id
+                  
+             }))
+             console.log(options)
+             return options
+        })
+     };
+
+  console.log(breweryOptions.data)
+  const handleOnChange = (e, data) => {
+      console.log(data.value);
+  }
+ 
+  
   return (
     <>
           <h1>Search for Breweries!</h1>
-          <Form onSubmit={handleFormSubmit}>
+          <Dropdown
+            clearable
+            fluid
+            multiple
+            search
+            selection
+            onChange={handleOnChange}
+            options={breweryOptions}
+            placeholder={'Search...'}
+            // value={options}
+          />
+          {/* <Form onSubmit={handleFormSubmit}>
             <Form.Field>
               <input 
                 name='searchInput'
@@ -107,7 +140,7 @@ const SearchBreweries = () => {
             </Form.Field>
 
             <Button type='submit'>Submit Search</Button>
-          </Form>
+          </Form> */}
 
         <h2>
           {searchedBreweries.length
