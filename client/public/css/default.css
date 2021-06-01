@@ -36,16 +36,25 @@ body {
    -webkit-font-smoothing: antialiased; 
 	-webkit-text-size-adjust: 100%;
 }
+
 .drinkbutton {
    display: flex;
    justify-content: center;
+   margin-left:5%;
 }
+
 .contactform {
-   display:flex;
+   /* display:flex; */
    justify-content: space-around;
-   
-  
+   width: 100%;
+   margin-top: 10px !important; 
 }
+
+
+.breweryfinder {
+   margin-left:0%;
+   margin-right: auto;
+   }
 
 .navbar1 {
    background-color: #161415;

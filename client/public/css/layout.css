@@ -138,8 +138,6 @@ ul#nav li a {
 ul#nav li a:active { background-color: transparent !important; }
 ul#nav li.current a { color: #ebba34; }
 
-<<<<<<< HEAD
-=======
 button {
    color: #ebba34;
    margin-right: 0.75rem;
@@ -154,7 +152,6 @@ button {
    color: red;
    align-content: center !important;
 }
->>>>>>> 76f6d878a6c8323f38b22a8bf2c9af0d12bd3701
 
 /*"Whether you're travelling..." Section */
 
@@ -218,14 +215,7 @@ button {
    color: #95A3A3;
 }
 
-<<<<<<< HEAD
-/* Suds Banner*/
-.sudz {
-background-image: "./images/Suds.jpg";
-}
-=======
 
->>>>>>> 76f6d878a6c8323f38b22a8bf2c9af0d12bd3701
 
 /* Reset */
 .flexslider a:active,
@@ -299,12 +289,6 @@ background-image: "./images/Suds.jpg";
 }
 #contact .section-head { margin-bottom: 42px; }
 
-<<<<<<< HEAD
-#contact a, #contact a:visited  { color: #11ABB0; }
-#contact a:hover, #contact a:focus { color: #fff; }
-
-=======
->>>>>>> 76f6d878a6c8323f38b22a8bf2c9af0d12bd3701
 #contact h1 {
    font: 18px/24px 'opensans-bold', sans-serif;
    text-transform: uppercase;

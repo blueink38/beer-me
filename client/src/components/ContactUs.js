@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Form, Input, TextArea, Button, Container, Segment } from 'semantic-ui-react'
+import { Form, TextArea, Button, Grid } from 'semantic-ui-react'
 
 class FormCaptureValues extends Component {
   state = { firstName: '', lastName: '', email: '', message: '', submittedFirstName: '', submittedLastName: '', submittedEmail: '', submittedMessage: '' }
 
+  handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
   handleSubmit = () => {
     const { firstName, lastName, email, message } = this.state
@@ -14,61 +15,70 @@ class FormCaptureValues extends Component {
   render() {
     const { firstName, lastName, email, message, submittedFirstName, submittedLastName, submittedEmail, submittedMessage } = this.state
 
-    return (
-      <div class="ui segment contactform" >
-        <Segment inverted>
-          <h2 style={{textAlign: "center", color: '#f0f5f1'}}>Contact Us</h2>
+  return (
+    <Grid centered columns={2}>
+      <Grid.Column>
+        <div class="ui segment contactform inverted" >
+          <h2 style={{textAlign: "center", color: '#ebba34'}}>Ask Us Anything</h2>
           <br></br>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group>
-            <Form.Input
-              placeholder='First name'
-              name='firstName'
-              value={firstName}
-              onSubmit={this.handleSubmit}
-            />
-            <Form.Input
-              placeholder='Last Name'
-              name='lastName'
-              value={lastName}
-              onSubmit={this.handleSubmit}
-            />
-            <Form.Group>
-            <Form.Input
-              placeholder='Email'
-              name='email'
-              value={email}
-              onChange={this.handleSubmit}
-            />
-            <Form.Input
-              placeholder='Message'
-              name='message'
-              value={message}
-              onChange={this.handleSubmit}
-            />
-            <Form.Button content='Submit'
-            control={Button}
-            style={{textAlign: "center", color: '#f0f5f1'}}
-            class="fluid ui inverted yellow button large"
-            content='submit'
-            width={2} />
+          <Form onSubmit={this.handleSubmit} >
+            <Form.Group >
+              <Form.Input
+                width={8}
+                placeholder='First name'
+                name='firstName'
+                value={firstName}
+                onChange={this.handleChange}
+                />
+              <Form.Input
+                width={8}
+                placeholder='Last Name'
+                name='lastName'
+                value={lastName}
+                onChange={this.handleChange}
+                />
             </Form.Group>
-          </Form.Group>
+            <Form.Group>
+              <Form.Input
+                width={16}
+                placeholder='Email'
+                name='email'
+                value={email}
+                onChange={this.handleChange}
+                />
+            </Form.Group>
+            <Form.Group>
+              <Form.Input
+                width={16}
+                placeholder='Message'
+                control={TextArea}
+                name='message'
+                value={message}
+                onChange={this.handleChange}
+                />
+            </Form.Group>
+            <Form.Group>
+            <Form.Button
+              content='Submit'
+              color='yellow'
+              control={Button}
+              style={{textAlign: "center"}}
+              content='Submit'
+              className=''
+               />
+            </Form.Group>      
+          </Form>        
+          </div>
 
-          {/* WHERE DOES THIS CODE GO????}
-          {/* WHERE DOES THIS CODE GO????}
-          {/* WHERE DOES THIS CODE GO????}
 
-        {/* <pre>{JSON.stringify({ firstName, lastName, email, message }, null, 4 )}</pre>
-        <strong>onSubmit:</strong>
-        <pre>{JSON.stringify({ submittedFirstName, submittedLastName, submittedEmail, submittedMessage }, null, 4)}</pre>
-        ) */}
-      </Form>
-    </Segment>
-  </div>
+        {/* <strong>onSubmit:</strong>
+        {JSON.stringify({ submittedFirstName, submittedLastName, submittedEmail, submittedMessage }, null, 4)}
+         */}
+
+      </Grid.Column>
+    </Grid>
     )
   }
-  
 }
 
 export default FormCaptureValues
