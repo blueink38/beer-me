@@ -51,7 +51,7 @@ export const deleteBrewery = (breweryId, token) => {
   };
   
   // make a search to open brew api
-export  const searchOpenBrewDB = (query) => {
+export  const searchByCity = (query) => {
    return fetch(`https://api.openbrewerydb.org/breweries?by_city=${query}`)
                 .then(response => response.json())
                 .then(data => {

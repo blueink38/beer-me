@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Form, Button, Card, List, Grid, GridColumn} from 'semantic-ui-react'
 
 import Auth from '../../utils/auth'
-import {saveBrewery, searchOpenBrewDB, directions} from '../../utils/API'
+import {saveBrewery, searchByCity, directions} from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 
 const SearchBreweries = () => {
@@ -28,7 +28,7 @@ const SearchBreweries = () => {
     }
 
     try {
-      const response = await searchOpenBrewDB(searchInput);
+      const response = await searchByCity(searchInput);
       console.log(searchInput)
       console.log(response);
       // if (!response.ok) {
@@ -136,7 +136,7 @@ const SearchBreweries = () => {
                     </Button>
                     <Button
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                      onClick={() => {{ directions(brewery.latitude, brewery.longitude) }}}>
+                      onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
                          <p>Directions</p>
                     </Button>
                   {/* )} */}
