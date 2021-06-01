@@ -1,6 +1,6 @@
 # Beer Me
 
-> This is an application that allows a user to 
+> This is an application that allows a user to locate and save nearby breweries.
 
 ## Table of contents
 * [General info](#general-info)
@@ -18,8 +18,7 @@
 General Overview
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
-
+![beermegif](https://user-images.githubusercontent.com/72768374/120387092-15952400-c2ef-11eb-9d1f-16f5b8fc376d.gif)
 ## Technologies
 * HTML5
 * CSS3
@@ -59,6 +58,8 @@ This project is in progress.  As new technologies and client needs evolve, so wi
 [![License: ICL](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)    ![badge](https://img.shields.io/badge/Created_With-LOVE-pink.svg)
 
 ## Contact
+[![Ask Anything !](https://img.shields.io/badge/Ask%20Us-Anything-1abc9c.svg)](https://GitHub.com/Naereen/ama)   
+
 Created by: <br>
 [Frank Depaolo](https://dragoonkite.github.io/portfolio/nk) - feel free to contact me!<br>
 [Jason Fletcher](https://blueink38.github.io/new-portfolio/) - feel free to contact me!<br>
