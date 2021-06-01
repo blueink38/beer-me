@@ -16,7 +16,7 @@ class FormCaptureValues extends Component {
     const { firstName, lastName, email, message, submittedFirstName, submittedLastName, submittedEmail, submittedMessage } = this.state
 
   return (
-    <Grid centered columns={2}>
+    <Grid id='contact-us' centered columns={2}>
       <Grid.Column>
         <div class="ui segment contactform inverted" >
           <h2 style={{textAlign: "center", color: '#ebba34'}}>Ask Us Anything</h2>
