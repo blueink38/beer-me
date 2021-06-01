@@ -4,10 +4,8 @@ import Header from './components/Header';
 import FindBrewery from './components/FindBrewery';
 import Blip from './components/Blip';
 import Hero from './components/Hero';
-
 import ContactUs from './components/ContactUs';
 import Footer from './components/Footer';
-
 class App extends Component {
   render() {
     return (
@@ -22,5 +20,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
