@@ -153,13 +153,16 @@ button {
    align-content: center !important;
 }
 
+
+
 /*"Whether you're travelling..." Section */
 
 #about {
    background: #191919;
    padding-top: 96px;
    padding-bottom: 66px;
-   overflow: hidden;
+   overflow-x: hidden;
+   width: 100%;
 }
 
 #about a, #about a:visited  { color: #fff; }
@@ -215,34 +218,6 @@ button {
    color: #95A3A3;
 }
 
-
-
-/* Reset */
-.flexslider a:active,
-.flexslider a:focus  { outline: none; }
-.slides,
-.flex-control-nav,
-.flex-direction-nav { margin: 0; padding: 0; list-style: none; }
-.slides li { margin: 0; padding: 0;}
-
-/* Necessary Styles */
-.flexslider {
-   position: relative;
-   zoom: 1;
-   margin: 0;
-   padding: 0;
-}
-.flexslider .slides { zoom: 1; }
-.flexslider .slides > li { position: relative; }
-
-
-/* Slider Styles */
-.slides { zoom: 1; }
-.slides > li {
-   /*margin-right: 5px; */
-   overflow: hidden;
-}
-
 /* Control Nav */
 .flex-control-nav {
     width: 100%;
@@ -281,6 +256,11 @@ button {
 }
 
 /* Contact Section */
+#heya {
+   background: #dadce0;
+   
+
+}
 #contact {
    background: #191919;
    padding-top: 96px;
