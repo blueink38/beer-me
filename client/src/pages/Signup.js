@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 import Auth from "../utils/auth";
 import { ADD_USER } from "../utils/mutations";
 
-function Signup(props) {
+function Signup() {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [addUser] = useMutation(ADD_USER);
 
@@ -30,10 +30,8 @@ function Signup(props) {
 
   return (
     <div className="container my-1">
-      <Link to="/login">
-        ← Go to Login
-      </Link>
-
+      <br></br>
+      <br></br>
       <h2>Signup</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">

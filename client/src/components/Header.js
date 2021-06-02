@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Segment, Menu } from 'semantic-ui-react'
+import { Link } from "react-router-dom"
+import Auth from "../utils/auth"
 
 
 export default class MenuExampleInvertedSecondary extends Component {
@@ -14,38 +16,67 @@ export default class MenuExampleInvertedSecondary extends Component {
       <Segment id="home" inverted>
 
       <Menu id="home" inverted fixed="top" size='huge' >
-        <Menu.Item 
-          href="#home"
-          name='home'
-          color='yellow'
-          active={activeItem === 'home'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          href="#about"
-          name='breweries'
-          color='yellow'
-          active={activeItem === 'breweries'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-           href="#contact-us"
-          name='contact us'
-          color='yellow'
-          active={activeItem === 'contact us'}
-          onClick={this.handleItemClick}
-        />
-
-        <Menu.Menu position='right'>
-        <Menu.Item>
-            
-            <Button color='yellow'>Login</Button>
-          </Menu.Item>
-          <Menu.Item>
-            
-            <Button color='yellow'>Sign Up</Button>
-          </Menu.Item>
+        {activeItem === "login" || activeItem === "signup" ? 
+        <Menu.Menu>
+           <Link to="/"><Menu.Item 
+              name='home'
+              background='yellow'
+              onClick={this.handleItemClick}
+            /></Link>
         </Menu.Menu>
+        :
+        <Menu.Menu>
+          <Menu.Item 
+              href="#home"
+              name='home'
+              color='yellow'
+              active={activeItem === 'home'}
+              onClick={this.handleItemClick}
+            />
+            <Menu.Item
+              href="#about"
+              name='breweries'
+              color='yellow'
+              active={activeItem === 'breweries'}
+              onClick={this.handleItemClick}
+            />
+            <Menu.Item
+              href="#contact-us"
+              name='contact us'
+              color='yellow'
+              active={activeItem === 'contact us'}
+              onClick={this.handleItemClick}
+            />
+          </Menu.Menu>
+        }
+        {!Auth.loggedIn() ? 
+          <Menu.Menu position='right'>
+            <Menu.Item
+              name="login"
+              active={activeItem === 'login'}
+              onClick={this.handleItemClick}
+            >
+              <Link to="/login"><Button color='yellow'>Login</Button></Link>
+            </Menu.Item>
+            <Menu.Item
+              name="signup"
+              active={activeItem === 'signup'}
+              onClick={this.handleItemClick}
+            >
+            <Link to="/signup"><Button color='yellow'>Sign Up</Button></Link>
+            </Menu.Item>
+          </Menu.Menu>
+        : 
+          <Menu.Menu position='right'>
+            <Menu.Item
+              name="logout"
+              active={activeItem === 'home'}
+              onClick={() => Auth.logout()}
+            >
+              <Link to="/"><Button color='yellow'>Logout</Button></Link>
+            </Menu.Item>
+          </Menu.Menu>
+        }
       </Menu>
       </Segment>
 
