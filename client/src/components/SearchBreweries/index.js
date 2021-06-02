@@ -149,12 +149,15 @@ const SearchBreweries = () => {
               </Form.Group>
               {/* <Button className="ui reset button" id='city' type='submit'>Search For Beer!</Button> */}
 
+              <div className="columns main-col drinkbutton">
+
               <Button centered
               id='city' 
               type='submit'
               // onClick={handleFormSubmit} 
               className="ui huge yellow button"
               >GET DRINKING!!</Button>
+              </div>
 
               </div>
   </Grid.Column>
