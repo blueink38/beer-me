@@ -15,7 +15,7 @@ export default class FindBrewery extends Component {
             <br></br>
             <div>
             <div className="columns main-col drinkbutton">
-            <button id="aboutButton"  class="ui huge yellow button">GET DRINKING</button>
+            <button id="aboutButton"  className="ui huge yellow button">GET DRINKING</button>
                      </div>
                      </div>
       </section>

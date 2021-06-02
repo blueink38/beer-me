@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {Form, Button, Card, List, Grid, GridColumn} from 'semantic-ui-react'
-
 import Auth from '../../utils/auth'
 import {saveBrewery, searchOpenBrewDB, } from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
