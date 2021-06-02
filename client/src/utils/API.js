@@ -63,6 +63,7 @@ export  const searchByCity = (query) => {
     return fetch(`https://api.openbrewerydb.org/breweries?by_city=${query}`)
         .then(response => response.json())
         .then(data => {
+          // console.log(data)
              return data.filter( x => query.toLowerCase() === x.city.toLowerCase())
         })
      }; 
@@ -71,6 +72,8 @@ export  const searchByState = (query) => {
     return fetch(`https://api.openbrewerydb.org/breweries?by_state=${query}`)
         .then(response => response.json())
         .then(data => {
+          // console.log(data)
+
            return data
 
       })
@@ -80,6 +83,8 @@ export  const searchByTerm = (query) => {
   return fetch(`https://api.openbrewerydb.org/breweries/search?query=${query}`)
       .then(response => response.json())
       .then(data => {
+        // console.log(data)
+
          return data
 
     })

@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/blueink38/beer-me#readme",
   "dependencies": {
-    "if-env": "^1.0.4"
+    "if-env": "^1.0.4",
+    "lodash": "^4.17.21"
   },
   "browserslist": {
     "production": [

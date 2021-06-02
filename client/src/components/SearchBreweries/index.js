@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import {Form, Button, Card, List, Grid, GridColumn, Dropdown} from 'semantic-ui-react'
+import React, { useState, useEffect} from 'react';
+// import _ from 'lodash'
+import {Form, Button, Card, List, Grid, GridColumn} from 'semantic-ui-react'
 
 import Auth from '../../utils/auth'
 import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions, } from '../../utils/API'
@@ -11,26 +12,48 @@ const SearchBreweries = () => {
   const [searchedBreweries, setSearchedBrewery] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
+    // create state for holding our search field data
+    const [searchType, setSearchType] = useState('');
+
   // create state to hold saved BreweryId values
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
-
+  
   // set up useEffect hook to save `savedBreweryIds` list to localStorage on component unmount
   useEffect(() => {
     return () => saveBreweryIds(savedBreweryIds);
   });
-
+  console.log(searchType)
+  const options = [
+    { key: 'city', text: 'City', value: 'city' },
+    { key: 'state', text: 'State', value: 'state' },
+    { key: 'keyword', text: 'Keyword', value: 'keyword' },
+  ]
   // create method to search for Breweries and set state on form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    console.log(event)
 
     if (!searchInput) {
       return false;
     }
 
     try {
-      // const response = await searchByCity(searchInput);
-      const response = await searchByState(searchInput);
+      // const response = 
+      // const response = await searchByState(searchInput);
       // const response = await searchByTerm(searchInput);
+      let response ;
+        switch(searchType){
+          case 'city':
+            response = await searchByCity(searchInput);
+            break;
+          case 'state':
+            response = await searchByState(searchInput);
+            break;
+          case 'keyword':
+            response = await searchByTerm(searchInput);
+            break;
+        }
 
       console.log(searchInput)
       console.log(response);
@@ -60,6 +83,7 @@ const SearchBreweries = () => {
 
       setSearchedBrewery(breweryData);
       setSearchInput('');
+      setSearchType('');
     } catch (err) {
       console.error(err);
     }
@@ -91,56 +115,37 @@ const SearchBreweries = () => {
     }
   };
 
-  const breweryOptions = (query) => {
-    return fetch(`https://api.openbrewerydb.org/breweries/autocomplete?query=${query}`)
-        .then(response => response.json())
-        .then(data => {
-             
-             const options = data.map(brewery => ({
-                  key: brewery.id,
-                  text: brewery.name,
-                  value: brewery.id
-                  
-             }))
-             console.log(options)
-             return options
-        })
-     };
-
-  console.log(breweryOptions.data)
-  const handleOnChange = (e, data) => {
-      console.log(data.value);
-  }
+ 
+  
  
   
   return (
     <>
           <h1>Search for Breweries!</h1>
-          <Dropdown
-            clearable
-            fluid
-            multiple
-            search
-            selection
-            onChange={handleOnChange}
-            options={breweryOptions}
-            placeholder={'Search...'}
-            // value={options}
-          />
-          {/* <Form onSubmit={handleFormSubmit}>
-            <Form.Field>
-              <input 
-                name='searchInput'
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                type='text'
-                size='lg'
-                placeholder='Search for a Brewery'>
-              </input>
-            </Form.Field>
-
-            <Button type='submit'>Submit Search</Button>
-          </Form> */}
+          
+          <Form onSubmit={handleFormSubmit}>
+            
+              <Form.Group widths='equal'>
+            
+                  <Form.Input
+                    name='searchInput'
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    placeholder='Search for a Brewery'
+                  />
+                  
+                  <Form.Select
+                    fluid
+                    options={options}
+                    required={true}
+                    placeholder='Search for breweries by...'
+                    onChange={(e, { value }) => setSearchType(value)}
+                  />
+         
+              </Form.Group>
+              <Button id='city' type='submit'>Search For Beer!</Button>
+              
+          </Form>
 
         <h2>
           {searchedBreweries.length
