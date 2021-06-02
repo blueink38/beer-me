@@ -9,7 +9,11 @@ class FormCaptureValues extends Component {
   handleSubmit = () => {
     const { firstName, lastName, email, message } = this.state
 
-    this.setState({ submittedFirstName: firstName, submittedLastName: lastName, submittedEmail: email, submittedMessage: message })
+    this.setState({ 
+      submittedFirstName: firstName, firstName: "", 
+      submittedLastName: lastName, lastName: "",
+      submittedEmail: email, email: "",
+      submittedMessage: message, message: "" })
   }
 
   render() {
@@ -63,18 +67,11 @@ class FormCaptureValues extends Component {
               color='yellow'
               control={Button}
               style={{textAlign: "center"}}
-              content='Submit'
               className=''
                />
             </Form.Group>      
           </Form>        
-          </div>
-
-
-        {/* <strong>onSubmit:</strong>
-        {JSON.stringify({ submittedFirstName, submittedLastName, submittedEmail, submittedMessage }, null, 4)}
-         */}
-
+        </div>
       </Grid.Column>
     </Grid>
     )
