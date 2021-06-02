@@ -70,8 +70,8 @@ const SearchBreweries = () => {
         country: brewery.country,
         longitude: brewery.longitude,
         latitude: brewery.latitude,
-        phone: brewery.phone || ['No phone number to display'],
-        websiteUrl: brewery.website_url || ['No webpage to display']
+        phone: brewery.phone || "",
+        websiteUrl: brewery.website_url || ""
       }));
 
 
@@ -162,8 +162,10 @@ const SearchBreweries = () => {
                   <List.Item>Street: {brewery.street}</List.Item>
                   <List.Item>City: {brewery.city}</List.Item>
                   <List.Item>State: {brewery.state}</List.Item>
-                  <List.Item>Phone Number: {brewery.phone}</List.Item>
-                  <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
+                  {brewery.phone.length ? <List.Item>Phone Number: {brewery.phone}</List.Item> : ""}
+                  {brewery.websiteUrl.length ? 
+                  <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item> : ""}
+                  
                 </List>
                   {/* {Auth.loggedIn() && ( */}
                     <Button
