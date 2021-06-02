@@ -109,7 +109,8 @@ export  const searchNearUser = () => {
                     fetch(`https://api.openbrewerydb.org/breweries?by_dist=${userLat},${userLon}`)
                     .then(response => response.json())
                     .then(data => {
-                       console.log(data)
+                      console.log(data)
+                       return data
               
                   })
                   });
@@ -119,7 +120,7 @@ export  const searchNearUser = () => {
   })
 
 }; 
-
+searchNearUser()
 // export  const searchByState = (query) => {
 //   return fetch(`https://api.openbrewerydb.org/breweries?by_city=${query}`)
 //       .then(response => response.json())

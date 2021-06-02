@@ -1,19 +1,22 @@
 import React, { useState, useEffect} from 'react';
 // import _ from 'lodash'
 import {Form, Button, Card, List, Grid, GridColumn} from 'semantic-ui-react'
-
+import {useMutation} from '@apollo/react-hooks'
 import Auth from '../../utils/auth'
-import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions, } from '../../utils/API'
+import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions } from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
+import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
 
 const SearchBreweries = () => {
-
+searchNearUser()
+  const[addBrewery] = useMutation(ADD_BREWERY_TO_DB);
+  const[saveBrewery] = useMutation(SAVE_BREWERY_TO_USER)
   // create state for holding returned openBrewery api data
   const [searchedBreweries, setSearchedBrewery] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
     // create state for holding our search field data
-    const [searchType, setSearchType] = useState('');
+    const [searchType, setSearchType] = useState('user');
 
   // create state to hold saved BreweryId values
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
@@ -22,7 +25,25 @@ const SearchBreweries = () => {
   useEffect(() => {
     return () => saveBreweryIds(savedBreweryIds);
   });
-  console.log(searchType)
+  
+  // useEffect(() =>{
+  //   async function savSearch() {
+  //     // const cart = await idbPromise('cart', 'get')
+  //     const products= cart.map(item => item._id);
+
+  //     if (products.length) {
+  //         const { data } = await addBrewery({ variables: { products } });
+  //         const productData = data.addOrder.products;
+        
+  //         productData.forEach((item) => {
+  //           idbPromise('cart', 'delete', item);
+  //         });
+  //       }
+        
+  //       setTimeout(function(){
+  //           window.location.assign('/')
+  //       }, 3000)
+  // })
   const options = [
     { key: 'city', text: 'City', value: 'city' },
     { key: 'state', text: 'State', value: 'state' },
@@ -39,9 +60,8 @@ const SearchBreweries = () => {
     }
 
     try {
-      // const response = 
-      // const response = await searchByState(searchInput);
-      // const response = await searchByTerm(searchInput);
+      console.log(searchType)
+
       let response ;
         switch(searchType){
           case 'city':
@@ -53,9 +73,12 @@ const SearchBreweries = () => {
           case 'keyword':
             response = await searchByTerm(searchInput);
             break;
+          default:
+            response = await searchNearUser();
+           
         }
 
-      console.log(searchInput)
+      // console.log(searchInput)
       console.log(response);
       // if (!response.ok) {
       //   throw new Error('something went wrong!');
@@ -83,7 +106,7 @@ const SearchBreweries = () => {
 
       setSearchedBrewery(breweryData);
       setSearchInput('');
-      setSearchType('');
+      setSearchType('user');
     } catch (err) {
       console.error(err);
     }
@@ -121,10 +144,16 @@ const SearchBreweries = () => {
   
   return (
     <>
-          <h1>Search for Breweries!</h1>
-          
+          <div className="columns main-col drinkbutton">
+            <Button 
+              id="aboutButton" 
+              onClick={handleFormSubmit} 
+              className="ui huge yellow button"
+              >GET DRINKING!!</Button>
+          </div>
           <Form onSubmit={handleFormSubmit}>
-            
+          
+
               <Form.Group widths='equal'>
             
                   <Form.Input
