@@ -6,6 +6,7 @@ import Auth from '../../utils/auth'
 import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions } from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
+import { formatPhone } from '../../utils/helpers';
 
 const SearchBreweries = () => {
 
@@ -162,7 +163,7 @@ const SearchBreweries = () => {
                   <List.Item>Street: {brewery.street}</List.Item>
                   <List.Item>City: {brewery.city}</List.Item>
                   <List.Item>State: {brewery.state}</List.Item>
-                  {brewery.phone.length ? <List.Item>Phone Number: {brewery.phone}</List.Item> : ""}
+                  {brewery.phone.length ? <List.Item>Phone Number: {formatPhone(brewery.phone)}</List.Item> : ""}
                   {brewery.websiteUrl.length ? 
                   <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item> : ""}
                   
