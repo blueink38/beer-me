@@ -177,11 +177,14 @@ const SearchBreweries = () => {
                         ? 'This Brewery has already been saved!'
                         : 'Save this Brewery!'}
                     </Button>
-                    <Button
-                      // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                      onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
-                         <p>Directions</p>
-                    </Button>
+                    {brewery.latitude && brewery.longitude ? 
+                      <Button
+                        // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
+                        onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
+                          <p>Directions</p>
+                      </Button>
+                    : ""}
+                    
                   {/* )} */}
               </Card>
               </GridColumn>
