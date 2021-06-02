@@ -50,24 +50,93 @@ export const deleteBrewery = (breweryId, token) => {
     });
   };
   
-  // make a search to open brew api
-export  const searchOpenBrewDB = (query) => {
-   return fetch(`https://api.openbrewerydb.org/breweries?by_city=${query}`)
-                .then(response => response.json())
-                .then(data => {
-                   return data.filter( x => query.toLowerCase() === x.city.toLowerCase())
-                })
-
-  };
- 
-
 let userIP = "";
 let userLat = 0;
 let userLon = 0;
 let completeDirections = [];
-// let key = "2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN";
 
-export function userLocation() {
+ 
+  
+ 
+  // make a search to open brew api
+export  const searchByCity = (query) => {
+    return fetch(`https://api.openbrewerydb.org/breweries?by_city=${query}`)
+        .then(response => response.json())
+        .then(data => {
+          // console.log(data)
+             return data.filter( x => query.toLowerCase() === x.city.toLowerCase())
+        })
+     }; 
+
+export  const searchByState = (query) => {
+    return fetch(`https://api.openbrewerydb.org/breweries?by_state=${query}`)
+        .then(response => response.json())
+        .then(data => {
+          // console.log(data)
+
+           return data
+
+      })
+}; 
+
+export  const searchByTerm = (query) => {
+  return fetch(`https://api.openbrewerydb.org/breweries/search?query=${query}`)
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data)
+
+         return data
+
+    })
+}; 
+
+export  const searchNearUser = () => {
+  fetch("https://api.ipify.org/?format=json").then(function(response) {
+    if(response.ok){
+        response.json().then(function(data){
+           userIP = data.ip 
+
+            //uses ip address to get physical location data
+            return fetch("https://ipapi.co/" + userIP + "/json")
+        }).then(function(response){
+            if(response.ok){
+
+                response.json().then(function(data){
+                    //save location data for future use
+                    userLat = data.latitude;
+                    userLon = data.longitude;
+                    // console.log(userLat, userLon);
+                    fetch(`https://api.openbrewerydb.org/breweries?by_dist=${userLat},${userLon}`)
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log(data)
+                       return data
+              
+                  })
+                  });
+              }
+          });
+      }
+  })
+
+}; 
+searchNearUser()
+// export  const searchByState = (query) => {
+//   return fetch(`https://api.openbrewerydb.org/breweries?by_city=${query}`)
+//       .then(response => response.json())
+//       .then(data => {
+//          return data.filter( x => query.toLowerCase() === x.city.toLowerCase())
+//     })
+// }; 
+ 
+
+
+
+export function directions(latitude, longitude) {
+  console.log(latitude, longitude)
+  const lat = parseFloat(latitude);
+  const lon = parseFloat(longitude);
+
     fetch("https://api.ipify.org/?format=json").then(function(response) {
         if(response.ok){
             response.json().then(function(data){
@@ -77,12 +146,32 @@ export function userLocation() {
                 return fetch("https://ipapi.co/" + userIP + "/json")
             }).then(function(response){
                 if(response.ok){
+
                     response.json().then(function(data){
                         //save location data for future use
                         userLat = data.latitude;
                         userLon = data.longitude;
                         console.log(userLat, userLon);
-                        directions();
+                        fetch("https://api.tomtom.com/routing/1/calculateRoute/" + userLat + "%2C" + userLon + "%3A" + lat + "%2C" + lon + "/json?instructionsType=text&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN").then(function(response){
+                          console.log(response.ok);
+                                      if(response.ok){
+                                          response.json().then(function(data){
+                                            // console.log(data);
+                                            let instructions=data.routes[0].guidance.instructions;
+                                              
+                                  for (let i = 0; i < instructions.length; i++) {
+                    
+                                let stop = instructions[i].message;
+                                completeDirections.push(stop);
+                    
+                      };
+                      console.log(completeDirections);
+                                         });
+                                      }
+                                      else {
+                                        console.log("wooooooooow")
+                                      }
+                                  });
                     });
                 }
             });
@@ -92,30 +181,8 @@ export function userLocation() {
 };
 
 // directions using TomTom
-export function directions(lat, lon) {
-  // console.log(lat, lon);
-    fetch("https://api.tomtom.com/routing/1/calculateRoute/" + userLat + "%2C" + userLon + "%3A" + lat + "%2C" + lon + "/json?instructionsType=text&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN").then(function(response){
-      console.log(lat, lon);
-      console.log(response.json);
-                  if(!response.ok){
-                      response.json().then(function(data){
-                        // console.log(data);
-                        let instructions=data.routes[0].guidance.instructions;
-                          
-              for (let i = 0; i < instructions.length; i++) {
+// export function directions(latitude, longitude) {
+//   // console.log(lat, lon);
 
-            let stop = instructions[i].message;
-            completeDirections.push(stop);
-
-  };
-  console.log(completeDirections);
-                     });
-                  }
-                  else {
-                    console.log("wooooooooow")
-                  }
-              });
-            }
+//             }
       
-  
-  // userLocation();
