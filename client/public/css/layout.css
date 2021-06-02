@@ -165,7 +165,7 @@ button {
    width: 100%;
 }
 
-#about a, #about a:visited  { color: #fff; }
+#about a, #about a:visited  { color: rgb(255, 184, 51); }
 #about a:hover, #about a:focus { color: #11ABB0; }
 
 #about h2 {
