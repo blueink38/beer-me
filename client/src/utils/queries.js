@@ -30,6 +30,36 @@ export const QUERY_BREWERY = gql `
   query brewery($name: String!){
     brewery(name: $name){
       _id
+      name
+      breweryType
+      street
+      address2
+      address3
+      city
+      state
+      longitude
+      latitude
+      phone
+      websiteUrl
+    }
+  }
+`;
+
+export const QUERY_BREWERY_BY_ID = gql `
+  query breweryId($brewId: ID!){
+    breweryId(brewId: $id){
+      _id
+      name
+      breweryType
+      street
+      address2
+      address3
+      city
+      state
+      longitude
+      latitude
+      phone
+      websiteUrl
     }
   }
 `;

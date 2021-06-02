@@ -15,9 +15,8 @@ const SearchBreweries = () => {
   const [searchedBreweries, setSearchedBrewery] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
-    // create state for holding our search field data
-    const [searchType, setSearchType] = useState('');
-console.log(searchType)
+  // create state for holding our search field data
+  const [searchType, setSearchType] = useState('');
   // create state to hold saved BreweryId values
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
   
@@ -26,24 +25,6 @@ console.log(searchType)
     return () => saveBreweryIds(savedBreweryIds);
   });
   
-  // useEffect(() =>{
-  //   async function savSearch() {
-  //     // const cart = await idbPromise('cart', 'get')
-  //     const products= cart.map(item => item._id);
-
-  //     if (products.length) {
-  //         const { data } = await addBrewery({ variables: { products } });
-  //         const productData = data.addOrder.products;
-        
-  //         productData.forEach((item) => {
-  //           idbPromise('cart', 'delete', item);
-  //         });
-  //       }
-        
-  //       setTimeout(function(){
-  //           window.location.assign('/')
-  //       }, 3000)
-  // })
   const options = [
     { key: 'city', text: 'City', value: 'city' },
     { key: 'state', text: 'State', value: 'state' },
@@ -53,8 +34,6 @@ console.log(searchType)
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(event)
-
     if (!searchInput) {
       return false;
     }
@@ -63,27 +42,19 @@ console.log(searchType)
       console.log(searchType)
 
       let response ;
-        switch(searchType){
-          case 'city':
-            response = await searchByCity(searchInput);
-            break;
-          case 'state':
-            response = await searchByState(searchInput);
-            break;
-          case 'keyword':
-            response = await searchByTerm(searchInput);
-            break;
-          default:
-            response = await searchNearUser();
-           
-        }
-
-      // console.log(searchInput)
-      console.log(response);
-      // if (!response.ok) {
-      //   throw new Error('something went wrong!');
-      // }
-
+      switch(searchType){
+        case 'city':
+          response = await searchByCity(searchInput);
+          break;
+        case 'state':
+          response = await searchByState(searchInput);
+          break;
+        case 'keyword':
+          response = await searchByTerm(searchInput);
+          break;
+        default:
+          response = await searchNearUser();  
+      }
 
       const breweryData = response.map((brewery) => ({
         breweryId: brewery.id,
@@ -106,7 +77,6 @@ console.log(searchType)
 
       setSearchedBrewery(breweryData);
       setSearchInput('');
-      // setSearchType('');
     } catch (err) {
       console.error(err);
     }

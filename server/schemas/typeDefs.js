@@ -37,6 +37,7 @@ const typeDefs = gql`
         me: User
         users: [User]
         brewery(name: String!): Brewery
+        breweryId(brewId: ID!): Brewery
         breweryCity(city: String!): [Brewery]
         breweryType(breweryType: String!): [Brewery]
         breweryState(state: String!): [Brewery]
