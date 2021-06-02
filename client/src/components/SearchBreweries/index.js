@@ -8,7 +8,7 @@ import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
 
 const SearchBreweries = () => {
-searchNearUser()
+
   const[addBrewery] = useMutation(ADD_BREWERY_TO_DB);
   const[saveBrewery] = useMutation(SAVE_BREWERY_TO_USER)
   // create state for holding returned openBrewery api data
@@ -16,8 +16,8 @@ searchNearUser()
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
     // create state for holding our search field data
-    const [searchType, setSearchType] = useState('user');
-
+    const [searchType, setSearchType] = useState('');
+console.log(searchType)
   // create state to hold saved BreweryId values
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
   
@@ -106,7 +106,7 @@ searchNearUser()
 
       setSearchedBrewery(breweryData);
       setSearchInput('');
-      setSearchType('user');
+      // setSearchType('');
     } catch (err) {
       console.error(err);
     }
@@ -166,13 +166,13 @@ searchNearUser()
                   <Form.Select
                     fluid
                     options={options}
-                    required={true}
+                    // required={true}
                     placeholder='Search for breweries by...'
                     onChange={(e, { value }) => setSearchType(value)}
                   />
          
               </Form.Group>
-              <Button id='city' type='submit'>Search For Beer!</Button>
+              <Button className="ui reset button" id='city' type='submit'>Search For Beer!</Button>
               
           </Form>
 
