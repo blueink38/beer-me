@@ -50,22 +50,87 @@ export const deleteBrewery = (breweryId, token) => {
     });
   };
   
-  // make a search to open brew api
-export  const searchOpenBrewDB = (query) => {
-   return fetch(`https://api.openbrewerydb.org/breweries?by_city=${query}`)
-                .then(response => response.json())
-                .then(data => {
-                   return data.filter( x => query.toLowerCase() === x.city.toLowerCase())
-                })
-
-  };
- 
-
 let userIP = "";
 let userLat = 0;
 let userLon = 0;
 let completeDirections = [];
-// let key = "2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN";
+
+ 
+  
+ 
+  // make a search to open brew api
+export  const searchByCity = (query) => {
+    return fetch(`https://api.openbrewerydb.org/breweries?by_city=${query}`)
+        .then(response => response.json())
+        .then(data => {
+          // console.log(data)
+             return data.filter( x => query.toLowerCase() === x.city.toLowerCase())
+        })
+     }; 
+
+export  const searchByState = (query) => {
+    return fetch(`https://api.openbrewerydb.org/breweries?by_state=${query}`)
+        .then(response => response.json())
+        .then(data => {
+          // console.log(data)
+
+           return data
+
+      })
+}; 
+
+export  const searchByTerm = (query) => {
+  return fetch(`https://api.openbrewerydb.org/breweries/search?query=${query}`)
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data)
+
+         return data
+
+    })
+}; 
+
+export  const searchNearUser = () => {
+  fetch("https://api.ipify.org/?format=json").then(function(response) {
+    if(response.ok){
+        response.json().then(function(data){
+           userIP = data.ip 
+
+            //uses ip address to get physical location data
+            return fetch("https://ipapi.co/" + userIP + "/json")
+        }).then(function(response){
+            if(response.ok){
+
+                response.json().then(function(data){
+                    //save location data for future use
+                    userLat = data.latitude;
+                    userLon = data.longitude;
+                    // console.log(userLat, userLon);
+                    fetch(`https://api.openbrewerydb.org/breweries?by_dist=${userLat},${userLon}`)
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log(data)
+                       return data
+              
+                  })
+                  });
+              }
+          });
+      }
+  })
+
+}; 
+searchNearUser()
+// export  const searchByState = (query) => {
+//   return fetch(`https://api.openbrewerydb.org/breweries?by_city=${query}`)
+//       .then(response => response.json())
+//       .then(data => {
+//          return data.filter( x => query.toLowerCase() === x.city.toLowerCase())
+//     })
+// }; 
+ 
+
+
 
 export function directions(latitude, longitude) {
   console.log(latitude, longitude)
@@ -121,5 +186,3 @@ export function directions(latitude, longitude) {
 
 //             }
       
-  
-  // userLocation();
