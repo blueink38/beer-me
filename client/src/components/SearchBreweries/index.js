@@ -135,7 +135,6 @@ const SearchBreweries = () => {
                         : 'Save this Brewery!'}
                     </Button>
                     <Button
-                      // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                       onClick={() => {{ directions(brewery.latitude, brewery.longitude) }}}>
                          <p>Directions</p>
                     </Button>
