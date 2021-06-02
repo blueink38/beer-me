@@ -61,7 +61,7 @@ const SearchBreweries = () => {
         breweryId: brewery.id,
         name: brewery.name,
         breweryType: brewery.brewery_type,
-        street: brewery.street || ['No street to display'],
+        street: brewery.street || "",
         address2: brewery.address_2,
         address3: brewery.address_3,
         city: brewery.city,
@@ -160,7 +160,9 @@ const SearchBreweries = () => {
                 <h3 style={{textAlign:'center'}}>{brewery.name}</h3>
                 <List>
                   <List.Item>Type: {brewery.breweryType}</List.Item>
-                  <List.Item>Street: {brewery.street}</List.Item>
+                  {brewery.street.length ?
+                   <List.Item>Street: {brewery.street}</List.Item>
+                   : ""}
                   <List.Item>City: {brewery.city}</List.Item>
                   <List.Item>State: {brewery.state}</List.Item>
                   {brewery.phone.length ? <List.Item>Phone Number: {formatPhone(brewery.phone)}</List.Item> : ""}
