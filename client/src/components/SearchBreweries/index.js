@@ -115,13 +115,14 @@ const SearchBreweries = () => {
   
   return (
     <>
+    <section  id="about">
       <div className="columns main-col drinkbutton"> 
         </div>
           <Form onSubmit={handleFormSubmit}>
             <Grid id='find-brewery' centered columns={2}>
               <Grid.Column>          
                 <div class="ui segment contactform inverted" >
-                  <h2 style={{textAlign: "center", color: '#ebba34'}}>New Search Brewery Section</h2>
+                  <h1 style={{textAlign: "center", color: '#ebba34'}}>Find Your Brewery</h1>
                   <br></br>
                   <Form.Group>
                     <Form.Input
@@ -140,22 +141,27 @@ const SearchBreweries = () => {
                     onChange={(e, { value }) => setSearchType(value)}
                     />
                   </Form.Group>
-                <div className="columns main-col drinkbutton" widths='equal'>
+                  <br></br>
+                <div className="columns main-col drinkbutton">
                   <Button 
                     centered
                     id='city' 
                     type='submit'
                     // onClick={handleFormSubmit} 
+                   
                     className="ui huge yellow button">
                     GET DRINKING!!
                   </Button>
+               </div>
+               <br></br>
+               <div className="columns main-col drinkbutton">
                   <Button 
                     centered
                     id='city' 
                     type='submit'
                     // onClick={handleFormSubmit} 
                     className="ui huge yellow button">
-                    GET LUCKY!!
+                    FIND NEAREST BREWERY
                   </Button>
 
                 </div>
@@ -174,35 +180,42 @@ const SearchBreweries = () => {
             return (
               <GridColumn centered>  
               <Card centered key={brewery.breweryId}>
-                <h3 style={{textAlign:'center'}}>{brewery.name}</h3>
+                <h2 style={{textAlign:'center', color:'#ebba34'}}>{brewery.name}</h2>
                 <List>
-                  <List.Item>Type: {brewery.breweryType}</List.Item>
-                  <List.Item>Street: {brewery.street}</List.Item>
-                  <List.Item>City: {brewery.city}</List.Item>
-                  <List.Item>State: {brewery.state}</List.Item>
-                  <List.Item>Phone Number: {brewery.phone}</List.Item>
-                  <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
+                  <List.Item className='beercard-output'><strong>Type:  </strong> {brewery.breweryType}</List.Item>
+                  <List.Item className='beercard-output'><strong> Street:  </strong>{brewery.street}</List.Item>
+                  <List.Item className='beercard-output'><strong> City:  </strong>{brewery.city}</List.Item>
+                  <List.Item className='beercard-output'><strong> State:  </strong>{brewery.state}</List.Item>
+                  <List.Item className='beercard-output'><strong> Phone Number:  </strong> {brewery.phone}</List.Item>
+                  <List.Item className='beercard-output'><strong> Website:  </strong> <a style={{color:'#2432d1'}} href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
+               <br></br>
                 </List>
                   {/* {Auth.loggedIn() && ( */}
-                    <Button
+                    
+                  <div className='ui large buttons'>
+                    <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                       onClick={() => {handleSaveBrewery(brewery.breweryId) 
                         console.log(brewery.breweryId)}}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
                         ? 'This Brewery has already been saved!'
-                        : 'Save this Brewery!'}
+                        : 'save brewery'}
                     </Button>
-                    <Button
+                    <div class="or"></div>
+                    <Button className ='ui yellow button'
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                       onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
-                         <p>Directions</p>
+                         <p style={{color:'#f2f0f0'}} > get directions</p>
                     </Button>
                   {/* )} */}
-              </Card>
+                  </div>
+                  </Card>
+              
             </GridColumn>
             );
           })}
         </Grid>
+        </section>
     </>
   );
 };

@@ -56,16 +56,14 @@ function Signup() {
     // const { userName, email, password, submittedUserName, submittedEmail, submittedPassword } = this.state
 
   return (
-
-<Grid id='contact-us' centered columns={4}>
-      <Grid.Column>
-
-
-
-    <div className="ui segment contactform inverted">
+    <section style={{height: '100vh'}} id='loginsignuppage'>
+    <div className="loginsignupcontainers my-1">
+       <br></br>
       <br></br>
       <br></br>
-      <h2 style={{textAlign: "center", color: '#ebba34'}}>Sign Up</h2>
+      <br></br>
+      <h1 style={{color:'#ebba34'}}>Signup</h1>
+      <br></br>
       <form onSubmit={handleFormSubmit}>
         <Form.Group>
         {/* <Form.Input
@@ -80,7 +78,7 @@ function Signup() {
 
 
         <div className="flex-row space-between my-2">
-          <label htmlFor="Name">Username:</label>
+          <label style={{color:'#ebba34'}} htmlFor="firstName">Username:</label>
           <input
             placeholder="Username"
             name="username"
@@ -90,7 +88,7 @@ function Signup() {
           />
         </div>
         <div className="flex-row space-between my-2">
-          <label htmlFor="email">Email:</label>
+          <label style={{color:'#ebba34'}} htmlFor="email">Email:</label>
           <input
             placeholder="youremail@test.com"
             name="email"
@@ -100,7 +98,7 @@ function Signup() {
           />
         </div>
         <div className="flex-row space-between my-2">
-          <label htmlFor="pwd">Password:</label>
+          <label style={{color:'#ebba34'}} htmlFor="pwd">Password:</label>
           <input
             placeholder="******"
             name="password"
@@ -109,23 +107,24 @@ function Signup() {
             onChange={handleChange}
           />
         </div>
+        <br></br>
         <div className="flex-row flex-end">
-          <button type="submit">
-            Submit
-          </button>
+        <button class="ui yellow button">Submit</button>
         </div>
         </Form.Group>
       </form>
     </div>
-
-
-    </Grid.Column>
-    </Grid>
-
-
-
-
+    </section>
   );
+
+
+    // </Grid.Column>
+    // </Grid>
+
+
+
+
+  // );
 }
 // }
 
