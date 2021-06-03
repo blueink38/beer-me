@@ -62,21 +62,25 @@ class FormCaptureValues extends Component {
                 />
             </Form.Group>
 
-<div className="columns main-col centered">
-
-            <Form.Group>
-            <Form.Button
-              content='Submit'
-              color='yellow'
-              control={Button}
-              style={{textAlign: "center"}}
-              className=''
-               />
-            </Form.Group>   
-            </div>
+            <div className="columns main-col centered">
+              <Form.Group>
+                <Form.Button
+                  content='Submit'
+                  color='yellow'
+                  control={Button}
+                  style={{textAlign: "center"}}
+                  className=''
+                  />
+                </Form.Group>   
+              </div>
           </Form>        
         </div>
       </Grid.Column>
+
+      {JSON.stringify({ submittedFirstName, submittedLastName, submittedEmail, submittedMessage }, null, 4)}
+
+
+
     </Grid>
     )
   }
