@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Segment, Menu } from 'semantic-ui-react'
 import { Link } from "react-router-dom"
-import Auth from "../utils/auth"
+import Auth from "../../utils/auth"
 
 
 export default class MenuExampleInvertedSecondary extends Component {

@@ -4,7 +4,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 
 import 'semantic-ui-css/semantic.min.css';
-import Header from './components/Header';
+import Header from './components/Header/index';
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from './pages/Home';
