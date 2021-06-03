@@ -47,7 +47,7 @@ function Login() {
             onChange={handleChange}
           />
         </div>
-        <br></br>
+
         <div className="flex-row space-between my-2">
           <label style={{color:'#ebba34'}}htmlFor="pwd">Password:</label>
           <input
