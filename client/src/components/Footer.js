@@ -4,7 +4,7 @@ export default class Footer extends Component {
     return (
 <div class="ui horizontal segments">
   <div style={{textAlign: "center" ,color:'#ebba34'}} class="ui black inverted segment">
-    <h4 style={{textAlign: "center" ,color:'#ebba34'}}>Site Builders</h4>
+    <h2 style={{textAlign: "center" ,color:'#ebba34'}}>Site Builders</h2>
     <div  class="ui link list">
   
   <a style={{textAlign: "center" ,color:'#ebba34'}}class="item" href="https://github.com/rocketorangemen" target="blank">Ramon F.</a>
