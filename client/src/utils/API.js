@@ -60,17 +60,17 @@ let breweriesNearMe =[];
   
  
   // make a search to open brew api
-export  const searchByCity = (query) => {
-    return fetch(`https://api.openbrewerydb.org/breweries?by_city=${query}`)
+export  const searchByCity = (query, page) => {
+    return fetch(`https://api.openbrewerydb.org/breweries?by_city=${query}&page=${page}`)
         .then(response => response.json())
         .then(data => {
-          // console.log(data)
+          //console.log(data)
              return data.filter( x => query.toLowerCase() === x.city.toLowerCase())
         })
      }; 
 
-export  const searchByState = (query) => {
-    return fetch(`https://api.openbrewerydb.org/breweries?by_state=${query}`)
+export  const searchByState = (query, page) => {
+    return fetch(`https://api.openbrewerydb.org/breweries?by_state=${query}&page=${page}`)
         .then(response => response.json())
         .then(data => {
           // console.log(data)
@@ -80,8 +80,8 @@ export  const searchByState = (query) => {
       })
 }; 
 
-export  const searchByTerm = (query) => {
-  return fetch(`https://api.openbrewerydb.org/breweries/search?query=${query}`)
+export  const searchByTerm = (query, page) => {
+  return fetch(`https://api.openbrewerydb.org/breweries/search?query=${query}&page=${page}`)
       .then(response => response.json())
       .then(data => {
         // console.log(data)
@@ -91,7 +91,7 @@ export  const searchByTerm = (query) => {
     })
 }; 
 
-export   const searchNearUser =  () => {
+export  const searchNearUser = (page) => {
   fetch("https://api.ipify.org/?format=json").then(function(response) {
     if(response.ok){
         response.json().then(function(data){
@@ -106,8 +106,8 @@ export   const searchNearUser =  () => {
                     //save location data for future use
                     userLat = data.latitude;
                     userLon = data.longitude;
-                    console.log(userLat, userLon);
-                    fetch(`https://api.openbrewerydb.org/breweries?by_dist=${userLat},${userLon}`)
+                    // console.log(userLat, userLon);
+                    fetch(`https://api.openbrewerydb.org/breweries?by_dist=${userLat},${userLon}&page=${page}`)
                     .then(response => response.json())
                     .then(data => {
                       console.log(data)

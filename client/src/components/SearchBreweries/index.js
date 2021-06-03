@@ -1,12 +1,15 @@
 import React, { useState, useEffect} from 'react';
 // import _ from 'lodash'
-import {Form, Button, Card, List, Grid, GridColumn} from 'semantic-ui-react'
+import {Form, Button, Card, List, Grid, GridColumn, Menu} from 'semantic-ui-react'
 import {useMutation} from '@apollo/react-hooks'
 import Auth from '../../utils/auth'
 import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions } from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
+import { add } from 'lodash';
 import { formatPhone } from '../../utils/helpers';
+
+let pageNum = 1;
 
 const SearchBreweries = () => {
 //  searchNearUser()
@@ -20,6 +23,9 @@ const SearchBreweries = () => {
   const [searchType, setSearchType] = useState('');
   // create state to hold saved BreweryId values
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
+  //holds the last used search input
+  const [lastSearched, setLastSearched] = useState("")
+  
   
   // set up useEffect hook to save `savedBreweryIds` list to localStorage on component unmount
   useEffect(() => {
@@ -34,84 +40,83 @@ const SearchBreweries = () => {
 
   // create method to search for Breweries and set state on form submit
   const handleFormSubmit = async (event) => {
+    // debugger;
     event.preventDefault();
     console.log(event.type)
 
-    // if (!searchInput) {
-    //   return false;
-    // }
+    if (!searchInput && !lastSearched) {
+      return false;
+    }
 
     try {
-      // debugger;
-      // console.log(searchType)
-      
-      let response;
-        switch(event.type){
-          case 'click':
-            response = await searchNearUser();
-            break;
-          case 'submit':
-            switch(searchType){
-              case 'city':
-                response = await searchByCity(searchInput);
-                break;
-              case 'state':
-                response = await searchByState(searchInput);
-                break;
-              case 'keyword':
-                response = await searchByTerm(searchInput);
-                break;             
-            }
+      if(searchInput.length){
+        if(searchInput !== lastSearched) {
+          pageNum = 1
         }
-      
-   
-
-      // console.log(searchInput)
-      if(response){
-        console.log(response, 'hello')
-      }else{
-        console.log('no response')
+        setLastSearched(searchInput)
       }
-      // if (!response.ok) {
-      //   throw new Error('something went wrong!');
-      // }
 
+      let response ;
 
-      const breweryData = response.map((brewery) => ({
-        breweryId: brewery.id,
-        name: brewery.name,
-        breweryType: brewery.brewery_type,
-        street: brewery.street || "",
-        address2: brewery.address_2,
-        address3: brewery.address_3,
-        city: brewery.city,
-        state: brewery.state,
-        countyProvince: brewery.county_province,
-        postalCode: brewery.postal_code,
-        country: brewery.country,
-        longitude: brewery.longitude,
-        latitude: brewery.latitude,
-        phone: brewery.phone || "",
-        websiteUrl: brewery.website_url || ""
-      }));
-
-      console.log(breweryData, 'outside')
-
+      switch(searchType){
+        case 'city':
+          if(searchInput){
+            response = await searchByCity(searchInput, pageNum);
+          } else if (lastSearched) {
+            response = await searchByCity(lastSearched, pageNum);
+          } 
+          break;
+        case 'state':
+          if(searchInput){
+            response = await searchByState(searchInput, pageNum);
+          } else if (lastSearched) {
+            response = await searchByState(lastSearched, pageNum);
+          }
+          break;
+        case 'keyword':
+          if(searchInput){
+            response = await searchByTerm(searchInput, pageNum);
+          } else if (lastSearched) {
+            response = await searchByTerm(lastSearched, pageNum);
+          }
+          break;
+        default:
+          response = await searchNearUser(pageNum);  
+      }
+      console.log(searchType)
+      console.log(response)
+      if(response.length){
+        const breweryData = response.map((brewery) => ({
+          breweryId: brewery.id,
+          name: brewery.name,
+          breweryType: brewery.brewery_type,
+          street: brewery.street || "",
+          address2: brewery.address_2,
+          address3: brewery.address_3,
+          city: brewery.city,
+          state: brewery.state,
+          countyProvince: brewery.county_province,
+          postalCode: brewery.postal_code,
+          country: brewery.country,
+          longitude: brewery.longitude,
+          latitude: brewery.latitude,
+          phone: brewery.phone || "",
+          websiteUrl: brewery.website_url || ""
+        }));
+  
+        setSearchedBrewery(breweryData);
+      } else {
+        setSearchedBrewery([])
+      }
       
-       
-    if (typeof breweryData !== 'undefined' && breweryData.length === 0) {
-    console.log('Nope')
-    }else{
-      setSearchedBrewery(breweryData);
-      // addBrewery(breweryData)
       setSearchInput('');
       console.log('YES')
       }
+      catch (err) {
+        console.error(err);
+      }
+  } 
 
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   // create function to handle saving a Brewery to our database
   const handleSaveBrewery = async (brewery) => {
@@ -140,20 +145,31 @@ const SearchBreweries = () => {
     }
   };
 
- 
-  
- 
+  const handlePageChange =  async (e,name) => {
+    if (name === "next") {
+      //setPageNumber(pageNumber + 1)
+      pageNum++
+      handleFormSubmit(e)
+      console.log(pageNum)
+    } else {
+      //setPageNumber(pageNumber - 1)
+      pageNum--
+      handleFormSubmit(e)
+    }
+    
+  }
+
   
   return (
     <>
- 
+    <section  id="about">
       <div className="columns main-col drinkbutton"> 
         </div>
           <Form onSubmit={handleFormSubmit}>
             <Grid id='find-brewery' centered columns={2}>
               <Grid.Column>          
-                <div className="ui segment contactform inverted" >
-                  <h2 style={{textAlign: "center", color: '#ebba34'}}>New Search Brewery Section</h2>
+                <div class="ui segment contactform inverted" >
+                  <h1 style={{textAlign: "center", color: '#ebba34'}}>Find Your Brewery</h1>
                   <br></br>
                   <Form.Group>
                     <Form.Input
@@ -172,20 +188,26 @@ const SearchBreweries = () => {
                     onChange={(e, { value }) => setSearchType(value)}
                     />
                   </Form.Group>
+                  <br></br>
                 <div className="columns main-col drinkbutton">
                   <Button 
                     // centered
                     id='city' 
                     type='submit'
+                    // onClick={handleFormSubmit} 
+                   
                     className="ui huge yellow button">
                     GET DRINKING!!
                   </Button>
+               </div>
+               <br></br>
+               <div className="columns main-col drinkbutton">
                   <Button 
                     // centered
                     id='city' 
                     onClick={handleFormSubmit} 
                     className="ui huge yellow button">
-                    DRINK LOCALLY!!
+                    FIND NEAREST BREWERY
                   </Button>
 
                 </div>
@@ -196,43 +218,92 @@ const SearchBreweries = () => {
 
         <h2>
           {searchedBreweries.length
-            ? `Viewing ${searchedBreweries.length} results:`
+            ? `Viewing results ${1 + (20 * (pageNum -1))} - ${searchedBreweries.length + (20 * (pageNum - 1))}:`
             : ''}
         </h2>
         <Grid centered stackable columns={3} >
-          {searchedBreweries.map((brewery) => {
+          {searchedBreweries.length 
+          ? 
+          searchedBreweries.map((brewery) => {
             return (
-              <GridColumn centered>  
-              <Card centered id={brewery.breweryId} key={brewery.breweryId}>
-                <h3 style={{textAlign:'center'}}>{brewery.name}</h3>
+              <GridColumn centered="true">  
+              <Card centered key={brewery.breweryId}>
+                <h2 style={{textAlign:'center', color:'#ebba34'}}>{brewery.name}</h2>
                 <List>
-                  <List.Item>Type: {brewery.breweryType}</List.Item>
-                  <List.Item>Street: {brewery.street}</List.Item>
-                  <List.Item>City: {brewery.city}</List.Item>
-                  <List.Item>State: {brewery.state}</List.Item>
-                  <List.Item>Phone Number: {brewery.phone}</List.Item>
-                  <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
+                  <List.Item className='beercard-output'><strong>Type:  </strong> {brewery.breweryType}</List.Item>
+                  {brewery.street ? 
+                    <List.Item className='beercard-output'><strong> Street:  </strong>{brewery.street}</List.Item>
+                  :""}
+                  <List.Item className='beercard-output'><strong> City:  </strong>{brewery.city}</List.Item>
+                  <List.Item className='beercard-output'><strong> State:  </strong>{brewery.state}</List.Item>
+                  {brewery.phone ? 
+                    <List.Item className='beercard-output'><strong> Phone Number:  </strong> {formatPhone(brewery.phone)}</List.Item>
+                  : ""}
+                  {brewery.websiteUrl ? 
+                    <List.Item className='beercard-output'><strong> Website:  </strong> <a style={{color:'#2432d1'}} href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
+                  : ""}
+               <br></br>
                 </List>
                   {/* {Auth.loggedIn() && ( */}
-                    <Button
+                    
+                  <div className='ui large buttons'>
+                    <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                       onClick={() => {handleSaveBrewery(brewery) 
                         console.log(brewery)}}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
                         ? 'This Brewery has already been saved!'
-                        : 'Save this Brewery!'}
+                        : 'save brewery'}
                     </Button>
-                    <Button
-                      // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                      onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
-                         <p>Directions</p>
-                    </Button>
+                    {brewery.latitude && brewery.longitude ? 
+                      <>
+                       <div class="or"></div>
+                       <Button className ='ui yellow button'
+                         // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
+                         onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
+                            <p style={{color:'#f2f0f0'}} > get directions</p>
+                       </Button>
+                       </>
+                    :""}
+                   
                   {/* )} */}
-              </Card>
+                  </div>
+                  </Card>
+              
             </GridColumn>
             );
-          })}
+          })
+          : ""}
+          {!searchedBreweries.length && pageNum > 1 ?
+          "No more breweries to display"
+          :
+          ""}
         </Grid>
+        <Menu inverted >
+          {pageNum > 1 ? 
+            <Menu.Item
+              name="prev"
+              onClick={(e, { name }) => handlePageChange(e,name)}
+            >
+              <Button color="yellow">
+                <p>Previous Page</p>
+              </Button>
+            </Menu.Item>
+          : ""}
+          {searchedBreweries.length ? 
+            <Menu.Menu position="right">
+              <Menu.Item
+                name="next"
+                onClick={(e, { name }) => handlePageChange(e,name)}
+              >
+                <Button color="yellow">
+                  <p>Next Page</p>
+                </Button>
+              </Menu.Item>
+            </Menu.Menu>
+          : ""}
+        </Menu>       
+        </section>
     </>
   );
 };
