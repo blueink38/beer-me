@@ -6,11 +6,7 @@ import Auth from '../../utils/auth'
 import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions } from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
-<<<<<<< HEAD
-import { add } from 'lodash';
-=======
 import { formatPhone } from '../../utils/helpers';
->>>>>>> 6666050171c46b37a0da14dd547f3f0ccc8a0977
 
 const SearchBreweries = () => {
 //  searchNearUser()
@@ -29,11 +25,6 @@ const SearchBreweries = () => {
   useEffect(() => {
     return () => saveBreweryIds(savedBreweryIds);
   });
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> 6666050171c46b37a0da14dd547f3f0ccc8a0977
   const options = [
     { key: 'city', text: 'City', value: 'city' },
     { key: 'state', text: 'State', value: 'state' },
