@@ -115,42 +115,59 @@ const SearchBreweries = () => {
   
   return (
     <>
-          <div className="columns main-col drinkbutton">
-            <Button 
-              id="aboutButton" 
-              onClick={handleFormSubmit} 
-              className="ui huge yellow button"
-              >GET DRINKING!!</Button>
-          </div>
+      <div className="columns main-col drinkbutton"> 
+        </div>
           <Form onSubmit={handleFormSubmit}>
-          
-
-              <Form.Group widths='equal'>
-            
-                  <Form.Input
-                    name='searchInput'
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                    placeholder='Search for a Brewery'
-                  />
-                  
+            <Grid id='find-brewery' centered columns={2}>
+              <Grid.Column>          
+                <div class="ui segment contactform inverted" >
+                  <h2 style={{textAlign: "center", color: '#ebba34'}}>New Search Brewery Section</h2>
+                  <br></br>
+                  <Form.Group>
+                    <Form.Input
+                      width={8}
+                      name='searchInput'
+                      value={searchInput}
+                      onChange={(e) => setSearchInput(e.target.value)}
+                      placeholder='Search for a Brewery'
+                    />
                   <Form.Select
                     fluid
                     options={options}
+                    width={8}
                     // required={true}
                     placeholder='Search for breweries by...'
                     onChange={(e, { value }) => setSearchType(value)}
-                  />
-         
-              </Form.Group>
-              <Button className="ui reset button" id='city' type='submit'>Search For Beer!</Button>
-              
-          </Form>
+                    />
+                  </Form.Group>
+                <div className="columns main-col drinkbutton">
+                  <Button 
+                    centered
+                    id='city' 
+                    type='submit'
+                    // onClick={handleFormSubmit} 
+                    className="ui huge yellow button">
+                    GET DRINKING!!
+                  </Button>
+                  <Button 
+                    centered
+                    id='city' 
+                    type='submit'
+                    // onClick={handleFormSubmit} 
+                    className="ui huge yellow button">
+                    GET LUCKY!!
+                  </Button>
+
+                </div>
+              </div>
+          </Grid.Column>
+        </Grid>
+      </Form>      
 
         <h2>
           {searchedBreweries.length
             ? `Viewing ${searchedBreweries.length} results:`
-            : 'Search for a Brewery to begin'}
+            : ''}
         </h2>
         <Grid centered stackable columns={3} >
           {searchedBreweries.map((brewery) => {
@@ -160,15 +177,11 @@ const SearchBreweries = () => {
                 <h3 style={{textAlign:'center'}}>{brewery.name}</h3>
                 <List>
                   <List.Item>Type: {brewery.breweryType}</List.Item>
-                  {brewery.street.length ?
-                   <List.Item>Street: {brewery.street}</List.Item>
-                   : ""}
+                  <List.Item>Street: {brewery.street}</List.Item>
                   <List.Item>City: {brewery.city}</List.Item>
                   <List.Item>State: {brewery.state}</List.Item>
-                  {brewery.phone.length ? <List.Item>Phone Number: {formatPhone(brewery.phone)}</List.Item> : ""}
-                  {brewery.websiteUrl.length ? 
-                  <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item> : ""}
-                  
+                  <List.Item>Phone Number: {brewery.phone}</List.Item>
+                  <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
                 </List>
                   {/* {Auth.loggedIn() && ( */}
                     <Button
@@ -179,18 +192,14 @@ const SearchBreweries = () => {
                         ? 'This Brewery has already been saved!'
                         : 'Save this Brewery!'}
                     </Button>
-                    {brewery.latitude && brewery.longitude ? 
-                      <Button
-                        // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                        onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
-                          <p>Directions</p>
-                      </Button>
-                    : ""}
-                    
+                    <Button
+                      // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
+                      onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
+                         <p>Directions</p>
+                    </Button>
                   {/* )} */}
               </Card>
-              </GridColumn>
-
+            </GridColumn>
             );
           })}
         </Grid>
