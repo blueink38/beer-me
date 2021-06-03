@@ -91,8 +91,8 @@ export  const searchByTerm = (query) => {
     })
 }; 
 
-export  const searchNearUser = () => {
- fetch("https://api.ipify.org/?format=json").then(function(response) {
+export   const searchNearUser =  () => {
+  fetch("https://api.ipify.org/?format=json").then(function(response) {
     if(response.ok){
         response.json().then(function(data){
            userIP = data.ip 
@@ -102,15 +102,15 @@ export  const searchNearUser = () => {
         }).then(function(response){
           console.log(response)
             if(response.ok){
-
-                response.json().then(function(data){
+                response.json().then( function(data){
                     //save location data for future use
                     userLat = data.latitude;
                     userLon = data.longitude;
                     console.log(userLat, userLon);
-                    return fetch(`https://api.openbrewerydb.org/breweries?by_dist=${userLat},${userLon}`)
+                    fetch(`https://api.openbrewerydb.org/breweries?by_dist=${userLat},${userLon}`)
                     .then(response => response.json())
                     .then(data => {
+                      console.log(data)
                       if(breweriesNearMe.length){
                         breweriesNearMe= []
                       }
@@ -124,7 +124,7 @@ export  const searchNearUser = () => {
           });
       }
   })
-  console.log(breweriesNearMe)
+  // console.log(breweriesNearMe)
   return breweriesNearMe
 }; 
 

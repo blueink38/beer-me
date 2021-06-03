@@ -30,6 +30,8 @@ const SearchBreweries = () => {
     { key: 'state', text: 'State', value: 'state' },
     { key: 'keyword', text: 'Keyword', value: 'keyword' },
   ]
+
+
   // create method to search for Breweries and set state on form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -41,12 +43,13 @@ const SearchBreweries = () => {
 
     try {
       // debugger;
-      console.log(searchType)
+      // console.log(searchType)
       
-      let response ;
+      let response;
         switch(event.type){
           case 'click':
             response = await searchNearUser();
+            break;
           case 'submit':
             switch(searchType){
               case 'city':
@@ -64,7 +67,11 @@ const SearchBreweries = () => {
    
 
       // console.log(searchInput)
-      console.log(response);
+      if(response){
+        console.log(response, 'hello')
+      }else{
+        console.log('no response')
+      }
       // if (!response.ok) {
       //   throw new Error('something went wrong!');
       // }
@@ -88,10 +95,19 @@ const SearchBreweries = () => {
         websiteUrl: brewery.website_url || ""
       }));
 
+      console.log(breweryData, 'outside')
 
+      
+       
+    if (typeof breweryData !== 'undefined' && breweryData.length === 0) {
+    console.log('Nope')
+    }else{
       setSearchedBrewery(breweryData);
       // addBrewery(breweryData)
       setSearchInput('');
+      console.log('YES')
+      }
+
     } catch (err) {
       console.error(err);
     }
@@ -130,20 +146,13 @@ const SearchBreweries = () => {
   
   return (
     <>
-          <div className="columns main-col drinkbutton">
-            <Button 
-              id="aboutButton" 
-              onClick={handleFormSubmit} 
-              className="ui huge yellow button"
-
-              >GET DRINKING!!</Button>
-          </div>
+ 
       <div className="columns main-col drinkbutton"> 
         </div>
           <Form onSubmit={handleFormSubmit}>
             <Grid id='find-brewery' centered columns={2}>
               <Grid.Column>          
-                <div class="ui segment contactform inverted" >
+                <div className="ui segment contactform inverted" >
                   <h2 style={{textAlign: "center", color: '#ebba34'}}>New Search Brewery Section</h2>
                   <br></br>
                   <Form.Group>
@@ -165,20 +174,18 @@ const SearchBreweries = () => {
                   </Form.Group>
                 <div className="columns main-col drinkbutton">
                   <Button 
-                    centered
+                    // centered
                     id='city' 
                     type='submit'
-                    // onClick={handleFormSubmit} 
                     className="ui huge yellow button">
                     GET DRINKING!!
                   </Button>
                   <Button 
-                    centered
+                    // centered
                     id='city' 
-                    type='submit'
-                    // onClick={handleFormSubmit} 
+                    onClick={handleFormSubmit} 
                     className="ui huge yellow button">
-                    GET LUCKY!!
+                    DRINK LOCALLY!!
                   </Button>
 
                 </div>
@@ -196,7 +203,7 @@ const SearchBreweries = () => {
           {searchedBreweries.map((brewery) => {
             return (
               <GridColumn centered>  
-              <Card centered key={brewery.breweryId}>
+              <Card centered id={brewery.breweryId} key={brewery.breweryId}>
                 <h3 style={{textAlign:'center'}}>{brewery.name}</h3>
                 <List>
                   <List.Item>Type: {brewery.breweryType}</List.Item>
