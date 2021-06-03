@@ -149,6 +149,15 @@ const SearchBreweries = () => {
                     className="ui huge yellow button">
                     GET DRINKING!!
                   </Button>
+                  <Button 
+                    centered
+                    id='city' 
+                    type='submit'
+                    // onClick={handleFormSubmit} 
+                    className="ui huge yellow button">
+                    GET LUCKY!!
+                  </Button>
+
                 </div>
               </div>
           </Grid.Column>
