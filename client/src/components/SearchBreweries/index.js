@@ -115,13 +115,14 @@ const SearchBreweries = () => {
   
   return (
     <>
+    <section  id="about">
       <div className="columns main-col drinkbutton"> 
         </div>
           <Form onSubmit={handleFormSubmit}>
             <Grid id='find-brewery' centered columns={2}>
               <Grid.Column>          
                 <div class="ui segment contactform inverted" >
-                  <h2 style={{textAlign: "center", color: '#ebba34'}}>New Search Brewery Section</h2>
+                  <h2 style={{textAlign: "center", color: '#ebba34'}}>Find Your Brewery</h2>
                   <br></br>
                   <Form.Group>
                     <Form.Input
@@ -146,16 +147,20 @@ const SearchBreweries = () => {
                     id='city' 
                     type='submit'
                     // onClick={handleFormSubmit} 
+                   
                     className="ui huge yellow button">
                     GET DRINKING!!
                   </Button>
+               </div>
+               <br></br>
+               <div className="columns main-col drinkbutton">
                   <Button 
                     centered
                     id='city' 
                     type='submit'
                     // onClick={handleFormSubmit} 
                     className="ui huge yellow button">
-                    GET LUCKY!!
+                    FIND NEAREST BREWERY
                   </Button>
 
                 </div>
@@ -203,6 +208,7 @@ const SearchBreweries = () => {
             );
           })}
         </Grid>
+        </section>
     </>
   );
 };
