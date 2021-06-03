@@ -24,7 +24,7 @@ const SearchBreweries = () => {
   // create state to hold saved BreweryId values
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
   //holds the last used search input
-  const [lastSearched, setLastSearched] = useState("")
+  const [lastSearched, setLastSearched] = useState('')
   
   
   // set up useEffect hook to save `savedBreweryIds` list to localStorage on component unmount
@@ -40,8 +40,9 @@ const SearchBreweries = () => {
 
   const handleUserLoc = async (event) => {
     event.preventDefault();
-    console.log('YES')
-    console.log(pageNum)
+
+    setSearchInput('')
+    setLastSearched('')
     try {
       const response = await searchNearUser(pageNum);
      
@@ -97,33 +98,30 @@ const SearchBreweries = () => {
       }
 
       let response ;
-          switch(searchType){
-            case 'city':
-              if(searchInput){
-                response = await searchByCity(searchInput, pageNum);
-              } else if (lastSearched) {
-                response = await searchByCity(lastSearched, pageNum);
-              } 
-              break;
-            case 'state':
-              if(searchInput){
-                response = await searchByState(searchInput, pageNum);
-              } else if (lastSearched) {
-                response = await searchByState(lastSearched, pageNum);
-              }
-              break;
-            case 'keyword':
-              if(searchInput){
-                response = await searchByTerm(searchInput, pageNum);
-              } else if (lastSearched) {
-                response = await searchByTerm(lastSearched, pageNum);
-              }
-              break;
-        }
+      switch(searchType){
+        case 'city':
+          if(searchInput){
+            response = await searchByCity(searchInput, pageNum);
+          } else if (lastSearched) {
+            response = await searchByCity(lastSearched, pageNum);
+          } 
+          break;
+        case 'state':
+          if(searchInput){
+            response = await searchByState(searchInput, pageNum);
+          } else if (lastSearched) {
+            response = await searchByState(lastSearched, pageNum);
+          }
+          break;
+        case 'keyword':
+          if(searchInput){
+            response = await searchByTerm(searchInput, pageNum);
+          } else if (lastSearched) {
+            response = await searchByTerm(lastSearched, pageNum);
+          }
+          break;
+      }
  
-     
-      console.log(searchType)
-      console.log(response)
       if(response.length){
         const breweryData = response.map((brewery) => ({
           breweryId: brewery.id,
@@ -142,19 +140,17 @@ const SearchBreweries = () => {
           phone: brewery.phone || "",
           websiteUrl: brewery.website_url || ""
         }));
-  
         setSearchedBrewery(breweryData);
       } else {
         setSearchedBrewery([])
       }
       
       setSearchInput('');
-      console.log('YES')
       }
       catch (err) {
         console.error(err);
       }
-  } 
+    } 
 
 
   // create function to handle saving a Brewery to our database
@@ -188,14 +184,20 @@ const SearchBreweries = () => {
     if (name === "next") {
       //setPageNumber(pageNumber + 1)
       pageNum++
-      handleFormSubmit(e)
-      console.log(pageNum)
+      if(!searchInput && !lastSearched){
+        handleUserLoc(e)
+      } else {
+        handleFormSubmit(e)
+      }
     } else {
       //setPageNumber(pageNumber - 1)
       pageNum--
-      handleFormSubmit(e)
+      if(!searchInput && !lastSearched){
+        handleUserLoc(e)
+      } else {
+        handleFormSubmit(e)
+      }
     }
-    
   }
 
   
