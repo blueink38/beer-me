@@ -180,14 +180,14 @@ const SearchBreweries = () => {
             return (
               <GridColumn centered>  
               <Card centered key={brewery.breweryId}>
-                <h3 style={{textAlign:'center'}}>{brewery.name}</h3>
+                <h2 style={{textAlign:'center', color:'#ebba34'}}>{brewery.name}</h2>
                 <List>
-                  <List.Item>Type: {brewery.breweryType}</List.Item>
-                  <List.Item>Street: {brewery.street}</List.Item>
-                  <List.Item>City: {brewery.city}</List.Item>
-                  <List.Item>State: {brewery.state}</List.Item>
-                  <List.Item>Phone Number: {brewery.phone}</List.Item>
-                  <List.Item>Website: <a style={{color:'#2432d1'}} href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
+                  <List.Item className='beercard-output'><strong>Type:  </strong> {brewery.breweryType}</List.Item>
+                  <List.Item className='beercard-output'><strong> Street:  </strong>{brewery.street}</List.Item>
+                  <List.Item className='beercard-output'><strong> City:  </strong>{brewery.city}</List.Item>
+                  <List.Item className='beercard-output'><strong> State:  </strong>{brewery.state}</List.Item>
+                  <List.Item className='beercard-output'><strong> Phone Number:  </strong> {brewery.phone}</List.Item>
+                  <List.Item className='beercard-output'><strong> Website:  </strong> <a style={{color:'#2432d1'}} href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
                <br></br>
                 </List>
                   {/* {Auth.loggedIn() && ( */}
