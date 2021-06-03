@@ -6,12 +6,13 @@ import Auth from '../../utils/auth'
 import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions } from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
+import { add } from 'lodash';
 import { formatPhone } from '../../utils/helpers';
 
 let pageNum = 1;
 
 const SearchBreweries = () => {
-
+//  searchNearUser()
   const[addBrewery] = useMutation(ADD_BREWERY_TO_DB);
   const[saveBrewery] = useMutation(SAVE_BREWERY_TO_USER)
   // create state for holding returned openBrewery api data
@@ -30,7 +31,6 @@ const SearchBreweries = () => {
   useEffect(() => {
     return () => saveBreweryIds(savedBreweryIds);
   });
-  
   const options = [
     { key: 'city', text: 'City', value: 'city' },
     { key: 'state', text: 'State', value: 'state' },
@@ -39,6 +39,7 @@ const SearchBreweries = () => {
   // create method to search for Breweries and set state on form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log(event.type)
 
     if (!searchInput && !lastSearched) {
       return false;
@@ -108,10 +109,10 @@ const SearchBreweries = () => {
   };
 
   // create function to handle saving a Brewery to our database
-  const handleSaveBrewery = async (breweryId) => {
+  const handleSaveBrewery = async (brewery) => {
     // find the Brewery in `searchedBreweries` state by the matching id
-    const breweryToSave = searchedBreweries.find((brewery) => brewery.breweryId === breweryId);
-     console.log(breweryToSave)
+    // const breweryToSave = searchedBreweries.find((brewery) => brewery.breweryId === breweryId);
+     console.log(brewery)
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -120,14 +121,15 @@ const SearchBreweries = () => {
     }
 
     try {
-      const response = await saveBrewery(breweryToSave, token);
-
+      const response = await saveBrewery(brewery, token);
+      console.log(response)
+// add brewery using brewery ID
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
 
       // if Brewery successfully saves to user's account, save Brewery id to state
-      setSavedBreweryIds([...savedBreweryIds, breweryToSave.breweryId]);
+      // setSavedBreweryIds([...savedBreweryIds, breweryToSave.breweryId]);
     } catch (err) {
       console.error(err);
     }
@@ -155,6 +157,7 @@ const SearchBreweries = () => {
               id="aboutButton" 
               onClick={handleFormSubmit} 
               className="ui huge yellow button"
+
               >GET DRINKING!!</Button>
           </div>
           <Form onSubmit={handleFormSubmit}>
@@ -207,8 +210,8 @@ const SearchBreweries = () => {
                   {/* {Auth.loggedIn() && ( */}
                     <Button
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                      onClick={() => {handleSaveBrewery(brewery.breweryId) 
-                        console.log(brewery.breweryId)}}>
+                      onClick={() => {handleSaveBrewery(brewery) 
+                        console.log(brewery)}}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
                         ? 'This Brewery has already been saved!'
                         : 'Save this Brewery!'}
