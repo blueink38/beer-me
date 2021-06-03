@@ -1,12 +1,14 @@
 import React, { useState, useEffect} from 'react';
 // import _ from 'lodash'
-import {Form, Button, Card, List, Grid, GridColumn} from 'semantic-ui-react'
+import {Form, Button, Card, List, Grid, GridColumn, Menu} from 'semantic-ui-react'
 import {useMutation} from '@apollo/react-hooks'
 import Auth from '../../utils/auth'
 import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions } from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
 import { formatPhone } from '../../utils/helpers';
+
+let pageNum = 1;
 
 const SearchBreweries = () => {
 
@@ -20,6 +22,9 @@ const SearchBreweries = () => {
   const [searchType, setSearchType] = useState('');
   // create state to hold saved BreweryId values
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
+  //holds the last used search input
+  const [lastSearched, setLastSearched] = useState("")
+  
   
   // set up useEffect hook to save `savedBreweryIds` list to localStorage on component unmount
   useEffect(() => {
@@ -35,48 +40,67 @@ const SearchBreweries = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    if (!searchInput) {
+    if (!searchInput && !lastSearched) {
       return false;
     }
 
     try {
-      console.log(searchType)
-
-      let response ;
-      switch(searchType){
-        case 'city':
-          response = await searchByCity(searchInput);
-          break;
-        case 'state':
-          response = await searchByState(searchInput);
-          break;
-        case 'keyword':
-          response = await searchByTerm(searchInput);
-          break;
-        default:
-          response = await searchNearUser();  
+      if(searchInput.length){
+        setLastSearched(searchInput)
       }
 
-      const breweryData = response.map((brewery) => ({
-        breweryId: brewery.id,
-        name: brewery.name,
-        breweryType: brewery.brewery_type,
-        street: brewery.street || "",
-        address2: brewery.address_2,
-        address3: brewery.address_3,
-        city: brewery.city,
-        state: brewery.state,
-        countyProvince: brewery.county_province,
-        postalCode: brewery.postal_code,
-        country: brewery.country,
-        longitude: brewery.longitude,
-        latitude: brewery.latitude,
-        phone: brewery.phone || "",
-        websiteUrl: brewery.website_url || ""
-      }));
+      let response ;
 
+      switch(searchType){
+        case 'city':
+          if(searchInput){
+            response = await searchByCity(searchInput, pageNum);
+          } else if (lastSearched) {
+            response = await searchByCity(lastSearched, pageNum);
+          } 
+          break;
+        case 'state':
+          if(searchInput){
+            response = await searchByState(searchInput, pageNum);
+          } else if (lastSearched) {
+            response = await searchByState(lastSearched, pageNum);
+          }
+          break;
+        case 'keyword':
+          if(searchInput){
+            response = await searchByTerm(searchInput, pageNum);
+          } else if (lastSearched) {
+            response = await searchByTerm(lastSearched, pageNum);
+          }
+          break;
+        default:
+          response = await searchNearUser(pageNum);  
+      }
 
-      setSearchedBrewery(breweryData);
+      if(response.length){
+        const breweryData = response.map((brewery) => ({
+          breweryId: brewery.id,
+          name: brewery.name,
+          breweryType: brewery.brewery_type,
+          street: brewery.street || "",
+          address2: brewery.address_2,
+          address3: brewery.address_3,
+          city: brewery.city,
+          state: brewery.state,
+          countyProvince: brewery.county_province,
+          postalCode: brewery.postal_code,
+          country: brewery.country,
+          longitude: brewery.longitude,
+          latitude: brewery.latitude,
+          phone: brewery.phone || "",
+          websiteUrl: brewery.website_url || ""
+        }));
+  
+        setSearchedBrewery(breweryData);
+      } else {
+        setSearchedBrewery([])
+      }
+      
       setSearchInput('');
     } catch (err) {
       console.error(err);
@@ -109,9 +133,20 @@ const SearchBreweries = () => {
     }
   };
 
- 
-  
- 
+  const handlePageChange =  async (e,name) => {
+    if (name === "next") {
+      //setPageNumber(pageNumber + 1)
+      pageNum++
+      handleFormSubmit(e)
+      console.log(pageNum)
+    } else {
+      //setPageNumber(pageNumber - 1)
+      pageNum--
+      handleFormSubmit(e)
+    }
+    
+  }
+
   
   return (
     <>
@@ -123,8 +158,6 @@ const SearchBreweries = () => {
               >GET DRINKING!!</Button>
           </div>
           <Form onSubmit={handleFormSubmit}>
-          
-
               <Form.Group widths='equal'>
             
                   <Form.Input
@@ -144,18 +177,19 @@ const SearchBreweries = () => {
          
               </Form.Group>
               <Button className="ui reset button" id='city' type='submit'>Search For Beer!</Button>
-              
           </Form>
 
         <h2>
           {searchedBreweries.length
-            ? `Viewing ${searchedBreweries.length} results:`
+            ? `Viewing results ${1 +(20 * (pageNum -1))} - ${(20 * (pageNum - 1)) + searchedBreweries.length} :`
             : 'Search for a Brewery to begin'}
         </h2>
         <Grid centered stackable columns={3} >
-          {searchedBreweries.map((brewery) => {
+          {searchedBreweries.length 
+          ? 
+          searchedBreweries.map((brewery) => {
             return (
-              <GridColumn centered>  
+              <GridColumn centered="true">  
               <Card centered key={brewery.breweryId}>
                 <h3 style={{textAlign:'center'}}>{brewery.name}</h3>
                 <List>
@@ -190,10 +224,38 @@ const SearchBreweries = () => {
                   {/* )} */}
               </Card>
               </GridColumn>
-
             );
-          })}
+          })
+          : ""}
+          {!searchedBreweries.length && pageNum > 1 ?
+          "No more breweries to display"
+          :
+          ""}
         </Grid>
+        <Menu inverted >
+          {pageNum > 1 ? 
+            <Menu.Item
+              name="prev"
+              onClick={(e, { name }) => handlePageChange(e,name)}
+            >
+              <Button color="yellow">
+                <p>Previous Page</p>
+              </Button>
+            </Menu.Item>
+          : ""}
+          {searchedBreweries.length ? 
+            <Menu.Menu position="right">
+              <Menu.Item
+                name="next"
+                onClick={(e, { name }) => handlePageChange(e,name)}
+              >
+                <Button color="yellow">
+                  <p>Next Page</p>
+                </Button>
+              </Menu.Item>
+            </Menu.Menu>
+          : ""}
+        </Menu>       
     </>
   );
 };
