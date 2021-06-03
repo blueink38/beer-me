@@ -18,9 +18,13 @@ header {
 
 
 }
+
 .loginsignupcontainers {
    margin-left:45%;
   
+}
+.brewbuttons {
+   border: 2px solid black !important;
 }
 
 /* Banner section */

@@ -187,23 +187,29 @@ const SearchBreweries = () => {
                   <List.Item>State: {brewery.state}</List.Item>
                   <List.Item>Phone Number: {brewery.phone}</List.Item>
                   <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
+               <br></br>
                 </List>
                   {/* {Auth.loggedIn() && ( */}
-                    <Button
+                    
+                  <div className='ui large buttons'>
+                    <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                       onClick={() => {handleSaveBrewery(brewery.breweryId) 
                         console.log(brewery.breweryId)}}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
                         ? 'This Brewery has already been saved!'
-                        : 'Save this Brewery!'}
+                        : 'Save Brewery'}
                     </Button>
-                    <Button
+                    <div class="or"></div>
+                    <Button className ='ui yellow button'
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                       onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
-                         <p>Directions</p>
+                         <p style={{color:'#f2f0f0'}} > Directions</p>
                     </Button>
                   {/* )} */}
-              </Card>
+                  </div>
+                  </Card>
+              
             </GridColumn>
             );
           })}
