@@ -13,6 +13,23 @@ header {
    text-align: center;
    overflow: hidden;
 }
+#loginsignuppage {
+   background: #161415 url(../images/header-background.jpg) no-repeat top center;
+   background-size: cover !important;
+
+
+}
+.beercard-output {
+   margin-left: 2%;
+}
+
+.loginsignupcontainers {
+   margin-left:45%;
+  
+}
+.brewbuttons {
+   border: 2px solid black !important;
+}
 
 /* Banner section */
 header:before {

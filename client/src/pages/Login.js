@@ -28,13 +28,17 @@ function Login() {
   };
 
   return (
-    <div className="container my-1">
+    <section style={{height: '100vh'}} id='loginsignuppage'>
+    <div className="loginsignupcontainers my-1">
       <br></br>
       <br></br>
-      <h2>Login</h2>
+      <br></br>
+      <br></br>
+      <h1 style={{color:'#ebba34'}}>Login</h1>
+      <br></br>
       <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">
-          <label htmlFor="email">Email address:</label>
+          <label style={{color:'#ebba34'}}htmlFor="email">Email address:</label>
           <input
             placeholder="youremail@test.com"
             name="email"
@@ -43,8 +47,9 @@ function Login() {
             onChange={handleChange}
           />
         </div>
+
         <div className="flex-row space-between my-2">
-          <label htmlFor="pwd">Password:</label>
+          <label style={{color:'#ebba34'}}htmlFor="pwd">Password:</label>
           <input
             placeholder="******"
             name="password"
@@ -55,16 +60,17 @@ function Login() {
         </div>
         {
           error ? <div>
-            <p className="error-text" >The provided credentials are incorrect</p>
+            <p style={{color:'#ebba34'}} className="error-text" >The provided credentials are incorrect</p>
           </div> : null
         }
         <div className="flex-row flex-end">
-          <button type="submit">
-            Submit
-          </button>
+          <br></br>
+          <button class="ui yellow button">Submit</button>
+          
         </div>
       </form>
     </div>
+    </section>
   );
 }
 
