@@ -1,8 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from '@apollo/react-hooks';
 import Auth from "../utils/auth";
 import { ADD_USER } from "../utils/mutations";
+import { Form, TextArea, Button, Grid } from 'semantic-ui-react'
+
+
+// class FormCaptureValues extends Component {
+//   state = { userName: '', email: '', password: '', submittedUserName: '', submittedEmail: '', submittedPassword: ''}
+
+//   handleChange = (e, { name, value }) => this.setState({ [name]: value })
+
+//   handleSubmit = () => {
+//     const { userName, email, password } = this.state
+
+//     this.setState({ 
+//       submittedUserName: userName, userName: "", 
+//       submittedEmail: email, email: "",
+//       submittedPassword: password, password: "" })
+//   }
+// }
+
+
+
+
+
+
+
 
 function Signup() {
   const [formState, setFormState] = useState({ email: '', password: '' });
@@ -28,14 +52,35 @@ function Signup() {
     });
   };
 
+    // render() {
+    // const { userName, email, password, submittedUserName, submittedEmail, submittedPassword } = this.state
+
   return (
-    <div className="container my-1">
+
+<Grid id='contact-us' centered columns={4}>
+      <Grid.Column>
+
+
+
+    <div className="ui segment contactform inverted">
       <br></br>
       <br></br>
-      <h2>Signup</h2>
+      <h2 style={{textAlign: "center", color: '#ebba34'}}>Sign Up</h2>
       <form onSubmit={handleFormSubmit}>
+        <Form.Group>
+        {/* <Form.Input
+                width={8}
+                placeholder='User Name'
+                name='userName'
+                value={userName}
+                onChange={this.handleChange}
+                /> */}
+
+
+
+
         <div className="flex-row space-between my-2">
-          <label htmlFor="firstName">Username:</label>
+          <label htmlFor="Name">Username:</label>
           <input
             placeholder="Username"
             name="username"
@@ -69,10 +114,21 @@ function Signup() {
             Submit
           </button>
         </div>
+        </Form.Group>
       </form>
     </div>
-  );
 
+
+    </Grid.Column>
+    </Grid>
+
+
+
+
+  );
 }
+// }
+
+
 
 export default Signup;

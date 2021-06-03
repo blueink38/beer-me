@@ -140,7 +140,7 @@ const SearchBreweries = () => {
                     onChange={(e, { value }) => setSearchType(value)}
                     />
                   </Form.Group>
-                <div className="columns main-col drinkbutton">
+                <div className="columns main-col drinkbutton" widths='equal'>
                   <Button 
                     centered
                     id='city' 

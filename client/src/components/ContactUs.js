@@ -61,6 +61,9 @@ class FormCaptureValues extends Component {
                 onChange={this.handleChange}
                 />
             </Form.Group>
+
+<div className="columns main-col centered">
+
             <Form.Group>
             <Form.Button
               content='Submit'
@@ -69,7 +72,8 @@ class FormCaptureValues extends Component {
               style={{textAlign: "center"}}
               className=''
                />
-            </Form.Group>      
+            </Form.Group>   
+            </div>
           </Form>        
         </div>
       </Grid.Column>
