@@ -22,7 +22,7 @@ class FormCaptureValues extends Component {
   return (
     <Grid id='contact-us' centered columns={2}>
       <Grid.Column>
-        <div class="ui segment contactform inverted" >
+        <div className="ui segment contactform inverted" >
           <h2 style={{textAlign: "center", color: '#ebba34'}}>Ask Us Anything</h2>
           <br></br>
           <Form onSubmit={this.handleSubmit} >

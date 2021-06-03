@@ -54,6 +54,7 @@ let userIP = "";
 let userLat = 0;
 let userLon = 0;
 let completeDirections = [];
+let breweriesNearMe =[];
 
  
   
@@ -99,9 +100,9 @@ export  const searchNearUser = (page) => {
             //uses ip address to get physical location data
             return fetch("https://ipapi.co/" + userIP + "/json")
         }).then(function(response){
+          console.log(response)
             if(response.ok){
-
-                response.json().then(function(data){
+                response.json().then( function(data){
                     //save location data for future use
                     userLat = data.latitude;
                     userLon = data.longitude;
@@ -110,17 +111,23 @@ export  const searchNearUser = (page) => {
                     .then(response => response.json())
                     .then(data => {
                       console.log(data)
-                       return data
-              
+                      if(breweriesNearMe.length){
+                        breweriesNearMe= []
+                      }
+                      data.map( x => {
+                        breweriesNearMe.push(x)
+                      })
+                      // console.log(breweriesNearMe)
                   })
                   });
               }
           });
       }
   })
-
+  // console.log(breweriesNearMe)
+  return breweriesNearMe
 }; 
-
+searchNearUser()
  
 export function directions(latitude, longitude) {
   console.log(latitude, longitude)
@@ -159,6 +166,7 @@ export function directions(latitude, longitude) {
                                         console.log("wooooooooow")
                                       }
                                   });
+                    console.log(completeDirections)
                     });
                 }
             });

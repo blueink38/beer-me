@@ -56,14 +56,14 @@ export default class MenuExampleInvertedSecondary extends Component {
               active={activeItem === 'login'}
               onClick={this.handleItemClick}
             >
-              <Link to="/login"><Button color='yellow'>Login</Button></Link>
+              <Link to="/login">Login</Link>
             </Menu.Item>
             <Menu.Item
               name="signup"
               active={activeItem === 'signup'}
               onClick={this.handleItemClick}
             >
-            <Link to="/signup"><Button color='yellow'>Sign Up</Button></Link>
+            <Link to="/signup">Sign Up</Link>
             </Menu.Item>
           </Menu.Menu>
         : 
@@ -73,7 +73,7 @@ export default class MenuExampleInvertedSecondary extends Component {
               active={activeItem === 'home'}
               onClick={() => Auth.logout()}
             >
-              <Link to="/"><Button color='yellow'>Logout</Button></Link>
+              <Link to="/">Logout</Link>
             </Menu.Item>
           </Menu.Menu>
         }
