@@ -13,6 +13,14 @@ header {
    text-align: center;
    overflow: hidden;
 }
+#loginsignuppage {
+   background: #161415 url(../images/header-background.jpg) no-repeat top center;
+
+}
+.loginsignupcontainers {
+   margin-left:45%;
+  
+}
 
 /* Banner section */
 header:before {
