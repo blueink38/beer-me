@@ -187,7 +187,7 @@ const SearchBreweries = () => {
                   <List.Item>City: {brewery.city}</List.Item>
                   <List.Item>State: {brewery.state}</List.Item>
                   <List.Item>Phone Number: {brewery.phone}</List.Item>
-                  <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
+                  <List.Item>Website: <a style={{color:'#2432d1'}} href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
                <br></br>
                 </List>
                   {/* {Auth.loggedIn() && ( */}
