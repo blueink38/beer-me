@@ -14,7 +14,8 @@ header {
    overflow: hidden;
 }
 #loginsignuppage {
-   background: #161415 url(../images/header-background.jpg) no-repeat top center;
+   background: #161415 url(../images/header-background.jpg) ;
+
 
 }
 .loginsignupcontainers {
