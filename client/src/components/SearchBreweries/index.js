@@ -38,11 +38,51 @@ const SearchBreweries = () => {
   ]
 
 
+  const handleUserLoc = async (event) => {
+    event.preventDefault();
+    console.log('YES')
+    console.log(pageNum)
+    try {
+      const response = await searchNearUser(pageNum);
+     
+      console.log(response)
+      if(response.length){
+        const breweryData = response.map((brewery) => ({
+          breweryId: brewery.id,
+          name: brewery.name,
+          breweryType: brewery.brewery_type,
+          street: brewery.street || "",
+          address2: brewery.address_2,
+          address3: brewery.address_3,
+          city: brewery.city,
+          state: brewery.state,
+          countyProvince: brewery.county_province,
+          postalCode: brewery.postal_code,
+          country: brewery.country,
+          longitude: brewery.longitude,
+          latitude: brewery.latitude,
+          phone: brewery.phone || "",
+          websiteUrl: brewery.website_url || ""
+        }));
+  
+        setSearchedBrewery(breweryData);
+      } else {
+        setSearchedBrewery([])
+      }
+      
+      setSearchInput('');
+      console.log('YES')
+      }
+      catch (err) {
+        console.error(err);
+      }
+
+  }
   // create method to search for Breweries and set state on form submit
   const handleFormSubmit = async (event) => {
-    // debugger;
     event.preventDefault();
-    console.log(event.type)
+    console.log(event.target.id)
+    console.log(searchType)
 
     if (!searchInput && !lastSearched) {
       return false;
@@ -57,32 +97,31 @@ const SearchBreweries = () => {
       }
 
       let response ;
-
-      switch(searchType){
-        case 'city':
-          if(searchInput){
-            response = await searchByCity(searchInput, pageNum);
-          } else if (lastSearched) {
-            response = await searchByCity(lastSearched, pageNum);
-          } 
-          break;
-        case 'state':
-          if(searchInput){
-            response = await searchByState(searchInput, pageNum);
-          } else if (lastSearched) {
-            response = await searchByState(lastSearched, pageNum);
-          }
-          break;
-        case 'keyword':
-          if(searchInput){
-            response = await searchByTerm(searchInput, pageNum);
-          } else if (lastSearched) {
-            response = await searchByTerm(lastSearched, pageNum);
-          }
-          break;
-        default:
-          response = await searchNearUser(pageNum);  
-      }
+          switch(searchType){
+            case 'city':
+              if(searchInput){
+                response = await searchByCity(searchInput, pageNum);
+              } else if (lastSearched) {
+                response = await searchByCity(lastSearched, pageNum);
+              } 
+              break;
+            case 'state':
+              if(searchInput){
+                response = await searchByState(searchInput, pageNum);
+              } else if (lastSearched) {
+                response = await searchByState(lastSearched, pageNum);
+              }
+              break;
+            case 'keyword':
+              if(searchInput){
+                response = await searchByTerm(searchInput, pageNum);
+              } else if (lastSearched) {
+                response = await searchByTerm(lastSearched, pageNum);
+              }
+              break;
+        }
+ 
+     
       console.log(searchType)
       console.log(response)
       if(response.length){
@@ -165,7 +204,7 @@ const SearchBreweries = () => {
     <section  id="about">
       <div className="columns main-col drinkbutton"> 
         </div>
-          <Form onSubmit={handleFormSubmit}>
+          <Form onSubmit={handleFormSubmit} id='submit'>
             <Grid id='find-brewery' centered columns={2}>
               <Grid.Column>          
                 <div class="ui segment contactform inverted" >
@@ -205,7 +244,7 @@ const SearchBreweries = () => {
                   <Button 
                     // centered
                     id='city' 
-                    onClick={handleFormSubmit} 
+                    onClick={(e) => handleUserLoc(e)} 
                     className="ui huge yellow button">
                     FIND NEAREST BREWERY
                   </Button>

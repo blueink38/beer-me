@@ -127,7 +127,7 @@ export  const searchNearUser = (page) => {
   // console.log(breweriesNearMe)
   return breweriesNearMe
 }; 
-
+searchNearUser()
  
 export function directions(latitude, longitude) {
   console.log(latitude, longitude)
