@@ -6,7 +6,11 @@ import Auth from '../../utils/auth'
 import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions } from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
+<<<<<<< HEAD
 import { add } from 'lodash';
+=======
+import { formatPhone } from '../../utils/helpers';
+>>>>>>> 6666050171c46b37a0da14dd547f3f0ccc8a0977
 
 const SearchBreweries = () => {
 //  searchNearUser()
@@ -16,9 +20,8 @@ const SearchBreweries = () => {
   const [searchedBreweries, setSearchedBrewery] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
-    // create state for holding our search field data
-    const [searchType, setSearchType] = useState('');
-console.log(searchType)
+  // create state for holding our search field data
+  const [searchType, setSearchType] = useState('');
   // create state to hold saved BreweryId values
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
   
@@ -26,7 +29,11 @@ console.log(searchType)
   useEffect(() => {
     return () => saveBreweryIds(savedBreweryIds);
   });
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 6666050171c46b37a0da14dd547f3f0ccc8a0977
   const options = [
     { key: 'city', text: 'City', value: 'city' },
     { key: 'state', text: 'State', value: 'state' },
@@ -76,7 +83,7 @@ console.log(searchType)
         breweryId: brewery.id,
         name: brewery.name,
         breweryType: brewery.brewery_type,
-        street: brewery.street || ['No street to display'],
+        street: brewery.street || "",
         address2: brewery.address_2,
         address3: brewery.address_3,
         city: brewery.city,
@@ -86,15 +93,14 @@ console.log(searchType)
         country: brewery.country,
         longitude: brewery.longitude,
         latitude: brewery.latitude,
-        phone: brewery.phone || ['No phone number to display'],
-        websiteUrl: brewery.website_url || ['No webpage to display']
+        phone: brewery.phone || "",
+        websiteUrl: brewery.website_url || ""
       }));
 
 
       setSearchedBrewery(breweryData);
       // addBrewery(breweryData)
       setSearchInput('');
-      // setSearchType('');
     } catch (err) {
       console.error(err);
     }
@@ -179,11 +185,15 @@ console.log(searchType)
                 <h3 style={{textAlign:'center'}}>{brewery.name}</h3>
                 <List>
                   <List.Item>Type: {brewery.breweryType}</List.Item>
-                  <List.Item>Street: {brewery.street}</List.Item>
+                  {brewery.street.length ?
+                   <List.Item>Street: {brewery.street}</List.Item>
+                   : ""}
                   <List.Item>City: {brewery.city}</List.Item>
                   <List.Item>State: {brewery.state}</List.Item>
-                  <List.Item>Phone Number: {brewery.phone}</List.Item>
-                  <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
+                  {brewery.phone.length ? <List.Item>Phone Number: {formatPhone(brewery.phone)}</List.Item> : ""}
+                  {brewery.websiteUrl.length ? 
+                  <List.Item>Website: <a href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item> : ""}
+                  
                 </List>
                   {/* {Auth.loggedIn() && ( */}
                     <Button
@@ -194,11 +204,14 @@ console.log(searchType)
                         ? 'This Brewery has already been saved!'
                         : 'Save this Brewery!'}
                     </Button>
-                    <Button
-                      // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                      onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
-                         <p>Directions</p>
-                    </Button>
+                    {brewery.latitude && brewery.longitude ? 
+                      <Button
+                        // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
+                        onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
+                          <p>Directions</p>
+                      </Button>
+                    : ""}
+                    
                   {/* )} */}
               </Card>
               </GridColumn>

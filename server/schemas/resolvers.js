@@ -25,6 +25,10 @@ const resolvers = {
         brewery: async (parent, {name}) => {
             return Brewery.findOne({name})
         },
+        //get brewery by _id
+        breweryId: async (parent, {brewid}) => {
+            return Brewery.findOne({brewId})
+        },
         //get breweries by city
         breweryCity: async (parent, {city}) => {
             return Brewery.find({city}).sort()

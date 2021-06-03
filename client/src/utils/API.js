@@ -127,42 +127,8 @@ export  const searchNearUser = () => {
   console.log(breweriesNearMe)
   return breweriesNearMe
 }; 
-// export  async function searchNearUser() {
-//     const userIP = fetch("https://api.ipify.org/?format=json").then(function(response) {
-//                           if(response.ok){
-//                             response.json().then(function(data){
-//                               return data.ip 
-//              //uses ip address to get physical location data
-//              return fetch("https://ipapi.co/" + userIP + "/json")
-//          })
-//         }})
-         
-         
-//          .then(function(response){
-//              if(response.ok){
- 
-//                  response.json().then(function(data){
-//                      //save location data for future use
-//                      this.latitude= data.latitude;
-//                      userLon = data.longitude;
-//                      // console.log(userLat, userLon);
-//                      return fetch(`https://api.openbrewerydb.org/breweries?by_dist=${userLat},${userLon}`)
-//                      .then(response => response.json())
-//                      .then(data => {
-//                        console.log(data)
-//                         return data
-               
-//                    })
-//                    });
-//                }
-//            });
-//        }
-
 
  
-// searchNearUser()
-
-
 export function directions(latitude, longitude) {
   console.log(latitude, longitude)
   const lat = parseFloat(latitude);
@@ -172,12 +138,10 @@ export function directions(latitude, longitude) {
         if(response.ok){
             response.json().then(function(data){
                 userIP = data.ip 
-
                 //uses ip address to get physical location data
                 return fetch("https://ipapi.co/" + userIP + "/json")
             }).then(function(response){
                 if(response.ok){
-
                     response.json().then(function(data){
                         //save location data for future use
                         userLat = data.latitude;
@@ -187,9 +151,8 @@ export function directions(latitude, longitude) {
                           console.log(response.ok);
                                       if(response.ok){
                                           response.json().then(function(data){
-                                            // console.log(data);
                                             let instructions=data.routes[0].guidance.instructions;
-                                              
+                         
                                   for (let i = 0; i < instructions.length; i++) {
                     
                                 let stop = instructions[i].message;
