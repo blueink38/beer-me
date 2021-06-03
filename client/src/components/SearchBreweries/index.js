@@ -199,13 +199,13 @@ const SearchBreweries = () => {
                         console.log(brewery.breweryId)}}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
                         ? 'This Brewery has already been saved!'
-                        : 'Save Brewery'}
+                        : 'save brewery'}
                     </Button>
                     <div class="or"></div>
                     <Button className ='ui yellow button'
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                       onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
-                         <p style={{color:'#f2f0f0'}} > Directions</p>
+                         <p style={{color:'#f2f0f0'}} > get directions</p>
                     </Button>
                   {/* )} */}
                   </div>
