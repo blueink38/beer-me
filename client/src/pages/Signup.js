@@ -58,11 +58,11 @@ function Signup() {
   return (
     <section style={{height: '100vh'}} id='loginsignuppage'>
     <div className="loginsignupcontainers my-1">
-       <br></br>
       <br></br>
       <br></br>
       <br></br>
-      <h1 style={{color:'#ebba34'}}>Signup</h1>
+      <br></br>
+      <h1 style={{color:'#ebba34'}}>Sign Up</h1>
       <br></br>
       <form onSubmit={handleFormSubmit}>
         <Form.Group>
