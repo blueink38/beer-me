@@ -79,7 +79,7 @@ function Signup() {
 
         <div className="flex-row space-between my-2">
           <label style={{color:'#ebba34'}} htmlFor="firstName">Username:</label>
-          <input
+          <Form.Input
             placeholder="Username"
             name="username"
             type="username"
@@ -89,7 +89,7 @@ function Signup() {
         </div>
         <div className="flex-row space-between my-2">
           <label style={{color:'#ebba34'}} htmlFor="email">Email:</label>
-          <input
+          <Form.Input
             placeholder="youremail@test.com"
             name="email"
             type="email"
@@ -99,7 +99,7 @@ function Signup() {
         </div>
         <div className="flex-row space-between my-2">
           <label style={{color:'#ebba34'}} htmlFor="pwd">Password:</label>
-          <input
+          <Form.Input
             placeholder="******"
             name="password"
             type="password"
