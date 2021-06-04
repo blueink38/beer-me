@@ -208,10 +208,10 @@ const SearchBreweries = () => {
 
 
   // create function to handle saving a Brewery to our database
-  const handleSaveBrewery = async (brewery) => {
+  const handleSaveBrewery = async (brewId) => {
     // find the Brewery in `searchedBreweries` state by the matching id
     // const breweryToSave = searchedBreweries.find((brewery) => brewery.breweryId === breweryId);
-     console.log(brewery)
+    console.log(Auth.getProfile().data._id)
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     console.log(Auth.loggedIn())
@@ -249,10 +249,11 @@ const SearchBreweries = () => {
       
       // console.log(brewToSave)
         
-      const response = await saveBrewery({
-        variables:{brewId, Auth.getProfile().data._id}
-      })
+      // const response = await saveBrewery({
+      //   variables:{brewId, Auth.getProfile().data._id}
+      // })
 
+      const response = await saveBrewery(breweId, Auth.getProfile().data._id);
       console.log(response)
 // add brewery using brewery ID
       if (!response.ok) {
@@ -376,7 +377,8 @@ const SearchBreweries = () => {
                   <div className='ui large buttons'>
                     <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                      onClick={() => {handleSaveBrewery(brewery)}}>
+                      onClick={() => {handleSaveBrewery(brewId) 
+                        console.log(brewery)}}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
                         ? 'This Brewery has already been saved!'
                         : 'save brewery'}
