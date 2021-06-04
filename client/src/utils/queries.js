@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const QUERY_ME = gql`
-  query me($token: String!){
-    me(token:$token) {
+  query me($id: String!){
+    me(id:$id) {
       _id
       username
       email
