@@ -62,12 +62,10 @@ const brewerySchema = new Schema(
         },
         phone: {
             type: String,
-            unique: true,
             default: ""
         },
         websiteUrl: {
             type: String,
-            unique: true,
             default: ""
         },
     }
