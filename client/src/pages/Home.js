@@ -4,13 +4,15 @@ import Blip from '../components/Blip/index';
 import Hero from '../components/Hero/index';
 import ContactUs from '../components/ContactUs/index';
 import Footer from '../components/Footer/index';
+import Modal from '../components/Modal'
 
 const Home = () => {
     return (
       <div className="App">
-        <Hero/>
+        <Hero/> 
         <Blip/>
-        <SearchBreweries/>   
+        <Modal/>
+        <SearchBreweries/>  
         <ContactUs/>
         <Footer/>
       </div>

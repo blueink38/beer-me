@@ -1,3 +1,6 @@
+import PopUpDirections from "../components/Modal";
+// import directionsModal from "../components/Modal";
+
   // route to get logged in user's info (needs the token)
 export const getMe = (token) => {
     return fetch('/api/users/me', {
@@ -148,7 +151,7 @@ export function directions(latitude, longitude) {
                         userLon = data.longitude;
                         console.log(userLat, userLon);
                         fetch("https://api.tomtom.com/routing/1/calculateRoute/" + userLat + "%2C" + userLon + "%3A" + lat + "%2C" + lon + "/json?instructionsType=text&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN").then(function(response){
-                          console.log(response.ok);
+                          // console.log(response.ok);
                                       if(response.ok){
                                           response.json().then(function(data){
                                             let instructions=data.routes[0].guidance.instructions;
@@ -166,7 +169,8 @@ export function directions(latitude, longitude) {
                                         console.log("wooooooooow")
                                       }
                                   });
-                    console.log(completeDirections)
+                    // console.log(completeDirections);
+                    PopUpDirections();
                     });
                 }
             });
@@ -175,9 +179,4 @@ export function directions(latitude, longitude) {
     
 };
 
-// directions using TomTom
-// export function directions(latitude, longitude) {
-//   // console.log(lat, lon);
-
-//             }
-      
+export default completeDirections;

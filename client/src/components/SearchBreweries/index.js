@@ -289,7 +289,6 @@ const SearchBreweries = () => {
                     
                   <div className='ui large buttons'>
                     <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
-                      // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                       onClick={() => {handleSaveBrewery(brewery) 
                         console.log(brewery)}}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
@@ -300,7 +299,6 @@ const SearchBreweries = () => {
                       <>
                        <div class="or"></div>
                        <Button className ='ui yellow button'
-                         // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                          onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
                             <p style={{color:'#f2f0f0'}} > get directions</p>
                        </Button>
