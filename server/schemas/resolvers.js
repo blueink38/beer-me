@@ -4,9 +4,9 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        me: async (parent, args, context) => {
-            if(context.user) {
-                const userData = await User.findOne({})
+        me: async (parent, {token}) => {
+            if(token) {
+                const userData = await User.findOne({_id: id})
                 .select('-__v -password')
                 .populate('breweries')
 

@@ -1,9 +1,10 @@
 import React, { useState, useEffect} from 'react';
+import Modal from '../Modal/index'
 // import _ from 'lodash'
 import {Form, Button, Card, List, Grid, GridColumn, Menu} from 'semantic-ui-react'
 import {useMutation} from '@apollo/react-hooks'
 import Auth from '../../utils/auth'
-import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions } from '../../utils/API'
+import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser} from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
 import { add } from 'lodash';
@@ -301,8 +302,8 @@ const SearchBreweries = () => {
                        <div class="or"></div>
                        <Button className ='ui yellow button'
                          // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                         onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
-                            <p style={{color:'#f2f0f0'}} > get directions</p>
+                        >
+                          <p ><Modal lat={brewery.latitude} lon={brewery.longitude} /></p>
                        </Button>
                        </>
                     :""}
