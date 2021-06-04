@@ -250,7 +250,7 @@ const SearchBreweries = () => {
       // console.log(brewToSave)
         
       const response = await saveBrewery({
-        variables:{breweryID: brewery.breweryID}
+        variables:{brewId, Auth.getProfile().data._id}
       })
 
       console.log(response)
