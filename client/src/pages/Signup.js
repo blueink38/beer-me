@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useMutation } from '@apollo/react-hooks';
 import Auth from "../utils/auth";
 import { ADD_USER } from "../utils/mutations";
@@ -29,13 +28,17 @@ function Signup() {
   };
 
   return (
-    <div className="container my-1">
+    <section style={{height: '100vh'}} id='loginsignuppage'>
+    <div className="loginsignupcontainers my-1">
+       <br></br>
       <br></br>
       <br></br>
-      <h2>Signup</h2>
+      <br></br>
+      <h1 style={{color:'#ebba34'}}>Signup</h1>
+      <br></br>
       <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">
-          <label htmlFor="firstName">Username:</label>
+          <label style={{color:'#ebba34'}} htmlFor="firstName">Username:</label>
           <input
             placeholder="Username"
             name="username"
@@ -45,7 +48,7 @@ function Signup() {
           />
         </div>
         <div className="flex-row space-between my-2">
-          <label htmlFor="email">Email:</label>
+          <label style={{color:'#ebba34'}} htmlFor="email">Email:</label>
           <input
             placeholder="youremail@test.com"
             name="email"
@@ -55,7 +58,7 @@ function Signup() {
           />
         </div>
         <div className="flex-row space-between my-2">
-          <label htmlFor="pwd">Password:</label>
+          <label style={{color:'#ebba34'}} htmlFor="pwd">Password:</label>
           <input
             placeholder="******"
             name="password"
@@ -64,13 +67,13 @@ function Signup() {
             onChange={handleChange}
           />
         </div>
+        <br></br>
         <div className="flex-row flex-end">
-          <button type="submit">
-            Submit
-          </button>
+        <button class="ui yellow button">Submit</button>
         </div>
       </form>
     </div>
+    </section>
   );
 
 }

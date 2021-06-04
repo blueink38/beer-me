@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import FindBrewery from '../components/FindBrewery';
-import Blip from '../components/Blip';
-import Hero from '../components/Hero';
-import ContactUs from '../components/ContactUs';
-import Footer from '../components/Footer';
+import React from "react";
+import SearchBreweries from '../components/SearchBreweries/index';
+import Blip from '../components/Blip/index';
+import Hero from '../components/Hero/index';
+import ContactUs from '../components/ContactUs/index';
+import Footer from '../components/Footer/index';
 
 const Home = () => {
     return (
       <div className="App">
         <Hero/>
         <Blip/>
-        <FindBrewery/>   
+        <SearchBreweries/>   
         <ContactUs/>
         <Footer/>
       </div>
