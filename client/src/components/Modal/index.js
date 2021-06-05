@@ -35,7 +35,7 @@ function PopUpDirections(props) {
                         marginLeft:'25%'
                       },
                       content: {
-                        backgroundColor:'#a8a8a5',
+                        backgroundColor:'#ccccc8',
                         color: 'black',
                         scroll: 'none',
                         height:'85%',
