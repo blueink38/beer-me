@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const QUERY_ME = gql`
-  {
-    me {
+  query me($id: String!){
+    me(id:$id) {
       _id
       username
       email
@@ -14,7 +14,7 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_USERS = gql `
-  {
+  query{
     users{
       _id
       username
@@ -30,17 +30,6 @@ export const QUERY_BREWERY = gql `
   query brewery($name: String!){
     brewery(name: $name){
       _id
-      name
-      breweryType
-      street
-      address2
-      address3
-      city
-      state
-      longitude
-      latitude
-      phone
-      websiteUrl
     }
   }
 `;

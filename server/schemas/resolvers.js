@@ -4,9 +4,9 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        me: async (parent, args, context) => {
-            if(context.user) {
-                const userData = await User.findOne({})
+        me: async (parent, {id}) => {
+            if(id) {
+                const userData = await User.findOne({_id: id})
                 .select('-__v -password')
                 .populate('breweries')
 
@@ -58,10 +58,10 @@ const resolvers = {
             return brewery;
         },
         //brewId = Brewery._id
-        addSavedBrewery: async (parent, { brewId }, context) => {
-            if (context.user) {
+        addSavedBrewery: async (parent, { brewId, id }) => {
+            if (id) {
                 const updatedUser = await User.findOneAndUpdate(
-                    {_id: context.user._id},
+                    {_id: id},
                     { $addToSet: { breweries: brewId } },
                     { new: true}
                 ).populate('breweries');
@@ -77,10 +77,10 @@ const resolvers = {
                 return updatedUser;
             }
         },
-        removeSavedBrewery: async (parent, { brewId }, context) => {
-            if (context.user) {
+        removeSavedBrewery: async (parent, { brewId, id }) => {
+            if (id) {
                 const updatedUser = await User.findOneAndUpdate(
-                    {_id: context.user._id},
+                    {_id: id},
                     { $pull: { breweries: brewId } },
                     { new: true}
                 ).populate('breweries');
