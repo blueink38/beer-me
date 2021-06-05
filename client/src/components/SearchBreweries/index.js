@@ -7,7 +7,7 @@ import Auth from '../../utils/auth'
 import {directions, saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser} from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
-import {QUERY_ALL_BREWERIES} from '../../utils/queries'
+import {QUERY_ALL_BREWERIES, QUERY_BREWERY} from '../../utils/queries'
 import { add, xor } from 'lodash';
 import { formatPhone } from '../../utils/helpers';
 
@@ -27,15 +27,19 @@ const SearchBreweries = () => {
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
   //holds the last used search input
   const [lastSearched, setLastSearched] = useState('')
+  const[savedBrewery, setSavedBrewery] = useState('')
   const [queryId, setQueryId] = useState()
-  const { loading, error, data } = useQuery(QUERY_ALL_BREWERIES, {
-   
-    pollInterval: 500,
-  });
+  // const { loading, error, data } = useQuery(QUERY_ALL_BREWERIES, {
+   console.log(savedBrewery)
+  //   pollInterval: 500,
+  // });
+  const {loading, error, data} = useQuery(QUERY_BREWERY, {
+    variables:{ name: savedBrewery}
+  })
 
   
-  if (loading) return null;
-  if (error) return `Error! ${error}`;
+  // if (loading) return null;
+  // if (error) return `Error! ${error}`;
   // console.log(searchedBreweries)
   // console.log(loading)
   console.log(data)
@@ -89,34 +93,41 @@ const SearchBreweries = () => {
             websiteUrl: brewery.website_url || ""
           }));
         
-        
-        
-        // const saveToDB = response.map((brewery) => 
-        //  addBrewery(
-        //    {
-        //      variables:
-        //       {
-        //         breweryID: brewery.id,
-        //         name: brewery.name,
-        //         breweryType: brewery.brewery_type,
-        //         street: brewery.street || "",
-        //         address2: brewery.address_2,
-        //         address3: brewery.address_3,
-        //         city: brewery.city,
-        //         state: brewery.state,
-        //         countyProvince: brewery.county_province,
-        //         postalCode: brewery.postal_code,
-        //         country: brewery.country,
-        //         longitude: brewery.longitude,
-        //         latitude: brewery.latitude,
-        //         phone: brewery.phone || "",
-        //         websiteUrl: brewery.website_url || ""
-        //       }
+        //   const filterData = breweryData.filter(brewery => {
+        //       return brewery.name !== data.breweries.filter(savedBrew =>{
+        //         if(brewery.name === savedBrew.name){
+        //           return brewery.name
+        //         }
+        //       })
+        //   })
+        // console.log(breweryData)
+        // console.log(filterData)
+        const saveToDB = response.map((brewery) => 
+         addBrewery(
+           {
+             variables:
+              {
+                breweryID: brewery.id,
+                name: brewery.name,
+                breweryType: brewery.brewery_type,
+                street: brewery.street || "",
+                address2: brewery.address_2,
+                address3: brewery.address_3,
+                city: brewery.city,
+                state: brewery.state,
+                countyProvince: brewery.county_province,
+                postalCode: brewery.postal_code,
+                country: brewery.country,
+                longitude: brewery.longitude,
+                latitude: brewery.latitude,
+                phone: brewery.phone || "",
+                websiteUrl: brewery.website_url || ""
+              }
              
-        //    }
+           }
         
-        //  ));
-        // console.log()
+         ));
+        console.log(breweryData)
         setSearchedBrewery(breweryData);
       } else {
         setSearchedBrewery([])
@@ -194,6 +205,10 @@ const SearchBreweries = () => {
         }));
         setSearchedBrewery(breweryData);
 
+        const filterData = breweryData.filter(brewery => {
+              console.log(brewery.name)
+        })
+
         // addBrewery({
         //   variables: {
         //     breweryId: searchedBreweries.id,
@@ -227,67 +242,35 @@ const SearchBreweries = () => {
 
   // create function to handle saving a Brewery to our database
   const handleSaveBrewery = async (brewery) => {
-    // find the Brewery in `searchedBreweries` state by the matching id
-    // const breweryToSave = searchedBreweries.find((brewery) => brewery.breweryId === breweryId);
-    // console.log(data.users)
-    const direction = directions(brewery.latitude, brewery.longitude)
-    console.log(direction)
-    // console.log(Auth.getProfile().data._id)
-    // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    // console.log(Auth.loggedIn())
-    if (!token) {
-      return false;
-    }
 
-    try {
-      console.log(brewery)
-      const saveToDb = await addBrewery({
-          variables: {
-              breweryID: brewery.breweryID,
-              name: brewery.name,
-              breweryType: brewery.breweryType,
-              street: brewery.street ,
-              address2: brewery.address_2,
-              address3: brewery.address_3,
-              city: brewery.city,
-              state: brewery.state,
-              countyProvince: brewery.county_province,
-              postalCode: brewery.postal_code,
-              country: brewery.country,
-              longitude: brewery.longitude,
-              latitude: brewery.latitude,
-              phone: brewery.phone ,
-              websiteUrl: brewery.websiteUrl 
-          }}
-        );
-      // console.log(saveToDb)
+    if(brewery.length){
 
-      const match = await data.breweries.filter(brewDB => console.log(brewDB.name, brewery.name))
-      console.log(match)
-      // const brewToSave = searchedBreweries.filter(savedBrew =>{
-      //   return brewery.breweryID = savedBrew.breweryID
-      // }
-         
-      //   )
-      
-      // console.log(brewToSave)
+      try{
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+        const brewId = data.brewery._id;
+        console.log(brewId)
+        if (!token) {
+          return false;
+        }
         
-      // const response = await saveBrewery({
-      //   variables:{brewId, Auth.getProfile().data._id}
-      // })
-        const response = 'response'
-      // const response = await saveBrewery(brewery.breweryID, Auth.getProfile().data._id);
-      // console.log(response)
-// add brewery using brewery ID
-      if (!response.ok) {
-        throw new Error('something went wrong!');
+        const userId = Auth.getProfile().data._id
+        const response = await saveBrewery(
+            { 
+              variables:{
+                brewId: brewId,
+                id: userId
+              }
+            }
+        );
+        console.log(response)
+        if (!response.ok) {
+          throw new Error('something went wrong!');
+        }
+      }catch (err) {
+        console.error(err);
       }
+  
 
-      // if Brewery successfully saves to user's account, save Brewery id to state
-      // setSavedBreweryIds([...savedBreweryIds, breweryToSave.breweryId]);
-    } catch (err) {
-      console.error(err);
     }
   };
 
@@ -310,7 +293,9 @@ const SearchBreweries = () => {
       }
     }
   }
-
+  if(savedBrewery.length){
+    handleSaveBrewery(savedBrewery)
+  }
   
   return (
     <>
@@ -402,7 +387,7 @@ const SearchBreweries = () => {
                     <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                       onClick={() =>{
-                      handleSaveBrewery(brewery)
+                      setSavedBrewery(brewery.name)
 
                       // saveToUser(brewery)
                       }}>
