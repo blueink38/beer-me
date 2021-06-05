@@ -9,24 +9,28 @@ function PopUpDirections(props) {
   const [completeDirections, setCompleteDirections] = useState([])
   const [localSearch, setLocalSearch] = useState(false)
   const getDirections = () =>{
+      
+    
     const completedDirections = directions(props.lat, props.lon)
     setCompleteDirections(completedDirections)
     console.log(completeDirections)
+
   }
     if(modalIsOpen){ 
         return (
+
             <div>
                 <Modal 
                     isOpen={modalIsOpen} 
                     onRequestClose={() => setModalIsOpen(false)}
                     appElement={document.getElementById('root') || undefined}
                     contentLabel="Inline Styles Modal Example"
-                style={{
+                    style={{
                       overlay: {
                         backgroundColor:'black',
                         height:'80%',
                         opacity:'100%',
-			                  marginTop:'100px'
+                        marginTop:'100px',
                       },
                       content: {
                         backgroundColor:'orange',
@@ -68,6 +72,7 @@ function PopUpDirections(props) {
                 </Grid>
 
                 </Modal>
+
             </div>
 
           )
