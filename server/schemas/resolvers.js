@@ -29,7 +29,7 @@ const resolvers = {
             return Brewery.findOne({name})
         },
         //get brewery by _id
-        breweryId: async (parent, {brewid}) => {
+        breweryId: async (parent, {brewId}) => {
             return Brewery.findOne({brewId})
         },
         //get breweries by city

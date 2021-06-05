@@ -36,7 +36,12 @@ const SearchBreweries = () => {
   const {loading, error, data} = useQuery(QUERY_BREWERY, {
     variables:{ name: savedBrewery}
   })
+  const { data:allData} = useQuery(QUERY_ALL_BREWERIES, {
 
+    pollInterval: 500,
+  });
+
+ 
   
   // if (loading) return null;
   // if (error) return `Error! ${error}`;
@@ -92,16 +97,20 @@ const SearchBreweries = () => {
             phone: brewery.phone || "",
             websiteUrl: brewery.website_url || ""
           }));
-        
-        //   const filterData = breweryData.filter(brewery => {
-        //       return brewery.name !== data.breweries.filter(savedBrew =>{
-        //         if(brewery.name === savedBrew.name){
-        //           return brewery.name
-        //         }
-        //       })
-        //   })
-        // console.log(breweryData)
-        // console.log(filterData)
+          const filterData = []
+          
+          breweryData.filter(brewery => {
+            debugger;
+              allData.breweries.forEach(savedBrew => {
+                if(savedBrew.name===brewery.name){
+                  return
+                }
+
+              });
+              return brewery
+          })
+        console.log(breweryData)
+        console.log(filterData)
         const saveToDB = response.map((brewery) => 
          addBrewery(
            {

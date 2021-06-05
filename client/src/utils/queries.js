@@ -30,6 +30,7 @@ export const QUERY_ALL_BREWERIES = gql `
   {
     breweries{
       _id
+      breweryID
       name  
       breweryType
       street
