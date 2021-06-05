@@ -40,9 +40,11 @@ return (
       <Form onSubmit={handleOnSubmit}>
         <Form.Group>
         <Form.Field
+                  color='white'
+
           control={Input}
+
           label='Name'
-          color='white'
           
           name='user_name'
           placeholder='Name…'
