@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { directions } from '../../utils/API'
-import { List } from 'semantic-ui-react'
+import { List, Grid } from 'semantic-ui-react'
 
 
 function PopUpDirections(props) {
@@ -37,23 +37,39 @@ function PopUpDirections(props) {
                         }
                       }}
                 >
-                    <List>
-                    {modalIsOpen ?
-                        <button onClick={() => setLocalSearch(true)}> Directions from current location </button> 
-                    : ""}
-                    {localSearch ? 
-                        completeDirections.map((stop) => {
-                            return(
-                                <List.Item key={stop} >
-                                    <strong>{stop}</strong>
-                                </List.Item> 
-                            ) 
-                        })
-                    : ""}
-                    </List>
-                    <button onClick={() => setModalIsOpen(false)}>Close Directions</button>
+                <Grid centered columns={4}>
+                    <Grid.Column>
+                        <List>
+
+                        {modalIsOpen ?
+                            <button 
+                            onClick={() => setLocalSearch(true)}
+                            className="ui huge yellow button">
+                            Directions from current location 
+                            </button> 
+                        : ""}
+                        {localSearch ? 
+                            completeDirections.map((stop) => {
+                                return(
+                                    <List.Item key={stop} >
+                                        <strong>{stop}</strong>
+                                    </List.Item> 
+                                ) 
+                            })
+                        : ""}
+
+                        </List>
+                            <button 
+                            onClick={() => setModalIsOpen(false)}
+                            className="ui huge yellow button">
+                            Close the Directions Window
+                            </button>
+                    </Grid.Column>
+                </Grid>
+
                 </Modal>
             </div>
+
           )
     } else {
         return(<p style={{color:'#f2f0f0'}} onClick={() => (setModalIsOpen(true), getDirections())}>get directions</p>)
