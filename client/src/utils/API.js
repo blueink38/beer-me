@@ -133,50 +133,41 @@ export  const searchNearUser = (page) => {
 searchNearUser()
  
 export function directions(latitude, longitude) {
-  console.log(latitude, longitude)
   const lat = parseFloat(latitude);
   const lon = parseFloat(longitude);
-
-    fetch("https://api.ipify.org/?format=json").then(function(response) {
+  completeDirections = []
+  fetch("https://api.ipify.org/?format=json").then(function(response) {
+    if(response.ok){
+      response.json().then(function(data){
+          userIP = data.ip 
+          //uses ip address to get physical location data
+          return fetch("https://ipapi.co/" + userIP + "/json")
+      }).then(function(response){
         if(response.ok){
-            response.json().then(function(data){
-                userIP = data.ip 
-                //uses ip address to get physical location data
-                return fetch("https://ipapi.co/" + userIP + "/json")
-            }).then(function(response){
-                if(response.ok){
-                    response.json().then(function(data){
-                        //save location data for future use
-                        userLat = data.latitude;
-                        userLon = data.longitude;
-                        console.log(userLat, userLon);
-                        fetch("https://api.tomtom.com/routing/1/calculateRoute/" + userLat + "%2C" + userLon + "%3A" + lat + "%2C" + lon + "/json?instructionsType=text&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN").then(function(response){
-                          // console.log(response.ok);
-                                      if(response.ok){
-                                          response.json().then(function(data){
-                                            let instructions=data.routes[0].guidance.instructions;
-                         
-                                  for (let i = 0; i < instructions.length; i++) {
-                    
-                                let stop = instructions[i].message;
-                                completeDirections.push(stop);
-                    
-                      };
-                      console.log(completeDirections);
-                                         });
-                                      }
-                                      else {
-                                        console.log("wooooooooow")
-                                      }
-                                  });
-                    // console.log(completeDirections);
-                    PopUpDirections();
-                    });
-                }
+          response.json().then(function(data){
+            //save location data for future use
+            userLat = data.latitude;
+            userLon = data.longitude;
+            fetch("https://api.tomtom.com/routing/1/calculateRoute/" + userLat + "%2C" + userLon + "%3A" + lat + "%2C" + lon + "/json?instructionsType=text&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN").then(function(response){
+              if(response.ok){
+                response.json().then(function(data){
+                  let instructions=data.routes[0].guidance.instructions;                                             
+                  for (let i = 0; i < instructions.length; i++) {
+                    let stop = instructions[i].message;
+                    completeDirections.push(stop);
+                  };
+                });
+              }
+              else {
+                console.log("wooooooooow")
+              }
             });
+          });
         }
-    })
-    
+      });
+    } 
+  })  
+  return completeDirections 
 };
 
 export default completeDirections;

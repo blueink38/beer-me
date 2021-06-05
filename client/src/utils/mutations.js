@@ -62,8 +62,8 @@ export const ADD_BREWERY_TO_DB = gql `
 `;
 
 export const SAVE_BREWERY_TO_USER = gql `
-  mutation addSavedBrewery($brewId: ID!){
-    addSavedBrewery(brewId: $brewId){
+  mutation addSavedBrewery($brewId: ID!, $id: String!){
+    addSavedBrewery(brewId: $brewId, id: $id){
       breweries{
         name
       }
@@ -72,8 +72,8 @@ export const SAVE_BREWERY_TO_USER = gql `
 `;
 
 export const REMOVE_BREWERY_FROM_USER = gql `
-  mutation removeSavedBrewery($brewId: ID!){
-    removeSavedBrewery(brewId: $brewId){
+  mutation removeSavedBrewery($brewId: ID!, $id: String!){
+    removeSavedBrewery(brewId: $brewId, id: $id){
       breweries{
         name
       }

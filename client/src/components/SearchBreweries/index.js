@@ -1,9 +1,10 @@
 import React, { useState, useEffect} from 'react';
+import Modal from '../Modal/index'
 // import _ from 'lodash'
 import {Form, Button, Card, List, Grid, GridColumn, Menu} from 'semantic-ui-react'
 import {useMutation} from '@apollo/react-hooks'
 import Auth from '../../utils/auth'
-import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions } from '../../utils/API'
+import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser} from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
 import { add } from 'lodash';
@@ -154,10 +155,10 @@ const SearchBreweries = () => {
 
 
   // create function to handle saving a Brewery to our database
-  const handleSaveBrewery = async (brewery) => {
+  const handleSaveBrewery = async (brewId) => {
     // find the Brewery in `searchedBreweries` state by the matching id
     // const breweryToSave = searchedBreweries.find((brewery) => brewery.breweryId === breweryId);
-     console.log(brewery)
+    console.log(Auth.getProfile().data._id)
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -166,7 +167,7 @@ const SearchBreweries = () => {
     }
 
     try {
-      const response = await saveBrewery(brewery, token);
+      const response = await saveBrewery(brewId, Auth.getProfile().data._id);
       console.log(response)
 // add brewery using brewery ID
       if (!response.ok) {
@@ -289,6 +290,7 @@ const SearchBreweries = () => {
                     
                   <div className='ui large buttons'>
                     <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
+                      // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                       onClick={() => {handleSaveBrewery(brewery) 
                         console.log(brewery)}}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
@@ -299,8 +301,9 @@ const SearchBreweries = () => {
                       <>
                        <div class="or"></div>
                        <Button className ='ui yellow button'
-                         onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
-                            <p style={{color:'#f2f0f0'}} > get directions</p>
+                         // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
+                        >
+                          <p ><Modal lat={brewery.latitude} lon={brewery.longitude} /></p>
                        </Button>
                        </>
                     :""}

@@ -34,7 +34,7 @@ const typeDefs = gql`
     }
 
     type Query {
-        me: User
+        me(id: String!): User
         users: [User]
         brewery(name: String!): Brewery
         breweryId(brewId: ID!): Brewery
@@ -53,8 +53,8 @@ const typeDefs = gql`
             country: String, longitude: String, latitude: String, phone: String,
             websiteUrl: String 
         ): Brewery
-        addSavedBrewery(brewId: ID!): User
-        removeSavedBrewery(brewId: ID!): User
+        addSavedBrewery(brewId: ID!, id: String!): User
+        removeSavedBrewery(brewId: ID!, id: String!): User
         login(email: String!, password: String!): Auth
     }
 `;
