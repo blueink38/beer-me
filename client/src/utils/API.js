@@ -1,3 +1,6 @@
+import PopUpDirections from "../components/Modal";
+// import directionsModal from "../components/Modal";
+
   // route to get logged in user's info (needs the token)
 export const getMe = (token) => {
     return fetch('/api/users/me', {
@@ -102,8 +105,7 @@ export  const searchNearUser = (page) => {
         }).then(function(response){
           console.log(response)
             if(response.ok){
-
-                response.json().then(function(data){
+                response.json().then( function(data){
                     //save location data for future use
                     userLat = data.latitude;
                     userLon = data.longitude;
@@ -111,6 +113,7 @@ export  const searchNearUser = (page) => {
                     fetch(`https://api.openbrewerydb.org/breweries?by_dist=${userLat},${userLon}&page=${page}`)
                     .then(response => response.json())
                     .then(data => {
+                      console.log(data)
                       if(breweriesNearMe.length){
                         breweriesNearMe= []
                       }
@@ -124,60 +127,47 @@ export  const searchNearUser = (page) => {
           });
       }
   })
-  console.log(breweriesNearMe)
+  // console.log(breweriesNearMe)
   return breweriesNearMe
 }; 
-
+searchNearUser()
  
 export function directions(latitude, longitude) {
-  console.log(latitude, longitude)
   const lat = parseFloat(latitude);
   const lon = parseFloat(longitude);
-
-    fetch("https://api.ipify.org/?format=json").then(function(response) {
+  completeDirections = []
+  fetch("https://api.ipify.org/?format=json").then(function(response) {
+    if(response.ok){
+      response.json().then(function(data){
+          userIP = data.ip 
+          //uses ip address to get physical location data
+          return fetch("https://ipapi.co/" + userIP + "/json")
+      }).then(function(response){
         if(response.ok){
-            response.json().then(function(data){
-                userIP = data.ip 
-                //uses ip address to get physical location data
-                return fetch("https://ipapi.co/" + userIP + "/json")
-            }).then(function(response){
-                if(response.ok){
-                    response.json().then(function(data){
-                        //save location data for future use
-                        userLat = data.latitude;
-                        userLon = data.longitude;
-                        console.log(userLat, userLon);
-                        fetch("https://api.tomtom.com/routing/1/calculateRoute/" + userLat + "%2C" + userLon + "%3A" + lat + "%2C" + lon + "/json?instructionsType=text&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN").then(function(response){
-                          console.log(response.ok);
-                                      if(response.ok){
-                                          response.json().then(function(data){
-                                            let instructions=data.routes[0].guidance.instructions;
-                         
-                                  for (let i = 0; i < instructions.length; i++) {
-                    
-                                let stop = instructions[i].message;
-                                completeDirections.push(stop);
-                    
-                      };
-                      console.log(completeDirections);
-                                         });
-                                      }
-                                      else {
-                                        console.log("wooooooooow")
-                                      }
-                                  });
-                    console.log(completeDirections)
-                    });
-                }
+          response.json().then(function(data){
+            //save location data for future use
+            userLat = data.latitude;
+            userLon = data.longitude;
+            fetch("https://api.tomtom.com/routing/1/calculateRoute/" + userLat + "%2C" + userLon + "%3A" + lat + "%2C" + lon + "/json?instructionsType=text&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=2qYjtOeeuEawxxQE7KUtVZQFywO4pRvN").then(function(response){
+              if(response.ok){
+                response.json().then(function(data){
+                  let instructions=data.routes[0].guidance.instructions;                                             
+                  for (let i = 0; i < instructions.length; i++) {
+                    let stop = instructions[i].message;
+                    completeDirections.push(stop);
+                  };
+                });
+              }
+              else {
+                console.log("wooooooooow")
+              }
             });
+          });
         }
-    })
-    
+      });
+    } 
+  })  
+  return completeDirections 
 };
 
-// directions using TomTom
-// export function directions(latitude, longitude) {
-//   // console.log(lat, lon);
-
-//             }
-      
+export default completeDirections;

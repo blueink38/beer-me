@@ -30,7 +30,8 @@
     "lodash": "^4.17.21",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
-    "sweetalert2": "^11.0.16"
+    "sweetalert2": "^11.0.16",
+    "react-modal": "^3.14.2"
   },
   "browserslist": {
     "production": [

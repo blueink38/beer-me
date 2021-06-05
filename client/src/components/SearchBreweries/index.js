@@ -1,9 +1,10 @@
 import React, { useState, useEffect} from 'react';
+import Modal from '../Modal/index'
 // import _ from 'lodash'
 import {Form, Button, Card, List, Grid, GridColumn, Menu} from 'semantic-ui-react'
 import {useMutation} from '@apollo/react-hooks'
 import Auth from '../../utils/auth'
-import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser, directions } from '../../utils/API'
+import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser} from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
 import { add } from 'lodash';
@@ -24,7 +25,7 @@ const SearchBreweries = () => {
   // create state to hold saved BreweryId values
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
   //holds the last used search input
-  const [lastSearched, setLastSearched] = useState("")
+  const [lastSearched, setLastSearched] = useState('')
   
   
   // set up useEffect hook to save `savedBreweryIds` list to localStorage on component unmount
@@ -36,51 +37,17 @@ const SearchBreweries = () => {
     { key: 'state', text: 'State', value: 'state' },
     { key: 'keyword', text: 'Keyword', value: 'keyword' },
   ]
-  // create method to search for Breweries and set state on form submit
-  const handleFormSubmit = async (event) => {
+
+
+  const handleUserLoc = async (event) => {
     event.preventDefault();
-    console.log(event.type)
 
-    if (!searchInput && !lastSearched) {
-      return false;
-    }
-
+    setSearchInput('')
+    setLastSearched('')
     try {
-      if(searchInput.length){
-        if(searchInput !== lastSearched) {
-          pageNum = 1
-        }
-        setLastSearched(searchInput)
-      }
-
-      let response ;
-
-      switch(searchType){
-        case 'city':
-          if(searchInput){
-            response = await searchByCity(searchInput, pageNum);
-          } else if (lastSearched) {
-            response = await searchByCity(lastSearched, pageNum);
-          } 
-          break;
-        case 'state':
-          if(searchInput){
-            response = await searchByState(searchInput, pageNum);
-          } else if (lastSearched) {
-            response = await searchByState(lastSearched, pageNum);
-          }
-          break;
-        case 'keyword':
-          if(searchInput){
-            response = await searchByTerm(searchInput, pageNum);
-          } else if (lastSearched) {
-            response = await searchByTerm(lastSearched, pageNum);
-          }
-          break;
-        default:
-          response = await searchNearUser(pageNum);  
-      }
-
+      const response = await searchNearUser(pageNum);
+     
+      console.log(response)
       if(response.length){
         const breweryData = response.map((brewery) => ({
           breweryId: brewery.id,
@@ -106,16 +73,92 @@ const SearchBreweries = () => {
       }
       
       setSearchInput('');
-    } catch (err) {
-      console.error(err);
+      console.log('YES')
+      }
+      catch (err) {
+        console.error(err);
+      }
+
+  }
+  // create method to search for Breweries and set state on form submit
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(event.target.id)
+    console.log(searchType)
+
+    if (!searchInput && !lastSearched) {
+      return false;
     }
-  };
+
+    try {
+      if(searchInput.length){
+        if(searchInput !== lastSearched) {
+          pageNum = 1
+        }
+        setLastSearched(searchInput)
+      }
+
+      let response ;
+      switch(searchType){
+        case 'city':
+          if(searchInput){
+            response = await searchByCity(searchInput, pageNum);
+          } else if (lastSearched) {
+            response = await searchByCity(lastSearched, pageNum);
+          } 
+          break;
+        case 'state':
+          if(searchInput){
+            response = await searchByState(searchInput, pageNum);
+          } else if (lastSearched) {
+            response = await searchByState(lastSearched, pageNum);
+          }
+          break;
+        case 'keyword':
+          if(searchInput){
+            response = await searchByTerm(searchInput, pageNum);
+          } else if (lastSearched) {
+            response = await searchByTerm(lastSearched, pageNum);
+          }
+          break;
+      }
+ 
+      if(response.length){
+        const breweryData = response.map((brewery) => ({
+          breweryId: brewery.id,
+          name: brewery.name,
+          breweryType: brewery.brewery_type,
+          street: brewery.street || "",
+          address2: brewery.address_2,
+          address3: brewery.address_3,
+          city: brewery.city,
+          state: brewery.state,
+          countyProvince: brewery.county_province,
+          postalCode: brewery.postal_code,
+          country: brewery.country,
+          longitude: brewery.longitude,
+          latitude: brewery.latitude,
+          phone: brewery.phone || "",
+          websiteUrl: brewery.website_url || ""
+        }));
+        setSearchedBrewery(breweryData);
+      } else {
+        setSearchedBrewery([])
+      }
+      
+      setSearchInput('');
+      }
+      catch (err) {
+        console.error(err);
+      }
+    } 
+
 
   // create function to handle saving a Brewery to our database
-  const handleSaveBrewery = async (brewery) => {
+  const handleSaveBrewery = async (brewId) => {
     // find the Brewery in `searchedBreweries` state by the matching id
     // const breweryToSave = searchedBreweries.find((brewery) => brewery.breweryId === breweryId);
-     console.log(brewery)
+    console.log(Auth.getProfile().data._id)
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -124,7 +167,7 @@ const SearchBreweries = () => {
     }
 
     try {
-      const response = await saveBrewery(brewery, token);
+      const response = await saveBrewery(brewId, Auth.getProfile().data._id);
       console.log(response)
 // add brewery using brewery ID
       if (!response.ok) {
@@ -142,14 +185,20 @@ const SearchBreweries = () => {
     if (name === "next") {
       //setPageNumber(pageNumber + 1)
       pageNum++
-      handleFormSubmit(e)
-      console.log(pageNum)
+      if(!searchInput && !lastSearched){
+        handleUserLoc(e)
+      } else {
+        handleFormSubmit(e)
+      }
     } else {
       //setPageNumber(pageNumber - 1)
       pageNum--
-      handleFormSubmit(e)
+      if(!searchInput && !lastSearched){
+        handleUserLoc(e)
+      } else {
+        handleFormSubmit(e)
+      }
     }
-    
   }
 
   
@@ -158,7 +207,7 @@ const SearchBreweries = () => {
     <section  id="about">
       <div className="columns main-col drinkbutton"> 
         </div>
-          <Form onSubmit={handleFormSubmit}>
+          <Form onSubmit={handleFormSubmit} id='submit'>
             <Grid id='find-brewery' centered columns={2}>
               <Grid.Column>          
                 <div class="ui segment contactform inverted" >
@@ -184,7 +233,7 @@ const SearchBreweries = () => {
                   <br></br>
                 <div className="columns main-col drinkbutton">
                   <Button 
-                    centered
+                    // centered
                     id='city' 
                     type='submit'
                     // onClick={handleFormSubmit} 
@@ -196,10 +245,9 @@ const SearchBreweries = () => {
                <br></br>
                <div className="columns main-col drinkbutton">
                   <Button 
-                    centered
+                    // centered
                     id='city' 
-                    type='submit'
-                    // onClick={handleFormSubmit} 
+                    onClick={(e) => handleUserLoc(e)} 
                     className="ui huge yellow button">
                     FIND NEAREST BREWERY
                   </Button>
@@ -254,8 +302,8 @@ const SearchBreweries = () => {
                        <div class="or"></div>
                        <Button className ='ui yellow button'
                          // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                         onClick={() => {directions(brewery.latitude, brewery.longitude) }}>
-                            <p style={{color:'#f2f0f0'}} > get directions</p>
+                        >
+                          <p ><Modal lat={brewery.latitude} lon={brewery.longitude} /></p>
                        </Button>
                        </>
                     :""}
