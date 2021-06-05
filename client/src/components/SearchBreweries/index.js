@@ -27,18 +27,32 @@ const SearchBreweries = () => {
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
   //holds the last used search input
   const [lastSearched, setLastSearched] = useState('')
+  const [queryId, setQueryId] = useState()
+  const { loading, error, data } = useQuery(QUERY_ALL_BREWERIES, {
+   
+    pollInterval: 500,
+  });
 
-  const { loading, data } = useQuery(QUERY_ALL_BREWERIES);
+  
+  if (loading) return null;
+  if (error) return `Error! ${error}`;
   // console.log(searchedBreweries)
-  console.log(loading)
+  // console.log(loading)
   console.log(data)
   // set up useEffect hook to save `savedBreweryIds` list to localStorage on component unmount
-  useEffect(() => {
-    async function addBreweryToDb(){
-      const breweries = searchedBreweries.map()
-    }
-    return () => saveBreweryIds(savedBreweryIds);
-  });
+  // useEffect(() => {
+  //   if
+  //   async function matchId()
+  // //   async function addBreweryToDb(){
+  // //   const breweries = searchedBreweries.map()
+  // // }
+  // //   return () => saveBreweryIds(savedBreweryIds);
+  // //   async function updateBreweryDB(){
+      
+  // //   }
+  // });
+
+  
   const options = [
     { key: 'city', text: 'City', value: 'city' },
     { key: 'state', text: 'State', value: 'state' },
@@ -102,14 +116,14 @@ const SearchBreweries = () => {
         //    }
         
         //  ));
-        console.log()
+        // console.log()
         setSearchedBrewery(breweryData);
       } else {
         setSearchedBrewery([])
       }
       
       setSearchInput('');
-      console.log('YES')
+      // console.log('YES')
       }
       catch (err) {
         console.error(err.graphQLErrors);
@@ -119,8 +133,8 @@ const SearchBreweries = () => {
   // create method to search for Breweries and set state on form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(event.target.id)
-    console.log(searchType)
+    // console.log(event.target.id)
+    // console.log(searchType)
 
     if (!searchInput && !lastSearched) {
       return false;
@@ -387,7 +401,11 @@ const SearchBreweries = () => {
                   <div className='ui large buttons'>
                     <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                      onClick={() => {handleSaveBrewery(brewery)}}>
+                      onClick={() =>{
+                      handleSaveBrewery(brewery)
+
+                      // saveToUser(brewery)
+                      }}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
                         ? 'This Brewery has already been saved!'
                         : 'save brewery'}

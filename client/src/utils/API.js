@@ -110,7 +110,7 @@ export  const searchNearUser = (page) => {
                     fetch(`https://api.openbrewerydb.org/breweries?by_dist=${userLat},${userLon}&page=${page}`)
                     .then(response => response.json())
                     .then(data => {
-                      console.log(data)
+                      // console.log(data)
                       if(breweriesNearMe.length){
                         breweriesNearMe= []
                       }
