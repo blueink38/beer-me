@@ -167,7 +167,7 @@ const SearchBreweries = () => {
     }
 
     try {
-      const response = await saveBrewery(breweId, Auth.getProfile().data._id);
+      const response = await saveBrewery(brewId, Auth.getProfile().data._id);
       console.log(response)
 // add brewery using brewery ID
       if (!response.ok) {
@@ -291,7 +291,7 @@ const SearchBreweries = () => {
                   <div className='ui large buttons'>
                     <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                      onClick={() => {handleSaveBrewery(brewId) 
+                      onClick={() => {handleSaveBrewery(brewery) 
                         console.log(brewery)}}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
                         ? 'This Brewery has already been saved!'
