@@ -21,6 +21,9 @@ const resolvers = {
             .select('-__v -password')
             .populate('breweries');
         },
+        breweries: async () => {
+            return await Brewery.find();
+          },
         //get brewery by name
         brewery: async (parent, {name}) => {
             return Brewery.findOne({name})

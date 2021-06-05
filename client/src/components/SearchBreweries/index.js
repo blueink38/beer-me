@@ -2,12 +2,13 @@ import React, { useState, useEffect} from 'react';
 import Modal from '../Modal/index'
 // import _ from 'lodash'
 import {Form, Button, Card, List, Grid, GridColumn, Menu} from 'semantic-ui-react'
-import {useMutation} from '@apollo/react-hooks'
+import {useMutation, useQuery} from '@apollo/react-hooks'
 import Auth from '../../utils/auth'
-import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser} from '../../utils/API'
+import {directions, saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser} from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
-import { add } from 'lodash';
+import {QUERY_ALL_BREWERIES} from '../../utils/queries'
+import { add, xor } from 'lodash';
 import { formatPhone } from '../../utils/helpers';
 
 let pageNum = 1;
@@ -26,8 +27,11 @@ const SearchBreweries = () => {
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
   //holds the last used search input
   const [lastSearched, setLastSearched] = useState('')
+
+  const { loading, data } = useQuery(QUERY_ALL_BREWERIES);
   // console.log(searchedBreweries)
-  
+  console.log(loading)
+  console.log(data)
   // set up useEffect hook to save `savedBreweryIds` list to localStorage on component unmount
   useEffect(() => {
     async function addBreweryToDb(){
@@ -208,13 +212,16 @@ const SearchBreweries = () => {
 
 
   // create function to handle saving a Brewery to our database
-  const handleSaveBrewery = async (brewId) => {
+  const handleSaveBrewery = async (brewery) => {
     // find the Brewery in `searchedBreweries` state by the matching id
     // const breweryToSave = searchedBreweries.find((brewery) => brewery.breweryId === breweryId);
-    console.log(Auth.getProfile().data._id)
+    // console.log(data.users)
+    const direction = directions(brewery.latitude, brewery.longitude)
+    console.log(direction)
+    // console.log(Auth.getProfile().data._id)
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-    console.log(Auth.loggedIn())
+    // console.log(Auth.loggedIn())
     if (!token) {
       return false;
     }
@@ -240,7 +247,10 @@ const SearchBreweries = () => {
               websiteUrl: brewery.websiteUrl 
           }}
         );
-      console.log(saveToDb)
+      // console.log(saveToDb)
+
+      const match = await data.breweries.filter(brewDB => console.log(brewDB.name, brewery.name))
+      console.log(match)
       // const brewToSave = searchedBreweries.filter(savedBrew =>{
       //   return brewery.breweryID = savedBrew.breweryID
       // }
@@ -252,9 +262,9 @@ const SearchBreweries = () => {
       // const response = await saveBrewery({
       //   variables:{brewId, Auth.getProfile().data._id}
       // })
-
-      const response = await saveBrewery(breweId, Auth.getProfile().data._id);
-      console.log(response)
+        const response = 'response'
+      // const response = await saveBrewery(brewery.breweryID, Auth.getProfile().data._id);
+      // console.log(response)
 // add brewery using brewery ID
       if (!response.ok) {
         throw new Error('something went wrong!');
@@ -377,8 +387,7 @@ const SearchBreweries = () => {
                   <div className='ui large buttons'>
                     <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                      onClick={() => {handleSaveBrewery(brewId) 
-                        console.log(brewery)}}>
+                      onClick={() => {handleSaveBrewery(brewery)}}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
                         ? 'This Brewery has already been saved!'
                         : 'save brewery'}

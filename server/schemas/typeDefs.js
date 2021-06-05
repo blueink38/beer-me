@@ -36,6 +36,7 @@ const typeDefs = gql`
     type Query {
         me(id: String!): User
         users: [User]
+        breweries: [Brewery]
         brewery(name: String!): Brewery
         breweryId(brewId: ID!): Brewery
         breweryCity(city: String!): [Brewery]

@@ -26,6 +26,25 @@ export const QUERY_USERS = gql `
   }
 `;
 
+export const QUERY_ALL_BREWERIES = gql `
+  {
+    breweries{
+      _id
+      name  
+      breweryType
+      street
+      address2
+      address3
+      city
+      state
+      longitude
+      latitude
+      phone
+      websiteUrl
+    }
+  }
+`;
+
 export const QUERY_BREWERY = gql `
   query brewery($name: String!){
     brewery(name: $name){
