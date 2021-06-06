@@ -40,10 +40,10 @@ const SearchBreweries = () => {
 
     pollInterval: 500,
   });
-
+  // console.log(Auth.loggedIn())
 
   useEffect(() => {
-    if(allData) {
+    if(!allData) {
       allData.breweries.forEach((brewery) => {
         idbPromise('searched-brewery', 'put', brewery);
       });
@@ -55,9 +55,9 @@ const SearchBreweries = () => {
       });
     }
   }, [data, loading]);
-
+console.log(userData)
   useEffect(() => {
-    if(userData) {
+    if(!userData) {
       userData.me.breweries.forEach((brewery) => {
         console.log(brewery)
         idbPromise('saved-brewery', 'put', brewery);
@@ -103,15 +103,14 @@ const SearchBreweries = () => {
           }));
           const filterData = []
           
-          breweryData.filter(brewery => {
-            // debugger;
-              allData.breweries.forEach(savedBrew => {
-                if(savedBrew.name===brewery.name){
-                  return
-                }
-
-              });
-              return brewery
+          searchedBreweries.breweries.map(brewery => {
+            
+              console.log(brewery)
+              const index = breweryData.indexOf(brewery)
+              console.log(index)
+              // if (index > -1) {
+              //   savedBreweries.splice(index, 1);
+              // }
           })
         console.log(breweryData)
         console.log(filterData)
@@ -295,7 +294,7 @@ const SearchBreweries = () => {
       <div className="columns main-col drinkbutton"> 
         </div>
           <Form onSubmit={handleFormSubmit} id='submit'>
-            <Grid id='find-brewery' centered columns={2}>
+            <Grid centered doubling stackable columns={3}>
               <Grid.Column>          
                 <div class="ui segment contactform inverted" >
                   <h1 style={{textAlign: "center", color: '#ebba34'}}>Find Your Brewery</h1>
@@ -350,7 +349,7 @@ const SearchBreweries = () => {
             ? `Viewing results ${1 + (20 * (pageNum -1))} - ${searchedBreweries.length + (20 * (pageNum - 1))}:`
             : ''}
         </h2>
-        <Grid centered stackable columns={3} >
+        <Grid centered doubling stackable columns={3} >
           {searchedBreweries.length 
           ? 
           searchedBreweries.map((brewery) => {

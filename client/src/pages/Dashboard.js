@@ -104,7 +104,7 @@ function Dashboard() {
         <br></br>
         <h1 style={{color:'#ebba34', textAlign:'center'}}>Your Saved Breweries</h1>
         <br></br>
-        <div 
+        {/* <div 
           className="columns main-col drinkbutton"
           style={{ margin: "0 auto 40px auto"}}
         >
@@ -117,9 +117,9 @@ function Dashboard() {
             className="ui huge yellow button centered">
             SHOW ME MY SAVED BREWS
           </Button>
-        </div>
+        </div> */}
       </div>
-        <Grid centered stackable columns={2} >
+        <Grid centered doubling stackable columns={3} >
             {savedBreweries.length 
             ? 
             savedBreweries.map((brewery) => {
