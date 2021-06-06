@@ -22,6 +22,11 @@ header {
    background: #161415 url(../images/header-background.jpg) no-repeat top center;
    background-size: cover !important;
    background-attachment: fixed;
+   background: #191919;
+   padding-top: 96px;
+   padding-bottom: 66px;
+   overflow-x: hidden;
+   width: 100%;
 }
 
 .beercard-output {

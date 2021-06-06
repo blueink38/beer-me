@@ -77,7 +77,7 @@ function Dashboard() {
       };
     // displayBreweries()
   return (
-    <section style={{height: '300vh'}} id='savedbrewpage'>
+    <section style={{height: '100vh'}} id='savedbrewpage'>
     <div className="dashboard">
        <br></br>
       <br></br>
