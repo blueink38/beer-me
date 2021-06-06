@@ -14,7 +14,7 @@ function Dashboard() {
     const[deleteBrewery] = useMutation(REMOVE_BREWERY_FROM_USER)
     const [user, setUser] = useState('');
     const [savedBreweries, setSavedBreweries] = useState([]);
-    const [savedBreweryIds, setSavedBreweryIds] = useState('1');
+    const [deleteId, setDeleteId] = useState('');
     const[deleteThisBrewery, setDeleteBrewery] = useState('')
     const userID = Auth.getProfile().data._id;
     const {loading: userLoading, error: userError, data: userData} = useQuery(QUERY_ME, {
@@ -27,23 +27,38 @@ function Dashboard() {
     const {loading, error, data} = useQuery(QUERY_BREWERY, {
         variables:{ name: deleteThisBrewery}
       })
-    console.log(allData)
+    
+    const {loading: deleteLoad, error: deleteError, data: deleteData} = useQuery(QUERY_BREWERY_BY_ID, {
+      variables:{ name: deleteId}
+    })
+    console.log(deleteThisBrewery)
+    console.log(deleteData)
     console.log(userData)
 
     useEffect(() => {
-      if(userData) {
-        userData.me.breweries.forEach((brewery) => {
-          console.log(brewery)
-          idbPromise('saved-brewery', 'put', brewery);
-        });
-      } 
-    }, [data, loading]);
+      if(deleteThisBrewery){
+        const index = savedBreweries.indexOf(deleteThisBrewery)
+        console.log(index)
+        if (index > -1) {
+          savedBreweries.splice(index, 1);
+        }
+        setSavedBreweries(savedBreweries)
+          idbPromise('saved-brewery', 'delete', deleteThisBrewery);
+      }
+      if(!loading) {
+        idbPromise('saved-brewery', 'get').then((brewery) => {
+          setSavedBreweries(brewery)
+         });
+        };
+      }, [deleteThisBrewery, loading]);
+
   
     const displayBreweries = async (event) => {
         event.preventDefault()
         if(userData.me.breweries){
             const savedBreweries = userData.me.breweries;
             console.log(savedBreweries)
+
             setSavedBreweries(savedBreweries)
         }
     }
@@ -133,6 +148,8 @@ function Dashboard() {
                       //   disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                         onClick={() =>{
                         handleDeleteBrewery(brewery._id)
+                        setDeleteId(brewery._id)
+                        setDeleteBrewery(brewery)
                         // saveToUser(brewery)
                         }}>
                         {/* {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId) */}
