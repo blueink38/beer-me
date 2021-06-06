@@ -2,13 +2,14 @@ import React, { useState, useEffect} from 'react';
 import Modal from '../Modal/index'
 // import _ from 'lodash'
 import {Form, Button, Card, List, Grid, GridColumn, Menu} from 'semantic-ui-react'
-import {useMutation} from '@apollo/react-hooks'
+import {useMutation, useQuery} from '@apollo/react-hooks'
 import Auth from '../../utils/auth'
-import {saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser} from '../../utils/API'
+import {directions, saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser} from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
-import { add } from 'lodash';
-import { formatPhone } from '../../utils/helpers';
+import {QUERY_ALL_BREWERIES, QUERY_BREWERY, QUERY_ME} from '../../utils/queries'
+import { add, xor } from 'lodash';
+import { formatPhone , idbPromise} from '../../utils/helpers';
 
 let pageNum = 1;
 
@@ -26,18 +27,49 @@ const SearchBreweries = () => {
   const [savedBreweryIds, setSavedBreweryIds] = useState(getSavedBreweryIds());
   //holds the last used search input
   const [lastSearched, setLastSearched] = useState('')
-  
-  
-  // set up useEffect hook to save `savedBreweryIds` list to localStorage on component unmount
-  useEffect(() => {
-    return () => saveBreweryIds(savedBreweryIds);
+  const[savedBrewery, setSavedBrewery] = useState('')
+
+  // const {loading: userLoading, error: userError, data: userData} = useQuery(QUERY_ME, {
+  //   variables:{ id: userID}
+  // })
+  const {loading, error, data} = useQuery(QUERY_BREWERY, {
+    variables:{ name: savedBrewery}
+  })
+  const { data:allData} = useQuery(QUERY_ALL_BREWERIES, {
+
+    pollInterval: 500,
   });
+
+
+  useEffect(() => {
+    if(allData) {
+      allData.breweries.forEach((brewery) => {
+        idbPromise('searched-brewery', 'put', brewery);
+      });
+      // add else if to check if `loading` is undefined in `useQuery()` Hook
+    } else if (!loading) {
+      // since we're offline, get all of the data from the `brewery` store
+      idbPromise('searched-brewery', 'get').then((brewery) => {
+       setSearchedBrewery(brewery)
+      });
+    }
+  }, [data, loading]);
+
+  // useEffect(() => {
+  //   if(userData) {
+  //     userData.me.breweries.forEach((brewery) => {
+  //       console.log(brewery)
+  //       idbPromise('saved-brewery', 'put', brewery);
+  //     });
+  //   } 
+  // }, [data, loading]);
+
+  
   const options = [
     { key: 'city', text: 'City', value: 'city' },
     { key: 'state', text: 'State', value: 'state' },
     { key: 'keyword', text: 'Keyword', value: 'keyword' },
   ]
-
 
   const handleUserLoc = async (event) => {
     event.preventDefault();
@@ -49,42 +81,82 @@ const SearchBreweries = () => {
      
       console.log(response)
       if(response.length){
-        const breweryData = response.map((brewery) => ({
-          breweryId: brewery.id,
-          name: brewery.name,
-          breweryType: brewery.brewery_type,
-          street: brewery.street || "",
-          address2: brewery.address_2,
-          address3: brewery.address_3,
-          city: brewery.city,
-          state: brewery.state,
-          countyProvince: brewery.county_province,
-          postalCode: brewery.postal_code,
-          country: brewery.country,
-          longitude: brewery.longitude,
-          latitude: brewery.latitude,
-          phone: brewery.phone || "",
-          websiteUrl: brewery.website_url || ""
-        }));
-  
+        
+          const breweryData = response.map((brewery) => (
+            {
+            breweryID: brewery.id,
+            name: brewery.name,
+            breweryType: brewery.brewery_type,
+            street: brewery.street || "",
+            address2: brewery.address_2,
+            address3: brewery.address_3,
+            city: brewery.city,
+            state: brewery.state,
+            countyProvince: brewery.county_province,
+            postalCode: brewery.postal_code,
+            country: brewery.country,
+            longitude: brewery.longitude,
+            latitude: brewery.latitude,
+            phone: brewery.phone || "",
+            websiteUrl: brewery.website_url || ""
+          }));
+          const filterData = []
+          
+          breweryData.filter(brewery => {
+            // debugger;
+              allData.breweries.forEach(savedBrew => {
+                if(savedBrew.name===brewery.name){
+                  return
+                }
+
+              });
+              return brewery
+          })
+        console.log(breweryData)
+        console.log(filterData)
+        const saveToDB = response.map((brewery) => 
+         addBrewery(
+           {
+             variables:
+              {
+                breweryID: brewery.id,
+                name: brewery.name,
+                breweryType: brewery.brewery_type,
+                street: brewery.street || "",
+                address2: brewery.address_2,
+                address3: brewery.address_3,
+                city: brewery.city,
+                state: brewery.state,
+                countyProvince: brewery.county_province,
+                postalCode: brewery.postal_code,
+                country: brewery.country,
+                longitude: brewery.longitude,
+                latitude: brewery.latitude,
+                phone: brewery.phone || "",
+                websiteUrl: brewery.website_url || ""
+              }
+             
+           }
+        
+         ));
+        console.log(breweryData)
         setSearchedBrewery(breweryData);
       } else {
         setSearchedBrewery([])
       }
       
       setSearchInput('');
-      console.log('YES')
+      // console.log('YES')
       }
       catch (err) {
-        console.error(err);
+        console.error(err.graphQLErrors);
       }
 
   }
   // create method to search for Breweries and set state on form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(event.target.id)
-    console.log(searchType)
+
 
     if (!searchInput && !lastSearched) {
       return false;
@@ -122,10 +194,11 @@ const SearchBreweries = () => {
           }
           break;
       }
- 
+      
       if(response.length){
-        const breweryData = response.map((brewery) => ({
-          breweryId: brewery.id,
+        const breweryData = response.map((brewery) => (
+          {
+          breweryID: brewery.id,
           name: brewery.name,
           breweryType: brewery.brewery_type,
           street: brewery.street || "",
@@ -142,6 +215,11 @@ const SearchBreweries = () => {
           websiteUrl: brewery.website_url || ""
         }));
         setSearchedBrewery(breweryData);
+
+        const filterData = breweryData.filter(brewery => {
+              console.log(brewery.name)
+        })
+
       } else {
         setSearchedBrewery([])
       }
@@ -155,29 +233,36 @@ const SearchBreweries = () => {
 
 
   // create function to handle saving a Brewery to our database
-  const handleSaveBrewery = async (brewId) => {
-    // find the Brewery in `searchedBreweries` state by the matching id
-    // const breweryToSave = searchedBreweries.find((brewery) => brewery.breweryId === breweryId);
-    console.log(Auth.getProfile().data._id)
-    // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
+  const handleSaveBrewery = async (brewery) => {
 
-    if (!token) {
-      return false;
-    }
+    if(brewery.length){
 
-    try {
-      const response = await saveBrewery(brewId, Auth.getProfile().data._id);
-      console.log(response)
-// add brewery using brewery ID
-      if (!response.ok) {
-        throw new Error('something went wrong!');
+      try{
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+        const brewId = data.brewery._id;
+        console.log(brewId)
+        if (!token) {
+          return false;
+        }
+        const userID = Auth.getProfile().data._id;
+
+        const response = await saveBrewery(
+            { 
+              variables:{
+                brewId: brewId,
+                id: userID
+              }
+            }
+        );
+        console.log(response)
+        if (!response.ok) {
+          throw new Error('something went wrong!');
+        }
+      }catch (err) {
+        console.error(err);
       }
+  
 
-      // if Brewery successfully saves to user's account, save Brewery id to state
-      // setSavedBreweryIds([...savedBreweryIds, breweryToSave.breweryId]);
-    } catch (err) {
-      console.error(err);
     }
   };
 
@@ -200,7 +285,9 @@ const SearchBreweries = () => {
       }
     }
   }
-
+  if(savedBrewery.length){
+    handleSaveBrewery(savedBrewery)
+  }
   
   return (
     <>
@@ -291,8 +378,11 @@ const SearchBreweries = () => {
                   <div className='ui large buttons'>
                     <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                      onClick={() => {handleSaveBrewery(brewery) 
-                        console.log(brewery)}}>
+                      onClick={() =>{
+                      setSavedBrewery(brewery.name)
+
+                      // saveToUser(brewery)
+                      }}>
                       {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
                         ? 'This Brewery has already been saved!'
                         : 'save brewery'}

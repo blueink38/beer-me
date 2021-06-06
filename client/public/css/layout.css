@@ -16,11 +16,22 @@ header {
 #loginsignuppage {
    background: #161415 url(../images/header-background.jpg) no-repeat top center;
    background-size: cover !important;
+}
 
+#savedbrewpage {
+   background: #161415 url(../images/header-background.jpg) no-repeat top center;
+   background-size: cover !important;
+   background-attachment: fixed;
+   background: #191919;
+   padding-top: 96px;
+   padding-bottom: 66px;
+   overflow-x: hidden;
+   width: 100%;
 }
 .lesbutton {
    margin-left: 5%;
 }
+
 .beercard-output {
    margin-left: 2%;
 }

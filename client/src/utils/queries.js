@@ -8,6 +8,18 @@ export const QUERY_ME = gql`
       email
       breweries {
         _id
+        breweryID
+        name  
+        breweryType
+        street
+        address2
+        address3
+        city
+        state
+        longitude
+        latitude
+        phone
+        websiteUrl
       }
     }
   }
@@ -22,6 +34,26 @@ export const QUERY_USERS = gql `
       breweries {
         _id
       }
+    }
+  }
+`;
+
+export const QUERY_ALL_BREWERIES = gql `
+  {
+    breweries{
+      _id
+      breweryID
+      name  
+      breweryType
+      street
+      address2
+      address3
+      city
+      state
+      longitude
+      latitude
+      phone
+      websiteUrl
     }
   }
 `;

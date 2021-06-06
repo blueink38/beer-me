@@ -8,6 +8,7 @@ import 'semantic-ui-css/semantic.min.css';
 import Header from './components/Header/index';
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Dashboard from './pages/Dashboard'
 import Home from './pages/Home';
 
 
@@ -35,6 +36,8 @@ class App extends Component {
               <Route exact path = "/" component = {Home} />
               <Route exact path = "/login" component = {Login} />
               <Route exact path = "/signup" component = {Signup} />
+              <Route exact path = "/dashboard" component = {Dashboard} />
+
             </Switch>
           </div>
         </Router>
