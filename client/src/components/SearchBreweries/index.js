@@ -9,7 +9,7 @@ import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
 import {QUERY_ALL_BREWERIES, QUERY_BREWERY} from '../../utils/queries'
 import { add, xor } from 'lodash';
-import { formatPhone } from '../../utils/helpers';
+import { formatPhone , idbPromise} from '../../utils/helpers';
 
 let pageNum = 1;
 
@@ -41,7 +41,31 @@ const SearchBreweries = () => {
     pollInterval: 500,
   });
 
- 
+  console.log(allData)
+
+  useEffect(() => {
+    if(allData) {
+      // dispatch({
+      //   type: UPDATE_breweries,
+      //   breweries: data.breweries
+      // });
+      console.log(allData.breweries)
+      allData.breweries.forEach((brewery) => {
+        console.log(brewery)
+        idbPromise('brewery', 'put', brewery);
+      });
+      // add else if to check if `loading` is undefined in `useQuery()` Hook
+    } else if (!loading) {
+      // since we're offline, get all of the data from the `breweries` store
+      idbPromise('breweries', 'get').then((breweries) => {
+        // use retrieved data to set global state for offline browsing
+        // dispatch({
+        //   type: UPDATE_breweries,
+        //   breweries: breweries
+        // });
+      });
+    }
+  }, [data, loading]);
   
   // if (loading) return null;
   // if (error) return `Error! ${error}`;
