@@ -1,8 +1,8 @@
-import React, { useState, UseEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {Form, Button, Card, List, Grid, GridColumn, Menu} from 'semantic-ui-react'
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import Auth from "../utils/auth";
-import { formatPhone } from '../utils/helpers'
+import { formatPhone, idbPromise } from '../utils/helpers'
 import Modal from '../components/Modal'
 import {QUERY_ME, QUERY_ALL_BREWERIES, QUERY_BREWERY, QUERY_BREWERY_BY_ID} from '../utils/queries'
 import {REMOVE_BREWERY_FROM_USER} from '../utils/mutations'
@@ -30,7 +30,15 @@ function Dashboard() {
     console.log(allData)
     console.log(userData)
 
-
+    useEffect(() => {
+      if(userData) {
+        userData.me.breweries.forEach((brewery) => {
+          console.log(brewery)
+          idbPromise('saved-brewery', 'put', brewery);
+        });
+      } 
+    }, [data, loading]);
+  
     const displayBreweries = async (event) => {
         event.preventDefault()
         if(userData.me.breweries){
