@@ -406,7 +406,7 @@ const SearchBreweries = () => {
                     </Button>
                     {brewery.latitude && brewery.longitude ? 
                       <>
-                       <div class="or"></div>
+                       
                        <Button className ='ui yellow button'
                          // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                         >

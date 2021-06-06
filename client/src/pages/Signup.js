@@ -2,6 +2,30 @@ import React, { useState } from "react";
 import { useMutation } from '@apollo/react-hooks';
 import Auth from "../utils/auth";
 import { ADD_USER } from "../utils/mutations";
+import { Form, TextArea, Button, Grid } from 'semantic-ui-react'
+
+
+// class FormCaptureValues extends Component {
+//   state = { userName: '', email: '', password: '', submittedUserName: '', submittedEmail: '', submittedPassword: ''}
+
+//   handleChange = (e, { name, value }) => this.setState({ [name]: value })
+
+//   handleSubmit = () => {
+//     const { userName, email, password } = this.state
+
+//     this.setState({ 
+//       submittedUserName: userName, userName: "", 
+//       submittedEmail: email, email: "",
+//       submittedPassword: password, password: "" })
+//   }
+// }
+
+
+
+
+
+
+
 
 function Signup() {
   const [formState, setFormState] = useState({ email: '', password: '' });
@@ -27,19 +51,34 @@ function Signup() {
     });
   };
 
+    // render() {
+    // const { userName, email, password, submittedUserName, submittedEmail, submittedPassword } = this.state
+
   return (
     <section style={{height: '100vh'}} id='loginsignuppage'>
     <div className="loginsignupcontainers my-1">
-       <br></br>
       <br></br>
       <br></br>
       <br></br>
-      <h1 style={{color:'#ebba34'}}>Signup</h1>
+      <br></br>
+      <h1 style={{color:'#ebba34'}}>Sign Up</h1>
       <br></br>
       <form onSubmit={handleFormSubmit}>
+        <Form.Group>
+        {/* <Form.Input
+                width={8}
+                placeholder='User Name'
+                name='userName'
+                value={userName}
+                onChange={this.handleChange}
+                /> */}
+
+
+
+
         <div className="flex-row space-between my-2">
           <label style={{color:'#ebba34'}} htmlFor="firstName">Username:</label>
-          <input
+          <Form.Input
             placeholder="Username"
             name="username"
             type="username"
@@ -49,7 +88,7 @@ function Signup() {
         </div>
         <div className="flex-row space-between my-2">
           <label style={{color:'#ebba34'}} htmlFor="email">Email:</label>
-          <input
+          <Form.Input
             placeholder="youremail@test.com"
             name="email"
             type="email"
@@ -59,7 +98,7 @@ function Signup() {
         </div>
         <div className="flex-row space-between my-2">
           <label style={{color:'#ebba34'}} htmlFor="pwd">Password:</label>
-          <input
+          <Form.Input
             placeholder="******"
             name="password"
             type="password"
@@ -71,11 +110,23 @@ function Signup() {
         <div className="flex-row flex-end">
         <button class="ui yellow button">Submit</button>
         </div>
+        </Form.Group>
       </form>
     </div>
     </section>
   );
 
+
+    // </Grid.Column>
+    // </Grid>
+
+
+
+
+  // );
 }
+// }
+
+
 
 export default Signup;

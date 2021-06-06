@@ -28,6 +28,9 @@ header {
    overflow-x: hidden;
    width: 100%;
 }
+.lesbutton {
+   margin-left: 5%;
+}
 
 .beercard-output {
    margin-left: 2%;
@@ -192,7 +195,7 @@ button {
    width: 100%;
 }
 
-#about a, #about a:visited  { color: #fff; }
+#about a, #about a:visited  { color: rgb(255, 184, 51); }
 #about a:hover, #about a:focus { color: #11ABB0; }
 
 #about h2 {
@@ -232,10 +235,10 @@ button {
 /*Snippet About Us*/
 
 #portfolio {
-   background: #ebeeee;
    padding-top: 90px;
    padding-bottom: 60px;
 }
+
 #portfolio h1 {
    font: 15px/24px 'opensans-semibold', sans-serif;
    text-transform: uppercase;

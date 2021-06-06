@@ -1,81 +1,76 @@
-import React, { Component } from 'react'
-import { Form, TextArea, Button, Grid } from 'semantic-ui-react'
+import React from 'react'
+import { Form, TextArea, Button, Input, Grid } from 'semantic-ui-react'
 
-class FormCaptureValues extends Component {
-  state = { firstName: '', lastName: '', email: '', message: '', submittedFirstName: '', submittedLastName: '', submittedEmail: '', submittedMessage: '' }
+import emailjs from 'emailjs-com';
+import Swal from 'sweetalert2';
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+const SERVICE_ID = "service_5qal2uo";
+const TEMPLATE_ID = "contact_form";
+const USER_ID = "user_RASvx8iXKQ0HpCYLic6sz";
 
-  handleSubmit = () => {
-    const { firstName, lastName, email, message } = this.state
 
-    this.setState({ 
-      submittedFirstName: firstName, firstName: "", 
-      submittedLastName: lastName, lastName: "",
-      submittedEmail: email, email: "",
-      submittedMessage: message, message: "" })
-  }
+const App = () => {
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, USER_ID)
+      .then((result) => {
+        console.log(result.text);
+        Swal.fire({
+          // icon: 'success',
+          title: 'Message Sent Successfully'
+        })
+      }, (error) => {
+        console.log(error.text);
+        Swal.fire({
+          // icon: 'error',
+          title: 'Ooops, something went wrong',
+          text: error.text,
+        })
+      });
+    e.target.reset()
+  };
 
-  render() {
-    const { firstName, lastName, email, message, submittedFirstName, submittedLastName, submittedEmail, submittedMessage } = this.state
 
-  return (
-    <Grid id='contact-us' centered columns={2}>
-      <Grid.Column>
-        <div className="ui segment contactform inverted" >
-          <h2 style={{textAlign: "center", color: '#ebba34'}}>Ask Us Anything</h2>
-          <br></br>
-          <Form onSubmit={this.handleSubmit} >
-            <Form.Group >
-              <Form.Input
-                width={8}
-                placeholder='First name'
-                name='firstName'
-                value={firstName}
-                onChange={this.handleChange}
-                />
-              <Form.Input
-                width={8}
-                placeholder='Last Name'
-                name='lastName'
-                value={lastName}
-                onChange={this.handleChange}
-                />
-            </Form.Group>
-            <Form.Group>
-              <Form.Input
-                width={16}
-                placeholder='Email'
-                name='email'
-                value={email}
-                onChange={this.handleChange}
-                />
-            </Form.Group>
-            <Form.Group>
-              <Form.Input
-                width={16}
-                placeholder='Message'
-                control={TextArea}
-                name='message'
-                value={message}
-                onChange={this.handleChange}
-                />
-            </Form.Group>
-            <Form.Group>
-            <Form.Button
-              content='Submit'
-              color='yellow'
-              control={Button}
-              style={{textAlign: "center"}}
-              className=''
-               />
-            </Form.Group>      
-          </Form>        
-        </div>
-      </Grid.Column>
+return (
+  <Grid centered columns={2}>
+       <Grid.Column>
+    <div id="contact-us" className="App ui segment contactform inverted">
+    <h2 style={{textAlign: "center", color: '#ebba34'}}>Ask Us Anything</h2>
+    <br></br>
+      <Form onSubmit={handleOnSubmit}>
+        <Form.Group>
+        <Form.Field 
+          control={Input}
+          // label='Name'
+          color='yellow'
+          
+          name='user_name'
+          placeholder='Name…'
+          required
+          width={8}
+        />
+        <Form.Field
+          control={Input}
+          // label='Email'
+          name='user_email'
+          placeholder='Email…'
+          required
+          width={8}
+        />
+        </Form.Group>
+
+        <Form.Field
+          control={TextArea}
+          // label='Message'
+          name='user_message'
+          placeholder='Message…'
+          required
+        />
+        <Button type='submit' color='yellow'>Submit</Button>
+      </Form>
+    </div>
+    </Grid.Column>
     </Grid>
-    )
-  }
+  );
 }
-
-export default FormCaptureValues
+export default App;
