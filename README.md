@@ -23,9 +23,10 @@ General Overview
 * HTML5
 * CSS3
 * JavaScript
-* node.js
-* Jest
-* Inquirer
+* MongoDB
+* GraphQL
+* Semantic UI
+* EmailJS
 
 ## Setup
 
@@ -33,32 +34,40 @@ General Overview
 ## Code Examples
 Show examples of usage:
 ```
-
+const client = new ApolloClient({
+  request: (operation) => {
+    const token = localStorage.getItem('id_token')
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : ''
+      }
+    })
+  },
+  uri: '/graphql',
+})
 ```
 
 ## Features
-* 
-* 
-* 
+* Find Breweries by proximity, city, state, or style
+* Log in to create a profile
+* Save breweries to your profile
+* Message Beer Me directly
 
 ## To-Do
-* 
-* 
-*   
-
-
+* Add a donation platform
+* Allow users to add new and upcoming breweries
 
 ## Status
-This project is in progress.  As new technologies and client needs evolve, so will this application.
+>This project is in progress.  As new technologies and client needs evolve, so will this application.
 
 ## Inspiration
-
+>Our previous collaboration, Eat Out, Austin, allowed users to find a curated list of restaurants in Austin, TX.  Using that inspiration we created Beer Me to cater to the beer enthusiast.
 
 ## Licenses
 [![License: ICL](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)    ![badge](https://img.shields.io/badge/Created_With-LOVE-pink.svg)
 
 ## Contact
-[![Ask Anything !](https://img.shields.io/badge/Ask%20Us-Anything-1abc9c.svg)](https://GitHub.com/Naereen/ama)   
+[![Ask Anything !](https://img.shields.io/badge/Ask%20Us-Anything-1abc9c.svg)](https://github.com/blueink38/beer-me)   
 
 Created by: <br>
 [Frank Depaolo](https://dragoonkite.github.io/portfolio/nk) - feel free to contact me!<br>
