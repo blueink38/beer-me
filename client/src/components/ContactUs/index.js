@@ -34,7 +34,7 @@ const App = () => {
 return (
   <Grid centered columns={2}>
        <Grid.Column>
-    <div className="App ui segment contactform inverted">
+    <div id="contact-us" className="App ui segment contactform inverted">
     <h2 style={{textAlign: "center", color: '#ebba34'}}>Ask Us Anything</h2>
     <br></br>
       <Form onSubmit={handleOnSubmit}>
