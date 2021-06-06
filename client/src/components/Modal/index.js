@@ -82,7 +82,7 @@ function PopUpDirections(props) {
 
           )
     } else {
-        return(<p style={{color:'#f2f0f0'}} onClick={() => (setModalIsOpen(true), getDirections())}></p>)
+        return(<p style={{color:'#f2f0f0'}} onClick={() => (setModalIsOpen(true), getDirections())}>get directions</p>)
     }
 }
 
