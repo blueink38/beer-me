@@ -8,6 +8,18 @@ export const QUERY_ME = gql`
       email
       breweries {
         _id
+        breweryID
+        name  
+        breweryType
+        street
+        address2
+        address3
+        city
+        state
+        longitude
+        latitude
+        phone
+        websiteUrl
       }
     }
   }

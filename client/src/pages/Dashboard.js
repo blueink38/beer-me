@@ -5,43 +5,79 @@ import Auth from "../utils/auth";
 import { formatPhone } from '../utils/helpers'
 import Modal from '../components/Modal'
 import {QUERY_ME, QUERY_ALL_BREWERIES, QUERY_BREWERY, QUERY_BREWERY_BY_ID} from '../utils/queries'
+import {REMOVE_BREWERY_FROM_USER} from '../utils/mutations'
+
+import { set } from "lodash";
 
 
-function Signup() {
+function Dashboard() {
+    const[deleteBrewery] = useMutation(REMOVE_BREWERY_FROM_USER)
     const [user, setUser] = useState('');
-    const [savedBreweries, setSavedBrewery] = useState([]);
-    const [savedBreweryIds, setSavedBreweryIds] = useState('');
+    const [savedBreweries, setSavedBreweries] = useState([]);
+    const [savedBreweryIds, setSavedBreweryIds] = useState('1');
+    const[deleteThisBrewery, setDeleteBrewery] = useState('')
     const userID = Auth.getProfile().data._id;
-    const {loading: userLoading, error: userError, data: UserBrews} = useQuery(QUERY_ME, {
+    const {loading: userLoading, error: userError, data: userData} = useQuery(QUERY_ME, {
         variables:{ id: userID}
       })
-    const { data:allBreweries} = useQuery(QUERY_ALL_BREWERIES, {
+    const { data:allData} = useQuery(QUERY_ALL_BREWERIES, {
 
         pollInterval: 500,
     });
-    console.log(allBreweries)
-    console.log(UserBrews)
-    const displayBreweries = async () => {
-        if(UserBrews.me.breweries){
-            const brewIDs = UserBrews.me;
-            console.log(brewIDs)
-            const userBreweries = []
-            for(let i = 0; i < brewIDs.length; i++){
-                debugger;
-                allBreweries.breweries.filter(brewery =>{
-                    if(brewIDs[i] = brewery.id){
-                        console.log('ok')
-                    }
-                })
-                
-            }
-            
+    const {loading, error, data} = useQuery(QUERY_BREWERY, {
+        variables:{ name: deleteThisBrewery}
+      })
+    console.log(allData)
+    console.log(userData)
+
+
+    const displayBreweries = async (event) => {
+        event.preventDefault()
+        if(userData.me.breweries){
+            const savedBreweries = userData.me.breweries;
+            console.log(savedBreweries)
+            setSavedBreweries(savedBreweries)
+
+           
+
             
         }
     }
-    displayBreweries()
+
+    const handleDeleteBrewery = async (breweryId) => {
+
+        if(breweryId.length){
+            console.log(breweryId)
+          try{
+            const token = Auth.loggedIn() ? Auth.getToken() : null;
+            
+            if (!token) {
+              return false;
+            }
+            
+            const userId = Auth.getProfile().data._id
+            const response = await deleteBrewery(
+                { 
+                  variables:{
+                    brewId: breweryId,
+                    id: userId
+                  }
+                }
+            );
+            console.log(response)
+            if (!response.ok) {
+              throw new Error('something went wrong!');
+            }
+          }catch (err) {
+            console.error(err);
+          }
+      
+    
+        }
+      };
+    // displayBreweries()
   return (
-    <section style={{height: '100vh'}} id='loginsignuppage'>
+    <section style={{height: '300vh'}} id='savedbrewpage'>
     <div className="dashboard">
        <br></br>
       <br></br>
@@ -49,7 +85,22 @@ function Signup() {
       <br></br>
       <h1 style={{color:'#ebba34', textAlign:'center'}}>Your Saved Breweries</h1>
       <br></br>
-      
+      <div 
+        className="columns main-col drinkbutton"
+        style={{
+            margin: "0 auto 40px auto"
+        }}
+            >
+                  <Button 
+                    
+                    id='user-brewery' 
+                    type='submit'
+                    onClick={(e) => displayBreweries(e)} 
+                    style={{textAlign: "center"}}
+                    className="ui huge yellow button centered">
+                    SHOW ME MY SAVED BREWS
+                  </Button>
+               </div>
       <Grid centered stackable columns={3} >
           {savedBreweries.length 
           ? 
@@ -77,15 +128,15 @@ function Signup() {
                     
                   <div className='ui large buttons'>
                     <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
-                      // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
+                    //   disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                       onClick={() =>{
-                      setSavedBrewery(brewery.name)
+                      handleDeleteBrewery(brewery._id)
 
                       // saveToUser(brewery)
                       }}>
-                      {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)
-                        ? 'This Brewery has already been saved!'
-                        : 'save brewery'}
+                      {/* {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId) */}
+                        delete 
+                       
                     </Button>
                     {brewery.latitude && brewery.longitude ? 
                       <>
@@ -104,15 +155,8 @@ function Signup() {
             </GridColumn>
             );
           })
-          : <h3
-            style={{
-                background: "rgba(0,0,0,.6)",
-                color: 'white',
-                margin: '0 20%'
-                
-            }}
-          >Someone is due for a beer trip! Go check out some breweries!<br></br>
-           Save the ones you like, and see them here!</h3>}
+          : <h3></h3>
+            }
 
         </Grid>
 
@@ -122,4 +166,4 @@ function Signup() {
 
 }
 
-export default Signup;
+export default Dashboard;

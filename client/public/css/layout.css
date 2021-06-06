@@ -16,9 +16,14 @@ header {
 #loginsignuppage {
    background: #161415 url(../images/header-background.jpg) no-repeat top center;
    background-size: cover !important;
-
-
 }
+
+#savedbrewpage {
+   background: #161415 url(../images/header-background.jpg) no-repeat top center;
+   background-size: cover !important;
+   background-attachment: fixed;
+}
+
 .beercard-output {
    margin-left: 2%;
 }
