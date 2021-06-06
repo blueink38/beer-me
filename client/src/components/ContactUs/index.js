@@ -41,7 +41,7 @@ return (
         <Form.Group>
         <Form.Field 
           control={Input}
-          label='Name'
+          // label='Name'
           color='yellow'
           
           name='user_name'
@@ -51,7 +51,7 @@ return (
         />
         <Form.Field
           control={Input}
-          label='Email'
+          // label='Email'
           name='user_email'
           placeholder='Email…'
           required
@@ -61,7 +61,7 @@ return (
 
         <Form.Field
           control={TextArea}
-          label='Message'
+          // label='Message'
           name='user_message'
           placeholder='Message…'
           required
