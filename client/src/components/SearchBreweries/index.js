@@ -28,11 +28,10 @@ const SearchBreweries = () => {
   //holds the last used search input
   const [lastSearched, setLastSearched] = useState('')
   const[savedBrewery, setSavedBrewery] = useState('')
-  const userID = Auth.getProfile().data._id;
 
-  const {loading: userLoading, error: userError, data: userData} = useQuery(QUERY_ME, {
-    variables:{ id: userID}
-  })
+  // const {loading: userLoading, error: userError, data: userData} = useQuery(QUERY_ME, {
+  //   variables:{ id: userID}
+  // })
   const {loading, error, data} = useQuery(QUERY_BREWERY, {
     variables:{ name: savedBrewery}
   })
@@ -56,14 +55,14 @@ const SearchBreweries = () => {
     }
   }, [data, loading]);
 
-  useEffect(() => {
-    if(userData) {
-      userData.me.breweries.forEach((brewery) => {
-        console.log(brewery)
-        idbPromise('saved-brewery', 'put', brewery);
-      });
-    } 
-  }, [data, loading]);
+  // useEffect(() => {
+  //   if(userData) {
+  //     userData.me.breweries.forEach((brewery) => {
+  //       console.log(brewery)
+  //       idbPromise('saved-brewery', 'put', brewery);
+  //     });
+  //   } 
+  // }, [data, loading]);
 
   
   const options = [
@@ -245,7 +244,8 @@ const SearchBreweries = () => {
         if (!token) {
           return false;
         }
-        
+        const userID = Auth.getProfile().data._id;
+
         const response = await saveBrewery(
             { 
               variables:{
