@@ -100,7 +100,7 @@ const SearchBreweries = () => {
           const filterData = []
           
           breweryData.filter(brewery => {
-            debugger;
+            // debugger;
               allData.breweries.forEach(savedBrew => {
                 if(savedBrew.name===brewery.name){
                   return
