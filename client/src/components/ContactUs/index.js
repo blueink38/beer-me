@@ -34,17 +34,15 @@ const App = () => {
 return (
   <Grid centered columns={2}>
        <Grid.Column>
-    <div className="App ui segment contactform inverted">
+    <div id="contact-us" className="App ui segment contactform inverted">
     <h2 style={{textAlign: "center", color: '#ebba34'}}>Ask Us Anything</h2>
     <br></br>
       <Form onSubmit={handleOnSubmit}>
         <Form.Group>
-        <Form.Field
-                  color='white'
-
+        <Form.Field 
           control={Input}
-
-          label='Name'
+          // label='Name'
+          color='yellow'
           
           name='user_name'
           placeholder='Name…'
@@ -53,7 +51,7 @@ return (
         />
         <Form.Field
           control={Input}
-          label='Email'
+          // label='Email'
           name='user_email'
           placeholder='Email…'
           required
@@ -63,7 +61,7 @@ return (
 
         <Form.Field
           control={TextArea}
-          label='Message'
+          // label='Message'
           name='user_message'
           placeholder='Message…'
           required

@@ -27,13 +27,15 @@ function PopUpDirections(props) {
                     contentLabel="Inline Styles Modal Example"
                     style={{
                       overlay: {
-                        backgroundColor:'black',
-                        height:'80%',
+                        backgroundColor:'',
+                        height:'95%',
+                        width:'50%',
                         opacity:'100%',
                         marginTop:'100px',
+                        marginLeft:'25%'
                       },
                       content: {
-                        backgroundColor:'orange',
+                        backgroundColor:'#ccccc8',
                         color: 'black',
                         scroll: 'none',
                         height:'85%',
@@ -46,11 +48,12 @@ function PopUpDirections(props) {
                         <List>
 
                         {modalIsOpen ?
-                            <button 
+                            <button  
                             onClick={() => setLocalSearch(true)}
-                            className="ui huge yellow button">
+                            className="ui large yellow button">
                             Directions from current location 
                             </button> 
+                            
                         : ""}
                         {localSearch ? 
                             completeDirections.map((stop) => {
@@ -61,12 +64,14 @@ function PopUpDirections(props) {
                                 ) 
                             })
                         : ""}
+                        
 
                         </List>
+                        <br></br>
                             <button 
                             onClick={() => setModalIsOpen(false)}
-                            className="ui huge yellow button">
-                            Close the Directions Window
+                            className="ui large yellow button">
+                            Close Window
                             </button>
                     </Grid.Column>
                 </Grid>
@@ -77,7 +82,7 @@ function PopUpDirections(props) {
 
           )
     } else {
-        return(<p style={{color:'#f2f0f0'}} onClick={() => (setModalIsOpen(true), getDirections())}>get directions</p>)
+        return(<p style={{color:'#ffffff'}} onClick={() => (setModalIsOpen(true), getDirections())}>get directions</p>)
     }
 }
 
