@@ -1,7 +1,4 @@
-import PopUpDirections from "../components/Modal";
-// import directionsModal from "../components/Modal";
-
-  // route to get logged in user's info (needs the token)
+// route to get logged in user's info (needs the token)
 export const getMe = (token) => {
     return fetch('/api/users/me', {
       headers: {
@@ -57,7 +54,6 @@ let userIP = "";
 let userLat = 0;
 let userLon = 0;
 let completeDirections = new Set;
-let completedDirections = []
 let breweriesNearMe =[];
 
  
@@ -157,8 +153,6 @@ export function directions(latitude, longitude) {
                     let stop = instructions[i].message;
                     completeDirections.add(stop);
                   };
-                  completedDirections = Array.from(completeDirections)
-                  console.log(completeDirections)
                 });
               }
               else {
@@ -173,4 +167,3 @@ export function directions(latitude, longitude) {
   return completeDirections 
 };
 
-//export default completeDirections;
