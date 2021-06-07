@@ -40,17 +40,15 @@ function Dashboard() {
         }
     }
 
-    const handleDeleteBrewery = async (breweryId) => {
+    const handleDeleteBrewery = async (e,breweryId) => {
 
         if(breweryId.length){
             console.log(breweryId)
-          try{
             const token = Auth.loggedIn() ? Auth.getToken() : null;
-            
             if (!token) {
               return false;
             }
-            
+          try{
             const userId = Auth.getProfile().data._id
             const response = await deleteBrewery(
                 { 
@@ -60,6 +58,7 @@ function Dashboard() {
                   }
                 }
             );
+            displayBreweries(e)
             console.log(response)
             if (!response.ok) {
               throw new Error('something went wrong!');
@@ -67,8 +66,6 @@ function Dashboard() {
           }catch (err) {
             console.error(err);
           }
-      
-    
         }
       };
     // displayBreweries()
@@ -96,58 +93,58 @@ function Dashboard() {
           </Button>
         </div>
       </div>
-        <Grid centered stackable columns={2} >
-            {savedBreweries.length 
-            ? 
-            savedBreweries.map((brewery) => {
-              return (
-                <GridColumn centered="true">  
-                  <Card centered key={brewery.breweryId}>
-                    <h2 style={{textAlign:'center', color:'#ebba34'}}>{brewery.name}</h2>
-                    <List>
-                      <List.Item className='beercard-output'><strong>Type:  </strong> {brewery.breweryType}</List.Item>
-                      {brewery.street ? 
-                        <List.Item className='beercard-output'><strong> Street:  </strong>{brewery.street}</List.Item>
-                      :""}
-                      <List.Item className='beercard-output'><strong> City:  </strong>{brewery.city}</List.Item>
-                      <List.Item className='beercard-output'><strong> State:  </strong>{brewery.state}</List.Item>
-                      {brewery.phone ? 
-                        <List.Item className='beercard-output'><strong> Phone Number:  </strong> {formatPhone(brewery.phone)}</List.Item>
-                      : ""}
-                      {brewery.websiteUrl ? 
-                        <List.Item className='beercard-output'><strong> Website:  </strong> <a style={{color:'#2432d1'}} href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
-                      : ""}
-                      <br></br>
-                    </List>
-                    {/* {Auth.loggedIn() && ( */}    
-                    <div className='ui large buttons'>
-                      <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
-                      //   disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                        onClick={() =>{
-                        handleDeleteBrewery(brewery._id)
-                        // saveToUser(brewery)
-                        }}>
-                        {/* {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId) */}
-                          delete 
+      <Grid centered stackable columns={3} >
+          {savedBreweries.length 
+          ? 
+          savedBreweries.map((brewery) => {
+            return (
+              <GridColumn centered="true">  
+                <Card centered key={brewery.breweryId}>
+                  <h2 style={{textAlign:'center', color:'#ebba34'}}>{brewery.name}</h2>
+                  <List>
+                    <List.Item className='beercard-output'><strong>Type:  </strong> {brewery.breweryType}</List.Item>
+                    {brewery.street ? 
+                      <List.Item className='beercard-output'><strong> Street:  </strong>{brewery.street}</List.Item>
+                    :""}
+                    <List.Item className='beercard-output'><strong> City:  </strong>{brewery.city}</List.Item>
+                    <List.Item className='beercard-output'><strong> State:  </strong>{brewery.state}</List.Item>
+                    {brewery.phone ? 
+                      <List.Item className='beercard-output'><strong> Phone Number:  </strong> {formatPhone(brewery.phone)}</List.Item>
+                    : ""}
+                    {brewery.websiteUrl ? 
+                      <List.Item className='beercard-output'><strong> Website:  </strong> <a style={{color:'#2432d1'}} href={brewery.websiteUrl} target='_blank'  rel="noreferrer" >{brewery.websiteUrl}</a></List.Item>
+                    : ""}
+                    <br></br>
+                  </List>
+                  {/* {Auth.loggedIn() && ( */}    
+                  <div className='ui large buttons'>
+                    <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
+                    //   disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
+                      onClick={(e) =>{
+                      handleDeleteBrewery(e,brewery._id)
+                      // saveToUser(brewery)
+                      }}>
+                      {/* {savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId) */}
+                        delete 
+                    </Button>
+                    {brewery.latitude && brewery.longitude ? 
+                      <>
+                      <Button className ='ui yellow button'
+                        // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
+                        >
+                          <p ><Modal lat={brewery.latitude} lon={brewery.longitude} /></p>
                       </Button>
-                      {brewery.latitude && brewery.longitude ? 
-                        <>
-                        <Button className ='ui yellow button'
-                          // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
-                          >
-                            <p ><Modal lat={brewery.latitude} lon={brewery.longitude} /></p>
-                        </Button>
-                        </>
-                      :""}
-                    {/* )} */}
-                    </div>
-                  </Card>
-                </GridColumn>
-              );
-            })
-            : <h3></h3>
-              }
-          </Grid>
+                      </>
+                    :""}
+                  {/* )} */}
+                  </div>
+                </Card>
+              </GridColumn>
+            );
+          })
+          : <h3></h3>
+            }
+        </Grid>
     </section>
   );
 

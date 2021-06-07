@@ -302,6 +302,7 @@ const SearchBreweries = () => {
       }
     }
   }
+  
   if(savedBrewery.length){
     handleSaveBrewery(savedBrewery)
   }
