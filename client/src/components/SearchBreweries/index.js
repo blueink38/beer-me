@@ -29,9 +29,9 @@ const SearchBreweries = () => {
   const [lastSearched, setLastSearched] = useState('')
   const[savedBrewery, setSavedBrewery] = useState('')
 
-  // const {loading: userLoading, error: userError, data: userData} = useQuery(QUERY_ME, {
-  //   variables:{ id: userID}
-  // })
+  const {loading: userLoading, error: userError, data: userData} = useQuery(QUERY_ME, {
+    variables:{ id: Auth.getProfile().data._id}
+  })
   const {loading, error, data} = useQuery(QUERY_BREWERY, {
     variables:{ name: savedBrewery}
   })
@@ -39,7 +39,7 @@ const SearchBreweries = () => {
 
     pollInterval: 500,
   });
-
+  // console.log(Auth.loggedIn())
 
   useEffect(() => {
     if(allData) {
@@ -55,14 +55,14 @@ const SearchBreweries = () => {
     }
   }, [data, loading]);
 
-  // useEffect(() => {
-  //   if(userData) {
-  //     userData.me.breweries.forEach((brewery) => {
-  //       console.log(brewery)
-  //       idbPromise('saved-brewery', 'put', brewery);
-  //     });
-  //   } 
-  // }, [data, loading]);
+  useEffect(() => {
+    if(userData) {
+      userData.me.breweries.forEach((brewery) => {
+        console.log(brewery)
+        idbPromise('saved-brewery', 'put', brewery);
+      });
+    } 
+  }, [data, loading]);
 
   
   const options = [
@@ -101,17 +101,20 @@ const SearchBreweries = () => {
             websiteUrl: brewery.website_url || ""
           }));
           const filterData = []
+          console.log(searchedBreweries)
+          console.log(allData)
+          if(searchedBreweries){
+              searchedBreweries.map(brewery => {
+              
+                console.log(brewery)
+                const index = breweryData.indexOf(brewery)
+                console.log(index)
+                // if (index > -1) {
+                //   savedBreweries.splice(index, 1);
+                // }
+            })
+          }
           
-          breweryData.filter(brewery => {
-            // debugger;
-              allData.breweries.forEach(savedBrew => {
-                if(savedBrew.name===brewery.name){
-                  return
-                }
-
-              });
-              return brewery
-          })
         console.log(breweryData)
         console.log(filterData)
         const saveToDB = response.map((brewery) => 
@@ -295,7 +298,7 @@ const SearchBreweries = () => {
       <div className="columns main-col drinkbutton"> 
         </div>
           <Form onSubmit={handleFormSubmit} id='submit'>
-            <Grid id='find-brewery' centered columns={2}>
+            <Grid centered doubling stackable columns={3}>
               <Grid.Column>          
                 <div class="ui segment contactform inverted" >
                   <h1 style={{textAlign: "center", color: '#ebba34'}}>Find Your Brewery</h1>
@@ -350,7 +353,7 @@ const SearchBreweries = () => {
             ? `Viewing results ${1 + (20 * (pageNum -1))} - ${searchedBreweries.length + (20 * (pageNum - 1))}:`
             : ''}
         </h2>
-        <Grid centered stackable columns={3} >
+        <Grid centered doubling stackable columns={3} >
           {searchedBreweries.length 
           ? 
           searchedBreweries.map((brewery) => {
