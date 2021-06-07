@@ -37,12 +37,12 @@ const SearchBreweries = () => {
   })
   const { data:allData} = useQuery(QUERY_ALL_BREWERIES, {
 
-    pollInterval: 500,
+    // pollInterval: 500,
   });
 
   const { data: noIDBreweries} = useQuery(QUERY_BREWERIES_NO_ID, {
 
-    pollInterval: 500,
+    // pollInterval: 500,
   });
   // console.log(Auth.loggedIn())
 
@@ -61,6 +61,9 @@ const SearchBreweries = () => {
   }, [data, loading]);
 
   useEffect(() => {
+     if(savedBrewery){
+    handleSaveBrewery(savedBrewery)
+  }
     if(userData) {
       userData.me.breweries.forEach((brewery) => {
         console.log(brewery)
@@ -208,6 +211,7 @@ const SearchBreweries = () => {
       }
       
       if(response.length){
+        
         const breweryData = response.map((brewery) => (
           {
           breweryID: brewery.id,
@@ -226,32 +230,77 @@ const SearchBreweries = () => {
           phone: brewery.phone || "",
           websiteUrl: brewery.website_url || ""
         }));
+        const filterData = []
+        console.log(searchedBreweries)
+        console.log(noIDBreweries.breweries)
+        console.log(breweryData)
+
         setSearchedBrewery(breweryData);
-
-        const filterData = breweryData.filter(brewery => {
-              console.log(brewery.name)
-        })
-
-      } else {
-        setSearchedBrewery([])
-      }
+        
+        if(searchedBreweries){
+            noIDBreweries.breweries.map(brewery => {
+            
+              console.log(brewery)
+              const index = searchedBreweries.indexOf(brewery)
+              console.log(index)
+              // if (index > -1) {
+              //   savedBreweries.splice(index, 1);
+              // }
+          })
+        }
+        
+      console.log(breweryData)
+      console.log(filterData)
+      const saveToDB = response.map((brewery) => 
+       addBrewery(
+         {
+           variables:
+            {
+              breweryID: brewery.id,
+              name: brewery.name,
+              breweryType: brewery.brewery_type,
+              street: brewery.street || "",
+              address2: brewery.address_2,
+              address3: brewery.address_3,
+              city: brewery.city,
+              state: brewery.state,
+              countyProvince: brewery.county_province,
+              postalCode: brewery.postal_code,
+              country: brewery.country,
+              longitude: brewery.longitude,
+              latitude: brewery.latitude,
+              phone: brewery.phone || "",
+              websiteUrl: brewery.website_url || ""
+            }
+           
+         }
       
-      setSearchInput('');
-      }
-      catch (err) {
-        console.error(err);
-      }
-    } 
+       ));
+      console.log(breweryData)
+      
+    } else {
+      setSearchedBrewery([])
+    }
+    
+    setSearchInput('');
+    // console.log('YES')
+    }
+    catch (err) {
+      console.error(err.graphQLErrors);
+    }
+
+}
 
 
   // create function to handle saving a Brewery to our database
   const handleSaveBrewery = async (brewery) => {
-
+    // debugger;
     if(brewery.length){
 
       try{
         const token = Auth.loggedIn() ? Auth.getToken() : null;
         const brewId = data.brewery._id;
+        console.log(data)
         console.log(brewId)
         if (!token) {
           return false;
@@ -297,10 +346,7 @@ const SearchBreweries = () => {
       }
     }
   }
-  
-  if(savedBrewery.length){
-    handleSaveBrewery(savedBrewery)
-  }
+ 
   
   return (
     <>
@@ -392,7 +438,9 @@ const SearchBreweries = () => {
                     <Button className ='ui yellow button' style={{color:'#f2f0f0'}}
                       // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                       onClick={() =>{
+                        console.log(brewery.name)
                       setSavedBrewery(brewery.name)
+                      handleSaveBrewery(brewery)
 
                       // saveToUser(brewery)
                       }}>
