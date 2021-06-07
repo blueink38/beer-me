@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import Modal from 'react-modal';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
@@ -9,6 +10,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from './pages/Dashboard'
 import Home from './pages/Home';
+
+
 
 const client = new ApolloClient({
   request: (operation) => {

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from '@apollo/react-hooks';
 import { LOGIN } from "../utils/mutations"
 import Auth from "../utils/auth";
+import { Form } from "semantic-ui-react";
 
 function Login() {
   const [formState, setFormState] = useState({ email: '', password: '' })
@@ -39,7 +40,7 @@ function Login() {
       <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">
           <label style={{color:'#ebba34'}}htmlFor="email">Email address:</label>
-          <input
+          <Form.Input
             placeholder="youremail@test.com"
             name="email"
             type="email"
@@ -50,7 +51,7 @@ function Login() {
 
         <div className="flex-row space-between my-2">
           <label style={{color:'#ebba34'}}htmlFor="pwd">Password:</label>
-          <input
+          <Form.Input
             placeholder="******"
             name="password"
             type="password"

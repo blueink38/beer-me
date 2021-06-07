@@ -1,3 +1,6 @@
+import PopUpDirections from "../components/Modal";
+// import directionsModal from "../components/Modal";
+
   // route to get logged in user's info (needs the token)
 export const getMe = (token) => {
     return fetch('/api/users/me', {
@@ -167,9 +170,4 @@ export function directions(latitude, longitude) {
   return completeDirections 
 };
 
-// directions using TomTom
-// export function directions(latitude, longitude) {
-//   // console.log(lat, lon);
-
-//             }
-      
+export default completeDirections;

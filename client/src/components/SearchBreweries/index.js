@@ -7,9 +7,9 @@ import Auth from '../../utils/auth'
 import {directions, saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser} from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
-import {QUERY_ALL_BREWERIES, QUERY_BREWERY} from '../../utils/queries'
+import {QUERY_ALL_BREWERIES, QUERY_BREWERY, QUERY_ME} from '../../utils/queries'
 import { add, xor } from 'lodash';
-import { formatPhone } from '../../utils/helpers';
+import { formatPhone , idbPromise} from '../../utils/helpers';
 
 let pageNum = 1;
 
@@ -28,11 +28,10 @@ const SearchBreweries = () => {
   //holds the last used search input
   const [lastSearched, setLastSearched] = useState('')
   const[savedBrewery, setSavedBrewery] = useState('')
-  const [queryId, setQueryId] = useState()
-  // const { loading, error, data } = useQuery(QUERY_ALL_BREWERIES, {
-   console.log(savedBrewery)
-  //   pollInterval: 500,
-  // });
+
+  const {loading: userLoading, error: userError, data: userData} = useQuery(QUERY_ME, {
+    variables:{ id: Auth.getProfile().data._id}
+  })
   const {loading, error, data} = useQuery(QUERY_BREWERY, {
     variables:{ name: savedBrewery}
   })
@@ -40,26 +39,30 @@ const SearchBreweries = () => {
 
     pollInterval: 500,
   });
+  // console.log(Auth.loggedIn())
 
- 
-  
-  // if (loading) return null;
-  // if (error) return `Error! ${error}`;
-  // console.log(searchedBreweries)
-  // console.log(loading)
-  console.log(data)
-  // set up useEffect hook to save `savedBreweryIds` list to localStorage on component unmount
-  // useEffect(() => {
-  //   if
-  //   async function matchId()
-  // //   async function addBreweryToDb(){
-  // //   const breweries = searchedBreweries.map()
-  // // }
-  // //   return () => saveBreweryIds(savedBreweryIds);
-  // //   async function updateBreweryDB(){
-      
-  // //   }
-  // });
+  useEffect(() => {
+    if(allData) {
+      allData.breweries.forEach((brewery) => {
+        idbPromise('searched-brewery', 'put', brewery);
+      });
+      // add else if to check if `loading` is undefined in `useQuery()` Hook
+    } else if (!loading) {
+      // since we're offline, get all of the data from the `brewery` store
+      idbPromise('searched-brewery', 'get').then((brewery) => {
+       setSearchedBrewery(brewery)
+      });
+    }
+  }, [data, loading]);
+
+  useEffect(() => {
+    if(userData) {
+      userData.me.breweries.forEach((brewery) => {
+        console.log(brewery)
+        idbPromise('saved-brewery', 'put', brewery);
+      });
+    } 
+  }, [data, loading]);
 
   
   const options = [
@@ -98,17 +101,20 @@ const SearchBreweries = () => {
             websiteUrl: brewery.website_url || ""
           }));
           const filterData = []
+          console.log(searchedBreweries)
+          console.log(allData)
+          if(searchedBreweries){
+              searchedBreweries.map(brewery => {
+              
+                console.log(brewery)
+                const index = breweryData.indexOf(brewery)
+                console.log(index)
+                // if (index > -1) {
+                //   savedBreweries.splice(index, 1);
+                // }
+            })
+          }
           
-          breweryData.filter(brewery => {
-            // debugger;
-              allData.breweries.forEach(savedBrew => {
-                if(savedBrew.name===brewery.name){
-                  return
-                }
-
-              });
-              return brewery
-          })
         console.log(breweryData)
         console.log(filterData)
         const saveToDB = response.map((brewery) => 
@@ -153,8 +159,7 @@ const SearchBreweries = () => {
   // create method to search for Breweries and set state on form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    // console.log(event.target.id)
-    // console.log(searchType)
+
 
     if (!searchInput && !lastSearched) {
       return false;
@@ -218,25 +223,6 @@ const SearchBreweries = () => {
               console.log(brewery.name)
         })
 
-        // addBrewery({
-        //   variables: {
-        //     breweryId: searchedBreweries.id,
-        //     name: searchedBreweries.name,
-        //     breweryType: searchedBreweries.brewery_type,
-        //     street: searchedBreweries.street ,
-        //     address2: searchedBreweries.address_2,
-        //     address3: searchedBreweries.address_3,
-        //     city: searchedBreweries.city,
-        //     state: searchedBreweries.state,
-        //     countyProvince: searchedBreweries.county_province,
-        //     postalCode: searchedBreweries.postal_code,
-        //     country: searchedBreweries.country,
-        //     longitude: searchedBreweries.longitude,
-        //     latitude: searchedBreweries.latitude,
-        //     phone: searchedBreweries.phone ,
-        //     websiteUrl: searchedBreweries.website_url 
-        //   }
-        // })
       } else {
         setSearchedBrewery([])
       }
@@ -261,13 +247,13 @@ const SearchBreweries = () => {
         if (!token) {
           return false;
         }
-        
-        const userId = Auth.getProfile().data._id
+        const userID = Auth.getProfile().data._id;
+
         const response = await saveBrewery(
             { 
               variables:{
                 brewId: brewId,
-                id: userId
+                id: userID
               }
             }
         );
@@ -313,7 +299,7 @@ const SearchBreweries = () => {
       <div className="columns main-col drinkbutton"> 
         </div>
           <Form onSubmit={handleFormSubmit} id='submit'>
-            <Grid id='find-brewery' centered columns={2}>
+            <Grid centered doubling stackable columns={3}>
               <Grid.Column>          
                 <div class="ui segment contactform inverted" >
                   <h1 style={{textAlign: "center", color: '#ebba34'}}>Find Your Brewery</h1>
@@ -368,7 +354,7 @@ const SearchBreweries = () => {
             ? `Viewing results ${1 + (20 * (pageNum -1))} - ${searchedBreweries.length + (20 * (pageNum - 1))}:`
             : ''}
         </h2>
-        <Grid centered stackable columns={3} >
+        <Grid centered doubling stackable columns={3} >
           {searchedBreweries.length 
           ? 
           searchedBreweries.map((brewery) => {
@@ -407,7 +393,7 @@ const SearchBreweries = () => {
                     </Button>
                     {brewery.latitude && brewery.longitude ? 
                       <>
-                       <div class="or"></div>
+                       
                        <Button className ='ui yellow button'
                          // disabled={savedBreweryIds?.some((savedBreweryId) => savedBreweryId === brewery.breweryId)}
                         >
