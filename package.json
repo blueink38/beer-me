@@ -28,10 +28,11 @@
     "emailjs-com": "^2.6.4",
     "if-env": "^1.0.4",
     "lodash": "^4.17.21",
+    "node": "^16.1.0",
+    "react-modal": "^3.14.2",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
-    "sweetalert2": "^11.0.16",
-    "react-modal": "^3.14.2"
+    "sweetalert2": "^11.0.16"
   },
   "browserslist": {
     "production": [
