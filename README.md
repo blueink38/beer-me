@@ -29,6 +29,9 @@ General Overview
 * EmailJS
 
 ## Setup
+[Deployed to Heroku](https://hey-beer-me.herokuapp.com/)<br>
+[GitHub Repository](https://github.com/blueink38/beer-me)
+
 
 
 ## Code Examples
@@ -67,7 +70,7 @@ const client = new ApolloClient({
 [![License: ICL](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)    ![badge](https://img.shields.io/badge/Created_With-LOVE-pink.svg)
 
 ## Contact
-[![Ask Anything !](https://img.shields.io/badge/Ask%20Us-Anything-1abc9c.svg)](https://github.com/blueink38/beer-me)   
+[![Ask Anything !](https://img.shields.io/badge/Ask%20Us-Anything-1abc9c.svg)](https://hey-beer-me.herokuapp.com/contact-us)   
 
 Created by: <br>
 [Frank Depaolo](https://dragoonkite.github.io/portfolio/nk) - feel free to contact me!<br>
