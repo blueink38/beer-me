@@ -39,7 +39,7 @@ function PopUpDirections(props) {
                         }
                       }}
                 >
-                <Grid centered columns={4}>
+                <Grid centered columns={1}>
                     <Grid.Column>
                         <List>
 
@@ -55,7 +55,7 @@ function PopUpDirections(props) {
                             Array.from(completeDirections).map((stop) => {
                                 return(
                                     <List.Item key={stop} >
-                                        <strong>{stop}</strong>
+                                        <strong>- {stop}</strong>
                                     </List.Item> 
                                 ) 
                             })
