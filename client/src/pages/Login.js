@@ -13,6 +13,7 @@ function Login() {
     try {
       const mutationResponse = await login({ variables: { email: formState.email, password: formState.password } })
       const token = mutationResponse.data.login.token;
+      console.log('hello')
       Auth.login(token);
     } catch (e) {
       console.log(e)

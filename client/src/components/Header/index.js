@@ -27,21 +27,21 @@ export default class MenuExampleInvertedSecondary extends Component {
         :
         <Menu.Menu>
           <Menu.Item 
-              href="#home"
+              href="/"
               name='home'
               color='yellow'
               active={activeItem === 'home'}
               onClick={this.handleItemClick}
             />
             <Menu.Item
-              href="#about"
+              href="/#about"
               name='breweries'
               color='yellow'
               active={activeItem === 'breweries'}
               onClick={this.handleItemClick}
             />
             <Menu.Item
-              href="#contact-us"
+              href="/#contact-us"
               name='contact us'
               color='yellow'
               active={activeItem === 'contact us'}
@@ -68,6 +68,13 @@ export default class MenuExampleInvertedSecondary extends Component {
           </Menu.Menu>
         : 
           <Menu.Menu position='right'>
+            <Menu.Item
+              name="dashboard"
+              active={activeItem === 'dashboard'}
+              onClick={this.handleItemClick}
+            >
+              <Link to="/dashboard">Dashboard</Link>
+            </Menu.Item>
             <Menu.Item
               name="logout"
               active={activeItem === 'home'}
