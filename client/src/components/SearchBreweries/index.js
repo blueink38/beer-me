@@ -30,7 +30,7 @@ const SearchBreweries = () => {
   const[savedBrewery, setSavedBrewery] = useState('')
 
   const {loading: userLoading, error: userError, data: userData} = useQuery(QUERY_ME, {
-    variables:{ id: Auth.getProfile().data._id}
+    variables:{ id: 'Auth.getProfile().data._id'}
   })
   const {loading, error, data} = useQuery(QUERY_BREWERY, {
     variables:{ name: savedBrewery}
