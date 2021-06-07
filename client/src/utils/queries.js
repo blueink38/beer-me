@@ -58,6 +58,25 @@ export const QUERY_ALL_BREWERIES = gql `
   }
 `;
 
+export const QUERY_BREWERIES_NO_ID = gql `
+  {
+    breweries{
+      breweryID
+      name  
+      breweryType
+      street
+      address2
+      address3
+      city
+      state
+      longitude
+      latitude
+      phone
+      websiteUrl
+    }
+  }
+`;
+
 export const QUERY_BREWERY = gql `
   query brewery($name: String!){
     brewery(name: $name){

@@ -7,7 +7,7 @@ import Auth from '../../utils/auth'
 import {directions, saveBrewery, searchByCity, searchByState, searchByTerm, searchNearUser} from '../../utils/API'
 import { saveBreweryIds, getSavedBreweryIds } from '../../utils/localStorage'
 import {ADD_BREWERY_TO_DB, SAVE_BREWERY_TO_USER} from '../../utils/mutations'
-import {QUERY_ALL_BREWERIES, QUERY_BREWERY, QUERY_ME} from '../../utils/queries'
+import {QUERY_ALL_BREWERIES, QUERY_BREWERY, QUERY_ME, QUERY_BREWERIES_NO_ID} from '../../utils/queries'
 import { add, xor } from 'lodash';
 import { formatPhone , idbPromise} from '../../utils/helpers';
 
@@ -36,6 +36,11 @@ const SearchBreweries = () => {
     variables:{ name: savedBrewery}
   })
   const { data:allData} = useQuery(QUERY_ALL_BREWERIES, {
+
+    pollInterval: 500,
+  });
+
+  const { data: noIDBreweries} = useQuery(QUERY_BREWERIES_NO_ID, {
 
     pollInterval: 500,
   });
@@ -102,12 +107,16 @@ const SearchBreweries = () => {
           }));
           const filterData = []
           console.log(searchedBreweries)
-          console.log(allData)
+          console.log(noIDBreweries.breweries)
+          console.log(breweryData)
+
+          setSearchedBrewery(breweryData);
+          
           if(searchedBreweries){
-              searchedBreweries.map(brewery => {
+              noIDBreweries.breweries.map(brewery => {
               
                 console.log(brewery)
-                const index = breweryData.indexOf(brewery)
+                const index = searchedBreweries.indexOf(brewery)
                 console.log(index)
                 // if (index > -1) {
                 //   savedBreweries.splice(index, 1);
@@ -143,7 +152,7 @@ const SearchBreweries = () => {
         
          ));
         console.log(breweryData)
-        setSearchedBrewery(breweryData);
+        
       } else {
         setSearchedBrewery([])
       }
