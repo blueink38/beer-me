@@ -29,9 +29,9 @@ const SearchBreweries = () => {
   const [lastSearched, setLastSearched] = useState('')
   const[savedBrewery, setSavedBrewery] = useState('')
 
-  // const {loading: userLoading, error: userError, data: userData} = useQuery(QUERY_ME, {
-  //   variables:{ id: userID}
-  // })
+  const {loading: userLoading, error: userError, data: userData} = useQuery(QUERY_ME, {
+    variables:{ id: Auth.getProfile().data._id}
+  })
   const {loading, error, data} = useQuery(QUERY_BREWERY, {
     variables:{ name: savedBrewery}
   })
@@ -42,7 +42,7 @@ const SearchBreweries = () => {
   // console.log(Auth.loggedIn())
 
   useEffect(() => {
-    if(!allData) {
+    if(allData) {
       allData.breweries.forEach((brewery) => {
         idbPromise('searched-brewery', 'put', brewery);
       });
@@ -55,14 +55,14 @@ const SearchBreweries = () => {
     }
   }, [data, loading]);
 
-  // useEffect(() => {
-  //   if(userData) {
-  //     userData.me.breweries.forEach((brewery) => {
-  //       console.log(brewery)
-  //       idbPromise('saved-brewery', 'put', brewery);
-  //     });
-  //   } 
-  // }, [data, loading]);
+  useEffect(() => {
+    if(userData) {
+      userData.me.breweries.forEach((brewery) => {
+        console.log(brewery)
+        idbPromise('saved-brewery', 'put', brewery);
+      });
+    } 
+  }, [data, loading]);
 
   
   const options = [
@@ -101,16 +101,20 @@ const SearchBreweries = () => {
             websiteUrl: brewery.website_url || ""
           }));
           const filterData = []
+          console.log(searchedBreweries)
+          console.log(allData)
+          if(searchedBreweries){
+              searchedBreweries.map(brewery => {
+              
+                console.log(brewery)
+                const index = breweryData.indexOf(brewery)
+                console.log(index)
+                // if (index > -1) {
+                //   savedBreweries.splice(index, 1);
+                // }
+            })
+          }
           
-          searchedBreweries.breweries.map(brewery => {
-            
-              console.log(brewery)
-              const index = breweryData.indexOf(brewery)
-              console.log(index)
-              // if (index > -1) {
-              //   savedBreweries.splice(index, 1);
-              // }
-          })
         console.log(breweryData)
         console.log(filterData)
         const saveToDB = response.map((brewery) => 
