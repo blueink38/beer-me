@@ -9,17 +9,13 @@ function PopUpDirections(props) {
   const [completeDirections, setCompleteDirections] = useState([])
   const [localSearch, setLocalSearch] = useState(false)
   const getDirections = () =>{
-      
-    
     const completedDirections = directions(props.lat, props.lon)
     setCompleteDirections(completedDirections)
     console.log(completeDirections)
-
   }
     if(modalIsOpen){ 
         return (
-
-            <div>
+            <>
                 <Modal 
                     isOpen={modalIsOpen} 
                     onRequestClose={() => setModalIsOpen(false)}
@@ -56,7 +52,7 @@ function PopUpDirections(props) {
                             
                         : ""}
                         {localSearch ? 
-                            completeDirections.map((stop) => {
+                            Array.from(completeDirections).map((stop) => {
                                 return(
                                     <List.Item key={stop} >
                                         <strong>{stop}</strong>
@@ -76,10 +72,8 @@ function PopUpDirections(props) {
                     </Grid.Column>
                 </Grid>
 
-                </Modal>
-
-            </div>
-
+            </Modal>
+        </>
           )
     } else {
         return(<p style={{color:'#ffffff'}} onClick={() => (setModalIsOpen(true), getDirections())}>get directions</p>)

@@ -56,7 +56,8 @@ export const deleteBrewery = (breweryId, token) => {
 let userIP = "";
 let userLat = 0;
 let userLon = 0;
-let completeDirections = [];
+let completeDirections = new Set;
+let completedDirections = []
 let breweriesNearMe =[];
 
  
@@ -135,7 +136,7 @@ searchNearUser()
 export function directions(latitude, longitude) {
   const lat = parseFloat(latitude);
   const lon = parseFloat(longitude);
-  completeDirections = []
+  completeDirections.clear()
   fetch("https://api.ipify.org/?format=json").then(function(response) {
     if(response.ok){
       response.json().then(function(data){
@@ -154,8 +155,10 @@ export function directions(latitude, longitude) {
                   let instructions=data.routes[0].guidance.instructions;                                             
                   for (let i = 0; i < instructions.length; i++) {
                     let stop = instructions[i].message;
-                    completeDirections.push(stop);
+                    completeDirections.add(stop);
                   };
+                  completedDirections = Array.from(completeDirections)
+                  console.log(completeDirections)
                 });
               }
               else {
@@ -170,4 +173,4 @@ export function directions(latitude, longitude) {
   return completeDirections 
 };
 
-export default completeDirections;
+//export default completeDirections;
